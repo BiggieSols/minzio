@@ -27,6 +27,7 @@ gem 'omniauth-linkedin'
 gem 'pg'
 gem 'figaro'
 gem 'launchy'
+gem 'linkedin'
 
 
 # To use ActiveModel has_secure_password
