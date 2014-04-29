@@ -1,8 +1,8 @@
 OmniAuth.config.logger = Rails.logger
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  consumer_key = '75vgmmxw0pr8zf'
-  consumer_secret = 'DJUTy2tE4XY1mtWc'
+  consumer_key = ENV['LINKEDIN_KEY']
+  consumer_secret = ENV['LINKEDIN_SECRET']
 
   provider :linkedin, consumer_key, consumer_secret
 end
