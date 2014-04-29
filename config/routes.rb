@@ -4,4 +4,6 @@ Teamprofile::Application.routes.draw do
   resource :session
 
   resources :users
+
+  match 'test/:test_name' => 'tests#show'
 end
