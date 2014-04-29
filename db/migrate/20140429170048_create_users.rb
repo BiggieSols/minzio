@@ -13,9 +13,13 @@ class CreateUsers < ActiveRecord::Migration
       t.string :pub_profile
       t.string :access_token
       t.string :access_token_secret
+      t.string :session_token
+      t.string :password_digest
       t.timestamps
     end
 
     add_index :users, :uid
   end
 end
+
+

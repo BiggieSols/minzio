@@ -26,6 +26,8 @@ ActiveRecord::Schema.define(:version => 20140429170048) do
     t.string   "pub_profile"
     t.string   "access_token"
     t.string   "access_token_secret"
+    t.string   "session_token"
+    t.string   "password_digest"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end

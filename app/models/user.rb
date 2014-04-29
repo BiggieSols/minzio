@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
-  serialize :description, JSON
-  attr_accessible :description, :email, :first_name, :headling, :industry, :last_name, :provider, :pub_profile, :uid
+  # serialize :description, JSON
+  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url
+                       , :location, :industry, :pub_profile, :access_token, :access_token_secret
+                       , :session_token, :password_digest
 
   def self.from_omniauth(auth_hash)
     user = User.where(uid: auth_hash["uid"]).first_or_initialize
@@ -15,14 +17,32 @@ class User < ActiveRecord::Base
     user.industry = auth_hash["info"]["industry"]
     user.image_url = auth_hash["info"]["image"]
     user.pub_profile = auth_hash["info"]["urls"]["public_profile"]
-
-# "name", "email", "nickname", "first_name", "last_name", "location", "description", "image", "phone", "headline", "industry", "urls"
-
-
-    # user.description = auth_hash[]
     user.save!
+    user
   end
 
+  # def self.find_by_credentials(params={email: nil, password: nil})
+  #   user = User.find_by_email(params[:email]);
+  #   return user if user && user.is_password?(params[:password])
+  #   nil
+  # end
+
+  def set_session_token
+    self.session_token = SecureRandom.urlsafe_base64(16);
+  end
+
+  def reset_session_token!
+    set_session_token
+    save!
+  end
+
+  def set_password_digest
+    self.password_digest = BCrypt::Password.create(self.password);
+  end
+
+  def is_password?(password)
+    BCrypt::Password.new(self.password_digest).is_password?(password);
+  end
   def linkedin
     @client ||= LinkedIn::Client.new(ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"])
     @client.authorize_from_access(self.access_token, self.access_token_secret)
