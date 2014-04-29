@@ -1,31 +1,31 @@
 class User < ActiveRecord::Base
   # serialize :description, JSON
-  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url
-                       , :location, :industry, :pub_profile, :access_token, :access_token_secret
-                       , :session_token, :password_digest
+  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password
+
+  attr_accessor :password
 
   def self.from_omniauth(auth_hash)
     user = User.where(uid: auth_hash["uid"]).first_or_initialize
-    user.uid = auth_hash["uid"]
-    user.provider = auth_hash["provider"]
-    user.access_token = auth_hash["credentials"]["token"]
-    user.access_token_secret = auth_hash["credentials"]["secret"]
-    user.name = auth_hash["info"]["name"]
-    user.email = auth_hash["info"]["email"]
-    user.location = auth_hash["info"]["location"]
-    user.headline = auth_hash["info"]["headline"]
-    user.industry = auth_hash["info"]["industry"]
-    user.image_url = auth_hash["info"]["image"]
-    user.pub_profile = auth_hash["info"]["urls"]["public_profile"]
+    user.uid                  = auth_hash["uid"]
+    user.provider             = auth_hash["provider"]
+    user.access_token         = auth_hash["credentials"]["token"]
+    user.access_token_secret  = auth_hash["credentials"]["secret"]
+    user.name                 = auth_hash["info"]["name"]
+    user.email                = auth_hash["info"]["email"]
+    user.location             = auth_hash["info"]["location"]
+    user.headline             = auth_hash["info"]["headline"]
+    user.industry             = auth_hash["info"]["industry"]
+    user.image_url            = auth_hash["info"]["image"]
+    user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
     user.save!
     user
   end
 
-  # def self.find_by_credentials(params={email: nil, password: nil})
-  #   user = User.find_by_email(params[:email]);
-  #   return user if user && user.is_password?(params[:password])
-  #   nil
-  # end
+  def self.find_by_credentials(params={email: nil, password: nil})
+    user = User.find_by_email(params[:email]);
+    return user if user && user.is_password?(params[:password])
+    nil
+  end
 
   def set_session_token
     self.session_token = SecureRandom.urlsafe_base64(16);
