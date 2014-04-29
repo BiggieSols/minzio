@@ -1,0 +1,23 @@
+<a href="/auth/linkedin">Sign Up with LinkedIn</a>
+
+<br>
+OR create a new account manually
+<hr>
+
+<form action="<%= users_url %>" method="POST">
+  <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>" />
+
+  <label for="user_name">Full Name</label>
+  <input type="text" name="user[name]" id="user_name" value="<%= @user.name %>">
+
+  <label for="user_email">Email</label>
+  <input type="text" name="user[email]" id="user_email" value="<%= @user.email %>">
+
+  <label for="user_password">Password</label>
+  <input type="password" name="user[password]" id="user_password" value="<%= @user.password %>">
+
+  <label for="user_password_confirmation">Password-Confirmation</label>
+  <input type="password" name="user[password_confirmation]" id="user_password_confirm" value="<%= @user.password_confirmation %>">
+
+  <input type="submit" value="Log In">
+</form>

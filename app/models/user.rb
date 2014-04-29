@@ -1,8 +1,12 @@
 class User < ActiveRecord::Base
   # serialize :description, JSON
-  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password
+  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation
 
-  attr_accessor :password
+  before_validation :set_password_digest, on: :create
+  
+  validate :password_matches_confirmation
+
+  attr_accessor :password, :password_confirmation
 
   def self.from_omniauth(auth_hash)
     user = User.where(uid: auth_hash["uid"]).first_or_initialize
@@ -37,17 +41,24 @@ class User < ActiveRecord::Base
   end
 
   def set_password_digest
-    self.password_digest = BCrypt::Password.create(self.password);
+    self.password_digest = BCrypt::Password.create(self.password) if self.password
   end
 
   def is_password?(password)
-    BCrypt::Password.new(self.password_digest).is_password?(password);
+    BCrypt::Password.new(self.password_digest).is_password?(password)
   end
+
   def linkedin
     @client ||= LinkedIn::Client.new(ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"])
     @client.authorize_from_access(self.access_token, self.access_token_secret)
     @client
 
     # TODO: auto-create accounts for connections. @client.connections gives a set of hash-like LinkedIn Objects
+  end
+
+  def password_matches_confirmation
+    if self.password && self.password != self.password_confirmation
+      errors.add(:password, "password does not match confirmation")
+    end
   end
 end
