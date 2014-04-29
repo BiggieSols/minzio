@@ -5,8 +5,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :uid
       t.string :provider
       t.string :email
-      t.string :description
-      t.string :headling
+      t.text   :description
+      t.string :headline
+      t.string :image_url
+      t.string :location
       t.string :industry
       t.string :pub_profile
       t.string :access_token

@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   def create
-    result = request.env['omniauth.auth']
-    render json: result
+    auth_hash = request.env['omniauth.auth']
+    User.from_omniauth auth_hash
+    render json: auth_hash
   end
 end
