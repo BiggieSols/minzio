@@ -9,7 +9,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :headling
       t.string :industry
       t.string :pub_profile
-
+      t.string :access_token
+      t.string :access_token_secret
       t.timestamps
     end
 
