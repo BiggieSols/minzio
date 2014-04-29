@@ -22,4 +22,12 @@ class User < ActiveRecord::Base
     # user.description = auth_hash[]
     user.save!
   end
+
+  def linkedin
+    @client ||= LinkedIn::Client.new(ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"])
+    @client.authorize_from_access(self.access_token, self.access_token_secret)
+    @client
+
+    # TODO: auto-create accounts for connections. @client.connections gives a set of hash-like LinkedIn Objects
+  end
 end
