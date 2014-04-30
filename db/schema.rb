@@ -11,7 +11,84 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140429170048) do
+ActiveRecord::Schema.define(:version => 20140430034745) do
+
+  create_table "answers", :force => true do |t|
+    t.text     "body"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "questino_answers", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "questino_answers", ["answer_id"], :name => "index_questino_answers_on_answer_id"
+  add_index "questino_answers", ["question_id"], :name => "index_questino_answers_on_question_id"
+
+  create_table "question_answers", :force => true do |t|
+    t.integer  "question_id"
+    t.integer  "answer_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "question_answers", ["answer_id"], :name => "index_question_answers_on_answer_id"
+  add_index "question_answers", ["question_id"], :name => "index_question_answers_on_question_id"
+
+  create_table "questions", :force => true do |t|
+    t.text     "body"
+    t.integer  "quiz_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "questions", ["quiz_id"], :name => "index_questions_on_quiz_id"
+
+  create_table "quiz_questions", :force => true do |t|
+    t.integer  "quiz_id"
+    t.integer  "question_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "quiz_questions", ["question_id"], :name => "index_quiz_questions_on_question_id"
+  add_index "quiz_questions", ["quiz_id"], :name => "index_quiz_questions_on_quiz_id"
+
+  create_table "quizzes", :force => true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  create_table "user_answers", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "answer_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_answers", ["answer_id"], :name => "index_user_answers_on_answer_id"
+  add_index "user_answers", ["user_id"], :name => "index_user_answers_on_user_id"
+
+  create_table "user_quizzes", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "quiz_id"
+    t.boolean  "started"
+    t.boolean  "completed"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "user_quizzes", ["quiz_id"], :name => "index_user_quizzes_on_quiz_id"
+  add_index "user_quizzes", ["user_id"], :name => "index_user_quizzes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name"

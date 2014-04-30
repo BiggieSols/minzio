@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  quiz: 
+  started: false
+  completed: false
+
+two:
+  user: 
+  quiz: 
+  started: false
+  completed: false
