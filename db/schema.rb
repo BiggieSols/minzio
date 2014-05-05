@@ -11,27 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140505173804) do
+ActiveRecord::Schema.define(:version => 20140430034613) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
     t.integer  "question_id"
+    t.string   "result_calc"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
-    t.string   "result_calc"
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
-
-  create_table "question_answers", :force => true do |t|
-    t.integer  "question_id"
-    t.integer  "answer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "question_answers", ["answer_id"], :name => "index_question_answers_on_answer_id"
-  add_index "question_answers", ["question_id"], :name => "index_question_answers_on_question_id"
 
   create_table "questions", :force => true do |t|
     t.text     "body"
@@ -41,16 +31,6 @@ ActiveRecord::Schema.define(:version => 20140505173804) do
   end
 
   add_index "questions", ["quiz_id"], :name => "index_questions_on_quiz_id"
-
-  create_table "quiz_questions", :force => true do |t|
-    t.integer  "quiz_id"
-    t.integer  "question_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "quiz_questions", ["question_id"], :name => "index_quiz_questions_on_question_id"
-  add_index "quiz_questions", ["quiz_id"], :name => "index_quiz_questions_on_quiz_id"
 
   create_table "quizzes", :force => true do |t|
     t.string   "title"
