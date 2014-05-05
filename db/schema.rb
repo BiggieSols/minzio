@@ -22,16 +22,6 @@ ActiveRecord::Schema.define(:version => 20140430034745) do
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
 
-  create_table "questino_answers", :force => true do |t|
-    t.integer  "question_id"
-    t.integer  "answer_id"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-  end
-
-  add_index "questino_answers", ["answer_id"], :name => "index_questino_answers_on_answer_id"
-  add_index "questino_answers", ["question_id"], :name => "index_questino_answers_on_question_id"
-
   create_table "question_answers", :force => true do |t|
     t.integer  "question_id"
     t.integer  "answer_id"
