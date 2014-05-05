@@ -6,6 +6,9 @@ class User < ActiveRecord::Base
   
   validate :password_matches_confirmation
 
+  has_many :user_answers
+  has_many :answers, through: :user_answers
+
   attr_accessor :password, :password_confirmation
 
   def self.from_omniauth(auth_hash)
@@ -29,6 +32,27 @@ class User < ActiveRecord::Base
     user = User.find_by_email(params[:email]);
     return user if user && user.is_password?(params[:password])
     nil
+  end
+
+  def interpreted_mbti_test_result
+    questions_per_category = 5 #hard-coded 5 questions
+    results = self.mbti_test_result
+    result_string = results.keys.map do |key|
+      char = results[key] > 0 ? key[0] : key[1]
+      magnitude = (results[key].to_f / questions_per_category).abs
+      [char, magnitude]
+    end
+  end
+
+  def mbti_test_result
+    results = Hash.new {|h, k| h[k] = 0}
+
+    self.answers.each do |answer|
+      answer_result = answer.result_calc
+      key = answer_result.keys.first
+      results[key] += answer_result[key]
+    end
+    results
   end
 
   def set_session_token
