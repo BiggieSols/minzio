@@ -28,13 +28,13 @@ gem 'pg'
 gem 'figaro'
 gem 'launchy'
 gem 'linkedin'
-
+gem 'backbone-on-rails'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
 
 # To use Jbuilder templates for JSON
-# gem 'jbuilder'
+gem 'jbuilder'
 
 # Use unicorn as the app server
 # gem 'unicorn'
