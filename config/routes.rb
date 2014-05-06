@@ -5,5 +5,5 @@ Teamprofile::Application.routes.draw do
 
   resources :users
 
-  match 'test/:test_name' => 'tests#show'
+  resources :quiz, only: [:show]
 end
