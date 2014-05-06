@@ -1,4 +1,4 @@
-TeamProfile.Collections.Answers = Backbone.Model.extend({
+TeamProfile.Collections.Answers = Backbone.Collection.extend({
   model: TeamProfile.Models.Answer,
 
   parse: function(response) {
