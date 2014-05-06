@@ -8,11 +8,12 @@
 </head>
 <body>
 
-<% if flash[:errors] %>
-  <%= flash[:errors] %>
-<% end %>
+  <% if flash[:errors] %>
+    <%= flash[:errors] %>
+  <% end %>
 
-<%= yield %>
-
+  <div class="container">
+    <%= yield %>
+  </div>
 </body>
 </html>
