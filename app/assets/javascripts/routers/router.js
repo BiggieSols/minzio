@@ -1,7 +1,7 @@
 TeamProfile.Routers.Router = Backbone.Router.extend({
   initialize: function(options){
-    this.$rootEl = options.$rootEl; 
-    TeamProfile.currentUser = new GiftMe.Models.User({id: "current"});
+    this.$rootEl = options.$rootEl;
+    // TeamProfile.currentUser = new GiftMe.Models.User({id: "current"});
 
     // GiftMe.currentUser.fetch();
     // GiftMe.users.fetch({
@@ -18,13 +18,19 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // "items": "all_items",
     // "friends":"friends",
     // "onboard":"onboard"
-    "quiz":"quiz"
+    "quiz/:id":"quiz"
   },
 
   quiz: function(id) {
-    var quiz = new TeamProfile.Models.Quiz({id: id});
-    quiz.fetch({})
-    var quizView = new TeamProfile.Views.QuizView({id: id});
+    // console.log("attempting to render quiz")
+    quiz = new TeamProfile.Models.Quiz({id: id});
+    quiz.fetch({
+      success: function() {
+        // console.log("fetched the quiz");
+        console.log(quiz);
+      }
+    });
+    // var quizView = new TeamProfile.Views.QuizView({id: id});
   },
 
   _swapView: function(view) {

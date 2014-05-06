@@ -1,13 +1,16 @@
-window.Teamprofile = {
+window.TeamProfile = {
   Models: {},
   Collections: {},
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    console.log("got here")
+    new TeamProfile.Routers.Router({$rootEl: $('#content')});
+    Backbone.history.start();
   }
 };
 
 $(document).ready(function(){
-  Teamprofile.initialize();
+  // console.log("got here")
+  TeamProfile.initialize();
 });

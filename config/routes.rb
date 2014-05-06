@@ -6,4 +6,6 @@ Teamprofile::Application.routes.draw do
   resources :users
 
   resources :quiz, only: [:show]
+
+  root to: "sessions#new"
 end

@@ -9,11 +9,13 @@
 <body>
 
   <% if flash[:errors] %>
-    <%= flash[:errors] %>
+  <%= flash[:errors] %>
   <% end %>
 
   <div class="container">
-    <%= yield %>
+    <div id="content">
+      <%= yield %>
+    </div>
   </div>
 </body>
 </html>
