@@ -25,14 +25,14 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // console.log("attempting to render quiz")
 
     // TODO make this a local var
-    quiz = new TeamProfile.Models.Quiz({id: id});
+    var quiz = new TeamProfile.Models.Quiz({id: id});
     var that = this;
 
     quiz.fetch({
       success: function() {
         // console.log("fetched the quiz");
         console.log(quiz);
-        var quizView = new TeamProfile.Views.QuizView({model: quiz});
+        quizView = new TeamProfile.Views.QuizView({model: quiz});
         that._swapView(quizView);
       }
     });
