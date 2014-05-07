@@ -32,12 +32,19 @@ TeamProfile.Views.QuestionView = Backbone.View.extend({
   _renderAnswers: function() {
     var answers = this.model.get("answers");
     var answersDiv = this.$(".answers");
-    answers.models.forEach(function(answer) {
+
+    for(var i = 0; i < answers.models.length; i++) {
+      answer = answers.models[i];
       var answerView = new TeamProfile.Views.AnswerView({
         model: answer
       });
+
       answersDiv.append(answerView.render().$el);
-    });
+      if(i < answers.models.length-1) {
+        answersDiv.append('<hr class="divider">');
+      };
+    }
+
     return this;
   },
 });
