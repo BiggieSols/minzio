@@ -21,7 +21,7 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
     if(this._allQuestionsAnswered()) {
       console.log("submitting the form!");
     } else {
-      this.$('error-message').css("visibility", "visible");
+      this.$('.error-message').css("visibility", "visible");
     }
   },
 
@@ -32,15 +32,6 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
   },
 
   _allQuestionsAnswered: function() {
-    // this.questionViews.forEach(function(questionView) {
-    //   console.log("question answered? -- " + questionView.answered);
-    //   if(!questionView.answered) {
-    //     console.log("failed");
-    //     return false;
-    //   }
-    // });
-    // console.log("got to this line");
-    // return true;
     for(var i = 0; i < this.questionViews.length; i++) {
       questionView = this.questionViews[i];
       if(!questionView.answered) {
