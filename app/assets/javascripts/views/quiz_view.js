@@ -19,10 +19,27 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
   submit: function() {
     this._highlightRemainingQuestions();
     if(this._allQuestionsAnswered()) {
-      console.log("submitting the form!");
+      this.sendResults();
     } else {
       this.$('.error-message').css("visibility", "visible");
     }
+  },
+
+  sendResults: function() {
+    this.userAnswers = new TeamProfile.Models.UserAnswers();
+    var selected_answers = this.$('.selected');
+    var answer_ids = [];
+    var that = this;
+
+    selected_answers.each(function(index) {
+      var dataId = selected_answers.eq(index).data("id");
+      that.userAnswers.set(index.toString(), {answer_id: dataId});
+    });
+    this.userAnswers.save({}, {
+      success: function() {
+        console.log("form submitted!");
+      }
+    });
   },
 
   _highlightRemainingQuestions: function() {
@@ -35,7 +52,6 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
     for(var i = 0; i < this.questionViews.length; i++) {
       questionView = this.questionViews[i];
       if(!questionView.answered) {
-        console.log("failed");
         return false;
       }
     }
