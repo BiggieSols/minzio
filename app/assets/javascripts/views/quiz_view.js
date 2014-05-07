@@ -6,7 +6,16 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
   },
 
   events: {
-    "click button":"submit"
+    "click button":"submit",
+    "click .answer":"checkAllSubmitted"
+  },
+
+  checkAllSubmitted: function() {
+    var error_message = this.$('.error-message');
+    if(error_message.css("visibility") === "visible" &&
+      this._allQuestionsAnswered()) {
+        this.$('.error-message').css("visibility", "hidden");
+    }
   },
 
   render: function() {
