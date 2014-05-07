@@ -2,7 +2,7 @@ TeamProfile.Views.AnswerView = Backbone.View.extend({
   template: JST["answer/show"],
 
   events: {
-    'click .answer': 'toggleSelect'
+    'click .answer': 'selectAnswer'
   },
 
   render: function() {
@@ -11,19 +11,11 @@ TeamProfile.Views.AnswerView = Backbone.View.extend({
     return this;
   },
 
-  toggleSelect: function(event) {
-    console.log("selected option");
-
+  selectAnswer: function(event) {
     var targetAnswer = $(event.currentTarget);
-
-    // $(answer.closest(".question").find(".answer")).removeClass("selected")
-
     targetAnswer.closest(".question")
                 .find(".answer")
                 .removeClass("selected");
-
-    // this.$('.answer').toggleClass("selected");
-
-    targetAnswer.toggleClass("selected");
+    targetAnswer.addClass("selected");
   }
 });
