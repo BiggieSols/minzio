@@ -35,7 +35,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
       success: function() {
         // console.log("fetched the quiz");
         console.log(quiz);
-        quizView = new TeamProfile.Views.QuizView({model: quiz});
+        var quizView = new TeamProfile.Views.QuizView({model: quiz});
         that._swapView(quizView);
       }
     });
@@ -46,7 +46,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   userQuizResults: function(id) {
     var that = this;
     var user = new TeamProfile.Models.User({id: id});
-    var resultsView = new TeamProfile.Views.ResultsView({model: user});
+    resultsView = new TeamProfile.Views.ResultsView({model: user});
     user.fetch({
       success: function() {
         that._swapView(resultsView);
