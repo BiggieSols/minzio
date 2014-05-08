@@ -34,26 +34,36 @@ class User < ActiveRecord::Base
     nil
   end
 
-  def interpreted_mbti_test_result
-    questions_per_category = 5 #hard-coded 5 questions
-    results = self.mbti_test_result
-    result_string = results.keys.map do |key|
-      char = results[key] > 0 ? key[0] : key[1]
-      magnitude = (results[key].to_f / questions_per_category).abs
-      [char, magnitude]
+  # def interpreted_mbti_test_result
+  #   questions_per_category = 5 #hard-coded 5 questions
+  #   results = self.mbti_test_result
+  #   result_string = results.keys.map do |key|
+  #     char = results[key] > 0 ? key[0] : key[1]
+  #     magnitude = (results[key].to_f / questions_per_category).abs
+  #     [char, magnitude]
+  #   end
+  # end
+
+  def personality_type
+    results_str = ""
+    mbti_test_result.each do |types, val|
+      results_str += val > 0 ? types[0] : types[1]
     end
+    results_str.upcase
   end
 
   def mbti_test_result
-    results = Hash.new {|h, k| h[k] = 0}
+    return @results if @results
+
+    @results = Hash.new {|h, k| h[k] = 0}
 
     self.answers.each do |answer|
       answer_result = answer.result_calc
       key = answer_result.keys.first
-      results[key] += answer_result[key]
+      @results[key] += answer_result[key]
     end
-    results
-  end
+    @results
+  end 
 
   def set_session_token
     self.session_token = SecureRandom.urlsafe_base64(16);
