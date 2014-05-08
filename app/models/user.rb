@@ -34,6 +34,16 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
     user.save!
+
+    # don't think this is doing anything, but confirm later
+    fiber = Fiber.new do 
+      user.large_image_url = user.linkedin.picture_urls.all.first
+      user.save
+      puts "\n\n\nsaved new user\n\n\n"
+    end
+    fiber.resume
+
+    puts "\n\n\ngot here\n\n\n"
     user
   end
 

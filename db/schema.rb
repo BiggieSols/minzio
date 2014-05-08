@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140508183716) do
+ActiveRecord::Schema.define(:version => 20140508215256) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -49,6 +49,17 @@ ActiveRecord::Schema.define(:version => 20140508183716) do
 
   add_index "invitations", ["from_user_id"], :name => "index_invitations_on_from_user_id"
   add_index "invitations", ["to_user_id"], :name => "index_invitations_on_to_user_id"
+
+  create_table "personality_types", :force => true do |t|
+    t.string   "name"
+    t.string   "small_info"
+    t.text     "large_info"
+    t.text     "as_colleague"
+    t.text     "as_manager"
+    t.text     "as_employee"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "questions", :force => true do |t|
     t.text     "body"
@@ -105,6 +116,7 @@ ActiveRecord::Schema.define(:version => 20140508183716) do
     t.string   "password_digest"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
+    t.string   "large_image_url"
   end
 
   add_index "users", ["uid"], :name => "index_users_on_uid"
