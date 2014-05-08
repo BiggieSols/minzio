@@ -69,12 +69,18 @@ TeamProfile.Views.ResultsView = Backbone.View.extend({
       tooltip: {
         formatter: function(){
           return "<b>" + Highcharts.numberFormat(Math.abs(this.point.y)*100, 0) + "% " + that.pointCategory(this.point) + "</b>";
+          // return "<b>" + this.point.series.customInfo + "</b>"
         }
       },
 
       series: [{
         color: "#0066FF",
-        data: this._formattedResults(),//[-0.2, 0.4, -0.8, 1.0],
+        customInfo: "here goes the info",
+        data: this._formattedResults({series: "primary"}),//[-0.2, 0.4, -0.8, 1.0],
+        showInLegend: false
+      }, {
+        // data: [-0.2, -0.3, -0.4, -0.25],
+        data: this._formattedResults({series: "secondary"}),
         showInLegend: false
       }]
     });
@@ -89,12 +95,15 @@ TeamProfile.Views.ResultsView = Backbone.View.extend({
     }
   },
 
-  _formattedResults: function() {
+  _formattedResults: function(options) {
     var result = this.model.get("mbti_test_result");
     var series = [];
     for(var key in result){
       var val = result[key];
       var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
+      if(options.series === "secondary") {
+        modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
+      }
       series.push(modifiedVal);
     }
     return series;
