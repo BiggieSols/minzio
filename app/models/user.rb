@@ -9,6 +9,15 @@ class User < ActiveRecord::Base
   has_many :user_answers
   has_many :answers, through: :user_answers
 
+  has_many :sent_invitations,     foreign_key: :from_user_id, class_name: "Invitation"
+  has_many :received_invitations, foreign_key: :to_user_id,   class_name: "Invitation"
+
+  has_many :invited_users,  through: :sent_invitations, source: :receiving_user
+  has_many :inviting_users, through: :received_invitations, source: :sending_user
+
+  has_many :group_memberships, class_name: "GroupMember"
+  has_many :groups, through: :group_memberships
+
   attr_accessor :password, :password_confirmation
 
   def self.from_omniauth(auth_hash)

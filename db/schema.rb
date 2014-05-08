@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140430034613) do
+ActiveRecord::Schema.define(:version => 20140508183716) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -22,6 +22,33 @@ ActiveRecord::Schema.define(:version => 20140430034613) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "group_members", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "group_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "group_members", ["group_id"], :name => "index_group_members_on_group_id"
+  add_index "group_members", ["user_id"], :name => "index_group_members_on_user_id"
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "from_user_id", :null => false
+    t.integer  "to_user_id",   :null => false
+    t.text     "message",      :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "invitations", ["from_user_id"], :name => "index_invitations_on_from_user_id"
+  add_index "invitations", ["to_user_id"], :name => "index_invitations_on_to_user_id"
 
   create_table "questions", :force => true do |t|
     t.text     "body"
