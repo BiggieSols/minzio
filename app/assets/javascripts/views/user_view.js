@@ -29,7 +29,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         width: 400
       },
       title: {
-        text: 'Test Results'
+        text: ''//Personality Profile Breakdown'
       },
       // subtitle: {
       //   text: 'sub-title goes here'
