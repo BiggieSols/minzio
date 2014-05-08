@@ -2,8 +2,8 @@ TeamProfile.Views.ResultsView = Backbone.View.extend({
   template: JST['quiz/results'],
 
   initialize: function() {
-    this.leftCategories =  ['Introverted', 'Intuitive', 'Thinking', 'Judging'];
-    this.rightCategories = ['Extroverted', 'Sensing', 'Feeling', 'Perceiving'];
+    this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
+    this.rightCategories = ['Extroverted', 'Sensing', 'Thinking', 'Judging'];
   },
 
   render: function() {
