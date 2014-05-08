@@ -20,7 +20,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // "items": "all_items",
     // "friends":"friends",
     // "onboard":"onboard"
-    "users/:id/results":"userQuizResults",
+    "users/:id":"user",
     "quiz/:id":"quiz"
   },
 
@@ -43,13 +43,13 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   // optimize later to pull down all friends 
   // and check if friend's info is already available
-  userQuizResults: function(id) {
+  user: function(id) {
     var that = this;
     var user = new TeamProfile.Models.User({id: id});
-    resultsView = new TeamProfile.Views.ResultsView({model: user});
+    userView = new TeamProfile.Views.UserView({model: user});
     user.fetch({
       success: function() {
-        that._swapView(resultsView);
+        that._swapView(userView);
       }
     });
   },

@@ -1,5 +1,6 @@
-TeamProfile.Views.ResultsView = Backbone.View.extend({
+TeamProfile.Views.UserView = Backbone.View.extend({
   template: JST['quiz/results'],
+  template: JST['user/show'],
 
   initialize: function() {
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
@@ -25,6 +26,7 @@ TeamProfile.Views.ResultsView = Backbone.View.extend({
     this.$('#results-chart').highcharts({
       chart: {
         type: 'bar',
+        width: 400
       },
       title: {
         text: 'Test Results'

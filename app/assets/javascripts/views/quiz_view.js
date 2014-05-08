@@ -47,7 +47,7 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
     this.userAnswers.save({}, {
       success: function() {
         console.log("got here");
-        Backbone.history.navigate("/users/current/results", {trigger: true});
+        Backbone.history.navigate("/users/current", {trigger: true});
       }
     });
   },
