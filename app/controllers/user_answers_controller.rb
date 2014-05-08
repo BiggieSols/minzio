@@ -13,7 +13,7 @@ class UserAnswersController < ApplicationController
 
     ActiveRecord::Base.transaction do
       UserAnswer.where(user_id: current_user.id).destroy_all
-      
+
       params.each do |pair|
         if pair.last.class == ActiveSupport::HashWithIndifferentAccess
           user_answer = pair.last
@@ -31,6 +31,6 @@ class UserAnswersController < ApplicationController
       end
     end
 
-    head :ok
+    render json: params
   end
 end
