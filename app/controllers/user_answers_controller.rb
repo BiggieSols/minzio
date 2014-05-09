@@ -30,7 +30,8 @@ class UserAnswersController < ApplicationController
         end
       end
     end
-
+    
+    current_user.set_personality_type
     render json: params
   end
 end

@@ -65,13 +65,15 @@ class User < ActiveRecord::Base
   #   end
   # end
 
-  # def personality_type
-  #   results_str = ""
-  #   mbti_test_result.each do |types, val|
-  #     results_str += val > 0 ? types[0] : types[1]
-  #   end
-  #   results_str.upcase
-  # end
+  def set_personality_type
+    results_str = ""
+    mbti_test_result.each do |types, val|
+      results_str += val > 0 ? types[0] : types[1]
+    end
+    puts results_str
+    self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
+    self.save
+  end
 
   def mbti_test_result
     return @results if @results
