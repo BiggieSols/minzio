@@ -41,7 +41,6 @@ ActiveRecord::Base.transaction do
     question.answers.create(body: answer_pair.last, result_calc: {result_val => -1})
   end
 end
-
 # (i + 1) % 4 == 1
 
 # [1, 5, 9, 13, 17], {"ei: sn: tf: jp: }

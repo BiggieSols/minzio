@@ -39,6 +39,9 @@ gem 'jbuilder'
 # Use unicorn as the app server
 # gem 'unicorn'
 
+gem 'nokogiri'
+# gem 'open-uri'
+
 # Deploy with Capistrano
 # gem 'capistrano'
 

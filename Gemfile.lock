@@ -76,7 +76,10 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    mini_portile (0.5.2)
     multi_json (1.9.3)
+    nokogiri (1.6.1)
+      mini_portile (~> 0.5.0)
     oauth (0.4.7)
     omniauth (1.2.1)
       hashie (>= 1.2, < 3)
@@ -146,6 +149,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   linkedin
+  nokogiri
   omniauth
   omniauth-linkedin
   pg

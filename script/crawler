@@ -32,25 +32,16 @@ types.each do |type|
   url = "http://www.16personalities.com/#{type}s-at-work"
   doc = Nokogiri::HTML(open(url))
   type_details[type] = []
-  # doc.css('h4').each do |header|
   doc.css('.entry-content ul').each do |items|
-    # traits = header.next_sibling.next_sibling.css("li").children.map(&:content)
-    # traits = header.next_sibling.next_sibling.css("li").children.map(&:content)
-    # type_details[type][header.content] = traits
-    # puts "got here"
     traits = items.css("li").map(&:content)
     type_details[type] << traits
   end
 
-
-  # doc.css('strong').each do |header|
-  #   traits = header.next_sibling.next_sibling.css("li").children.map(&:content)
-  #   type_details[type][header.content] = traits
-  # end
-
+  # binding.pry
+  url = "http://www.16personalities.com/#{type}-personality"
+  doc = Nokogiri::HTML(open(url))
+  type_details[type] << doc.css('.entry-content p')[0].content
 end
-# binding.pry
-
 # binding.pry
 
 type_details.each do |type, details_arr|
@@ -58,8 +49,9 @@ type_details.each do |type, details_arr|
   colleagues = details_arr[0]#["#{type} colleagues"]
   managers = details_arr[1]
   employees = details_arr[2]
+  large_info = details_arr[3]
   small_info = type.split("").map {|char| long_form_hash[char.downcase]}.join(" ");
-  PersonalityType.create(title: type, as_colleague: colleagues, as_manager: managers, as_employee: employees, small_info: small_info)
+  PersonalityType.create(title: type, as_colleague: colleagues, as_manager: managers, as_employee: employees, small_info: small_info, large_info: large_info)
 end
 
 # binding.pry

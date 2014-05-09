@@ -1,3 +1,6 @@
 class PersonalityType < ActiveRecord::Base
-  # attr_accessible :title, :body
+  serialize :as_colleague, JSON
+  serialize :as_manager, JSON
+  serialize :as_employee, JSON
+  attr_accessible :small_info, :large_info, :as_colleague, :as_manager, :as_employee, :title
 end
