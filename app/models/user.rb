@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :group_memberships, class_name: "GroupMember"
   has_many :groups, through: :group_memberships
 
+  belongs_to :personality_type, foreign_key: :personality_type_id, class_name: "PersonalityType"
+
   attr_accessor :password, :password_confirmation
 
   def self.from_omniauth(auth_hash)
@@ -63,13 +65,13 @@ class User < ActiveRecord::Base
   #   end
   # end
 
-  def personality_type
-    results_str = ""
-    mbti_test_result.each do |types, val|
-      results_str += val > 0 ? types[0] : types[1]
-    end
-    results_str.upcase
-  end
+  # def personality_type
+  #   results_str = ""
+  #   mbti_test_result.each do |types, val|
+  #     results_str += val > 0 ? types[0] : types[1]
+  #   end
+  #   results_str.upcase
+  # end
 
   def mbti_test_result
     return @results if @results

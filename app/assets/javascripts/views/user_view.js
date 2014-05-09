@@ -5,18 +5,40 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   initialize: function() {
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
     this.rightCategories = ['Extroverted', 'Sensing', 'Thinking', 'Judging'];
+
+    this.traitsTableView = new TeamProfile.Views.TraitsTableView({
+      model: this.model,
+      traitsCategory: "colleague"
+    });
+  },
+
+  events: {
+    "click .switch":"changeCategory"
+  },
+
+  changeCategory: function(event) {
+    var clickedItem = $(event.currentTarget);
+    if(!clickedItem.hasClass("active")) {
+      var newCategory = clickedItem.data("category");
+      this.$('.working-with-personality .active').removeClass("active");
+      clickedItem.addClass("active");
+      this.traitsTableView.traitsCategory = newCategory;
+      this.traitsTableView.render();
+    }
   },
 
   render: function() {
-    var renderedContent = this.template({user: this.model});
+    var renderedContent = this.template({
+      user: this.model
+    });
     this.$el.html(renderedContent);
     this._buildChart();
+    return this._renderTraitsTable();
+  },
+
+  _renderTraitsTable: function() {
+    this.$('.traits-table').html(this.traitsTableView.render().$el);
     return this;
-    // var that = this;
-    // $(document).ready(function() {
-    //   that._buildChart();
-    //   return this;
-    // });
   },
 
   _buildChart: function() {

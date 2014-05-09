@@ -30,39 +30,21 @@
   </div>
   <div class="col-xs-12 col-sm-5 content-area personality-column">
     <div class="personality-type">
-      INTJ
+      <%= user.get("personality_type").escape("title") %>
     </div>
     <div class="long-personality-type">
-      Introverted iNtuitive Thinking Judging
+      <%= user.get("personality_type").escape("small_info") %>
     </div>
     <div class="personality-info lead">
-      INTJ's live in the world of ideas and strategic planning. They value intelligence, knowledge, and competence, and typically have high standards in these regards, which they continuously strive to fulfill. To a somewhat lesser extent, they have similar expectations of others.
+      <%= user.get("personality_type").escape("large_info") %>
     </div>
     <div class="working-with-personality">
       <ul class="nav nav-pills nav-justified">
-        <li class="active switch"><a>As Colleagues</a></li>
-        <li class="switch"><a>As Managers</a></li>
-        <li class="switch"><a>As Employees</a></li>
+        <li class="active switch" data-category="colleague"><a>As Colleagues</a></li>
+        <li class="switch" data-category="manager"><a>As Managers</a></li>
+        <li class="switch" data-category="employee"><a>As Employees</a></li>
       </ul>
-      <div class="working-tips">
-        <table class="table table-striped">
-          <tr>
-            <td> Fiercely independent at work, people with the INTJ personality type are “lone wolves” </td>  
-          </tr>
-
-            <tr><td> Love challenges, especially if they get complete responsibility </td></tr>
-            <tr><td> Prefer working alone, mostly because they believe that others are only going to slow them down </td></tr>
-            <tr><td> Enjoy brainstorming in the workplace, as long as the discussion does not descend into arguments over details </td></tr>
-            <tr><td> Have perfectionist tendencies and very rarely give up </td></tr>
-            <tr><td> Cannot stand inefficiency or colleagues who refuse to use more efficient methods </td></tr>
-            <tr><td> Loathe manual work, especially where it can be automated </td></tr>
-            <tr><td> See little point in networking, socializing, or small talk at work </td></tr>
-            <tr><td> Intensely private and likely to deflect personal questions </td></tr>
-            <tr><td> Very sarcastic and highly likely to make fun (in their own minds) of less insightful colleagues by making them read between the lines </td></td>
-            <tr><td> Dislike phone calls and prefer e-mail instead </td></tr>
-            <tr><td> Brilliant masterminds and analysts, able to recognize various undercurrents and tension between certain colleagues in the workplace and avoid them (INTJs are unlikely to use this knowledge to their advantage though)</td></tr>
-            <tr><td> Extremely judgmental—people with the INTJ personality type are likely to have very little respect for colleagues they * believe are incompetent* </td></tr>
-        </table>
+      <div class="traits-table">
       </div>
     </div>
   </div>

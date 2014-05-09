@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140509171037) do
+ActiveRecord::Schema.define(:version => 20140509185006) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -120,8 +120,10 @@ ActiveRecord::Schema.define(:version => 20140509171037) do
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "large_image_url"
+    t.integer  "personality_type_id"
   end
 
+  add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"
   add_index "users", ["uid"], :name => "index_users_on_uid"
 
 end
