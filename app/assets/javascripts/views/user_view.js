@@ -6,8 +6,17 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
     this.rightCategories = ['Extroverted', 'Sensing', 'Thinking', 'Judging'];
 
+    // check to see if personality test is complete
+    if(this.model.get("personality_type").get("title")) {
+      this.userResultsInfo = this.model;
+      this.dummyData = false;
+    } else {
+      this.userResultsInfo = TeamProfile.dummyUser;
+      this.dummyData = true;
+    }
+
     this.traitsTableView = new TeamProfile.Views.TraitsTableView({
-      model: this.model,
+      model: this.userResultsInfo,
       traitsCategory: "colleague"
     });
   },
@@ -28,12 +37,47 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   render: function() {
+    if(this.userResultsInfo.get("name")) {
+      return this._renderCallback();
+    } else {
+      this.userResultsInfo.fetch({
+        success: function() {
+          console.log("fetched dummy user data!");
+          return this.renderCallback();
+        }
+      });
+    }
+  },
+
+  _renderCallback: function() {
     var renderedContent = this.template({
-      user: this.model
+      user: this.model,
+      userResultsInfo: this.userResultsInfo
     });
     this.$el.html(renderedContent);
-    this._buildChart();
-    return this._renderTraitsTable();
+    this._renderTraitsTable()
+        ._renderChart();
+        // ._renderDisabledDivs();
+
+    // ok this is a really stupid solution. see if there's a better way to handle this, eventually
+    var that = this;
+    setTimeout(function() {that._renderDisabledDivs()}, 1000);
+    return this;
+  },
+
+  _renderDisabledDivs: function() {
+    if(this.dummyData === true) {
+      console.log(this.$('#results-chart'));
+      this.$('#results-chart').prepend("<div class='disabled'></div>");
+      this.$('.personality-column').prepend("<div class='disabled'><div class='no-info'>Sorry, " + this.model.get("name") + " hasn't completed the personality profile!</div></div>");
+      this.$('.disabled').each(function(idx, val) {
+        $(val).animate({
+          width: $(val).parent().width(),
+          height: $(val).parent().height()
+        }, 500);
+      });
+    }
+    return this;
   },
 
   _renderTraitsTable: function() {
@@ -41,7 +85,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
-  _buildChart: function() {
+  _renderChart: function() {
     var chart, that;
     that = this;
 
@@ -108,6 +152,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         showInLegend: false
       }]
     });
+    return this;
   },
 
   pointCategory: function(point) {
@@ -120,7 +165,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _formattedResults: function(options) {
-    var result = this.model.get("mbti_test_result");
+    var result = this.userResultsInfo.get("mbti_test_result");
     var series = [];
     for(var key in result){
       var val = result[key];

@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     params[:id] = current_user.id if params[:id] == "current"
+    params[:id] = 1 if params[:id] == "dummy"
     
     @user = User.find(params[:id])
     render 'show.json.jbuilder'

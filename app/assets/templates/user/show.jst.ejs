@@ -17,8 +17,6 @@
         <div class="profile-item">
           <%= user.escape("location") %>
         </div>
-
-
         <br>
       </div>
     </div>
@@ -30,13 +28,13 @@
   </div>
   <div class="col-xs-12 col-sm-5 content-area personality-column">
     <div class="personality-type">
-      <%= user.get("personality_type").escape("title") %>
+      <%= userResultsInfo.get("personality_type").escape("title") %>
     </div>
     <div class="long-personality-type">
-      <%= user.get("personality_type").escape("small_info") %>
+      <%= userResultsInfo.get("personality_type").escape("small_info") %>
     </div>
     <div class="personality-info lead">
-      <%= user.get("personality_type").escape("large_info") %>
+      <%= userResultsInfo.get("personality_type").escape("large_info") %>
     </div>
     <div class="working-with-personality">
       <ul class="nav nav-pills nav-justified">

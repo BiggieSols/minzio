@@ -2,7 +2,10 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   initialize: function(options){
     this.$rootEl = options.$rootEl;
     TeamProfile.currentUser = new TeamProfile.Models.User({id: "current"});
+    TeamProfile.dummyUser = new TeamProfile.Models.User({id: "dummy"});
+
     TeamProfile.currentUser.fetch();
+    TeamProfile.dummyUser.fetch();
     // TeamProfile.currentUser = new GiftMe.Models.User({id: "current"});
 
     // GiftMe.currentUser.fetch();
@@ -46,9 +49,9 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   user: function(id) {
     var that = this;
     var user = new TeamProfile.Models.User({id: id});
-    userView = new TeamProfile.Views.UserView({model: user});
     user.fetch({
       success: function() {
+        userView = new TeamProfile.Views.UserView({model: user});
         that._swapView(userView);
       }
     });
