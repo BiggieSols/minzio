@@ -12,9 +12,9 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
 
   checkAllSubmitted: function() {
     var error_message = this.$('.error-message');
-    if(error_message.css("visibility") === "visible" &&
+    if(error_message.css("display") === "none" &&
       this._allQuestionsAnswered()) {
-        this.$('.error-message').css("visibility", "hidden");
+        this.$('.error-message').css("display", "none");
     }
   },
 
@@ -30,7 +30,7 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
     if(this._allQuestionsAnswered()) {
       this.sendResults();
     } else {
-      this.$('.error-message').css("visibility", "visible");
+      this.$('.error-message').css("display", "inline-block");
     }
   },
 

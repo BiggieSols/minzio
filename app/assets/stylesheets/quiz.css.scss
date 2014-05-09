@@ -8,11 +8,21 @@
     font-size: 2em;
   }
 
+  .quiz-instructions {
+    text-align: center;
+    font-size: 1.3em;
+  }
+
+  .quiz-title {
+    text-align: center;
+    font-size: 3.0em;
+  }
+
   .error-message {
     color: #FF0000;
     font-size: 1.2em;
     margin-bottom: 1px;
-    visibility: hidden;
+    display: none;
   }
 
   .questions {
@@ -57,7 +67,7 @@
 
 
   .answer:hover {
-    background-color: rgba(0, 0, 0, 0.02);
+    background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
   }
 }

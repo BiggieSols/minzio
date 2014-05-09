@@ -7,10 +7,6 @@ class UserAnswersController < ApplicationController
 
   # note this is for bulk creation to minimize calls to the server
   def create
-    # puts "\n*5"
-    # puts params
-    # puts "\n*5"
-
     ActiveRecord::Base.transaction do
       UserAnswer.where(user_id: current_user.id).destroy_all
 
