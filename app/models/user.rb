@@ -65,6 +65,10 @@ class User < ActiveRecord::Base
   #   end
   # end
 
+  def build_shadow_accounts
+    
+  end
+
   def set_personality_type
     results_str = ""
     mbti_test_result.each do |types, val|

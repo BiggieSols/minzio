@@ -5,6 +5,8 @@ Teamprofile::Application.routes.draw do
 
   resource :session
 
+  match 'signout', to: 'sessions#destroy', as: 'signout'
+
   resources :users
 
   resources :quiz, only: [:show]
