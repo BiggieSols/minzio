@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-xs-12 col-sm-5 col-sm-offset-1">
     <div class="row content-area user-top">
-      <div class="col-xs-12 col-sm-6">
+      <div class="col-xs-6 col-sm-6">
         <img src="<%= user.get("large_image_url") %>" class="user-image">
       </div>
-      <div class="col-xs-12 col-sm-5 col-sm-offset-1">
+      <div class="col-xs-6 col-sm-5 col-sm-offset-1">
         <div class="profile-item user-name">
           <%= user.escape("name") %>
         </div>
@@ -22,7 +22,9 @@
     </div>
     <div class="row">
       <br>
-      <div id="results-chart" class="content-area">
+      <div class="content-area chart-container">
+        <div id="results-chart">
+        </div>
       </div>
     </div>
   </div>
@@ -34,7 +36,7 @@
       <%= userResultsInfo.get("personality_type").escape("small_info") %>
     </div>
     <div class="personality-info lead">
-      <%= userResultsInfo.get("personality_type").escape("large_info") %>
+      <%= userResultsInfo.get("personality_type").get("large_info") %>
     </div>
     <div class="working-with-personality">
       <ul class="nav nav-pills nav-justified">

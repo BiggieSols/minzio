@@ -22,7 +22,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   events: {
-    "click .switch":"changeCategory"
+    "click .switch":"changeCategory",
   },
 
   changeCategory: function(event) {
@@ -55,12 +55,17 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       userResultsInfo: this.userResultsInfo
     });
     this.$el.html(renderedContent);
-    this._renderTraitsTable()
-        ._renderChart();
+    this._renderTraitsTable();
+    var that = this;
+
+    // $(document).ready(function() {
+      setTimeout(function() {
+        that._renderChart();
+      }, 500);
+    // });
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
-    var that = this;
     setTimeout(function() {that._renderDisabledDivs()}, 1000);
     return this;
   },
@@ -85,14 +90,17 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
-  _renderChart: function() {
+  _renderChart: function(options) {
     var chart, that;
     that = this;
+    options = options || {};
+    var width = options.width || $('#results-chart').width()*0.75;
+    console.log("width is " + width);
 
     this.$('#results-chart').highcharts({
       chart: {
         type: 'bar',
-        width: 400
+        width: options.width
       },
       title: {
         text: ''//Personality Profile Breakdown'

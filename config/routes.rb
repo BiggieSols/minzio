@@ -9,6 +9,8 @@ Teamprofile::Application.routes.draw do
 
   resources :users
 
+  resources :personality_types
+
   resources :quiz, only: [:show]
 
   root to: "sessions#new"

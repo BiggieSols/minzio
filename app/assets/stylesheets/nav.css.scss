@@ -1,11 +1,17 @@
 #top-nav {
-  background-color: #0066FF;
+  // background-color: #0066FF;
+  background-color: white;
 }
 
 .navbar-header .navbar-brand {
-  color: white;
+  // color: white;
+  color: #0066ff;
+  font-size: 2em;
 }
 
 .navbar-default .navbar-nav > li > a {
-  color: white;
+  // color: white;
+  color: #0066ff;
+  // font-weight: bold;
+  font-size: 1.3em
 }

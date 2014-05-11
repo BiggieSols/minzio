@@ -1,0 +1,61 @@
+# require 'nokogiri'
+require 'open-uri'
+# require 'pry'
+# require 'launchy'
+
+# Get a Nokogiri::HTML::Document for the page we’re interested in...
+
+types = []
+["i", "e"].each do |c1|
+  ["n", "s"].each do |c2|
+    ["t", "f"].each do |c3|
+      ["j", "p"].each do |c4|
+        types << (c1 + c2 + c3 + c4).upcase
+      end
+    end
+  end
+end
+
+# TEMP LINE
+# types = ['intj', 'entj', 'intp', 'enfp'].map(&:upcase)
+
+# long_form_hash = {"i" => "Introverted", "n" => "iNtuitive", "t" => "Thinking", "j" => "Judging", "e" => "Extraverted", "s" => "Sensing", "f" => "Feeling", "p" => "Perceiving"}
+
+
+type_urls = types.map {|type| "http://www.truity.com/#{type}"}
+
+puts type_urls
+
+type_details = {}
+
+types.each do |type|
+  url = "http://www.truity.com/#{type}"
+  doc = Nokogiri::HTML(open(url))
+  type_details[type] = []
+  work_info_node = doc.css('h4').select {|node| node.content.split(" ")[-1].downcase == "work"}.first
+  paragraph = work_info_node.parent.content.split(/\n|\t/).select {|str| str.rstrip.length > 0}
+  paragraph = paragraph[2..-1].join("<br><br>")
+  type_details[type] = paragraph
+end
+
+type_details.each do |type, paragraph|
+  personality_type = PersonalityType.find_by_title(type)
+  personality_type.update_attributes(large_info: paragraph)
+end
+
+PersonalityType.find_by_title("ISTJ").update_attributes(nickname: "The Inspector")
+PersonalityType.find_by_title("ISFJ").update_attributes(nickname: "The Protector")
+PersonalityType.find_by_title("INFJ").update_attributes(nickname: "The Counselor")
+PersonalityType.find_by_title("ISTP").update_attributes(nickname: "The Craftsman")
+PersonalityType.find_by_title("ISFP").update_attributes(nickname: "The Composer")
+PersonalityType.find_by_title("INFP").update_attributes(nickname: "The Healer")
+PersonalityType.find_by_title("ESTP").update_attributes(nickname: "The Dynamo")
+PersonalityType.find_by_title("ESFP").update_attributes(nickname: "The Performer")
+PersonalityType.find_by_title("ENFP").update_attributes(nickname: "The Champion")
+PersonalityType.find_by_title("ESTJ").update_attributes(nickname: "The Supervisor")
+PersonalityType.find_by_title("ESFJ").update_attributes(nickname: "The Provider")
+PersonalityType.find_by_title("ENFJ").update_attributes(nickname: "The Teacher")
+PersonalityType.find_by_title("INTJ").update_attributes(nickname: "The Mastermind")
+PersonalityType.find_by_title("INTP").update_attributes(nickname: "The Architect")
+PersonalityType.find_by_title("ENTP").update_attributes(nickname: "The Visionary")
+PersonalityType.find_by_title("ENTJ").update_attributes(nickname: "The Commander")
