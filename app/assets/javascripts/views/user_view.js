@@ -58,11 +58,11 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this._renderTraitsTable();
     var that = this;
 
-    // $(document).ready(function() {
+    $(document).ready(function() {
       setTimeout(function() {
         that._renderChart();
       }, 500);
-    // });
+    });
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
