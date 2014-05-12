@@ -24,7 +24,20 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // "friends":"friends",
     // "onboard":"onboard"
     "users/:id":"user",
-    "quiz/:id":"quiz"
+    "quiz/:id":"quiz",
+    "groups":"groups"
+  },
+
+  groups: function() {
+    var that = this;
+    // TODO: CONVERT GLOBAL VARIABLES TO LOCAL VARIABLES
+    groups = new TeamProfile.Collections.Groups();
+    groups.fetch({
+      success: function() {
+        groupsView = new TeamProfile.Views.GroupsView({collection: groups});
+        that._swapView(groupsView);
+      }
+    });
   },
 
   quiz: function(id) {
@@ -51,7 +64,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     var user = new TeamProfile.Models.User({id: id});
     user.fetch({
       success: function() {
-        userView = new TeamProfile.Views.UserView({model: user});
+        var userView = new TeamProfile.Views.UserView({model: user});
         that._swapView(userView);
       }
     });
