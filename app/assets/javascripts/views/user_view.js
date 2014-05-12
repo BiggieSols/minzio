@@ -1,6 +1,6 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
-  template: JST['quiz/results'],
-  template: JST['user/show'],
+  template: JST['quizzes/results'],
+  template: JST['users/show'],
 
   initialize: function() {
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];

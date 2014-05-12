@@ -1,5 +1,5 @@
 TeamProfile.Views.QuizView = Backbone.View.extend({
-  template: JST["quiz/show"],
+  template: JST["quizzes/show"],
 
   initialize: function() {
     this.questionViews = [];

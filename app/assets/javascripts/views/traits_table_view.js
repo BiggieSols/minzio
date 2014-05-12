@@ -1,5 +1,5 @@
 TeamProfile.Views.TraitsTableView = Backbone.View.extend({
-  template: JST['user/traits_table'],
+  template: JST['users/traits_table'],
 
   initialize: function(options) {
     this.traitsCategory = options.traitsCategory;

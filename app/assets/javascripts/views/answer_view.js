@@ -1,5 +1,5 @@
 TeamProfile.Views.AnswerView = Backbone.View.extend({
-  template: JST["answer/show"],
+  template: JST["answers/show"],
 
   events: {
     'click .answer': 'selectAnswer'

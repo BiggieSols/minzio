@@ -1,5 +1,5 @@
 TeamProfile.Views.QuestionView = Backbone.View.extend({
-  template: JST["question/show"],
+  template: JST["questions/show"],
 
   initialize: function() {
     this.answered = false;
