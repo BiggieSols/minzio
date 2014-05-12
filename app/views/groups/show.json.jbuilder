@@ -1,0 +1,1 @@
+json.partial!('groups/show', group: @group)
