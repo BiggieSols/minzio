@@ -29,6 +29,7 @@ gem 'figaro'
 gem 'launchy'
 gem 'linkedin'
 gem 'backbone-on-rails'
+gem 'flatui-rails'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'

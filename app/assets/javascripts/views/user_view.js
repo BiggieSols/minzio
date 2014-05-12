@@ -150,12 +150,13 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       },
 
       series: [{
-        color: "#0066FF",
+        color: "#1abc9c",
         customInfo: "here goes the info",
         data: this._formattedResults({series: "primary"}),//[-0.2, 0.4, -0.8, 1.0],
         showInLegend: false
       }, {
         // data: [-0.2, -0.3, -0.4, -0.25],
+        color: "#34495e",
         data: this._formattedResults({series: "secondary"}),
         showInLegend: false
       }]

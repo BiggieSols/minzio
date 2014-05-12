@@ -1,17 +1,30 @@
 #top-nav {
   // background-color: #0066FF;
-  background-color: white;
+  background-color: #34495e;
+  // background-color: white;
+}
+
+.navbar a {
+  text-decoration: none;
 }
 
 .navbar-header .navbar-brand {
-  // color: white;
-  color: #0066ff;
+  color: white;
+  // color: #0066ff;
   font-size: 2em;
 }
 
-.navbar-default .navbar-nav > li > a {
-  // color: white;
-  color: #0066ff;
-  // font-weight: bold;
-  font-size: 1.3em
+.navbar-header .navbar-brand:hover {
+  color: #1abc9c;
 }
+
+// .navbar {
+//   background-color: #34495e
+// }
+
+// .navbar-default .navbar-nav > li > a {
+//   // color: white;
+//   color: #0066ff;
+//   // font-weight: bold;
+//   font-size: 1.3em
+// }

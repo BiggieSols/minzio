@@ -1,7 +1,11 @@
 body {
-  background-color: rgba(0, 0, 0, 0.12);
-  margin-top: 60px;
+  background-color: rgb(220, 220, 220) !important;
+  margin-top: 60px !important;
   // margin-bottom: 15px;;
+
+  a {
+    text-decoration:none;
+  }
 }
 
 #content {
@@ -11,4 +15,8 @@ body {
 .content-area {
   background-color: white;
   border-radius: 5px;
+}
+
+.content-container {
+  margin: 0px 10px;
 }

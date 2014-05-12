@@ -1,50 +1,58 @@
 <div class="row">
-  <div class="col-xs-12 col-sm-5 col-sm-offset-1">
-    <div class="row content-area user-top">
-      <div class="col-xs-6 col-sm-6">
-        <img src="<%= user.get("large_image_url") %>" class="user-image">
-      </div>
-      <div class="col-xs-6 col-sm-5 col-sm-offset-1">
-        <div class="profile-item user-name">
-          <%= user.escape("name") %>
+  <div class="col-cs-12 col-sm-12 col-md-5 col-md-offset-1">
+    <div class="content-container">
+      <div class="row content-area"> 
+        <div class="col-xs-4 col-sm-4 col-md-6">
+          <div class="user-top">
+            <img src="<%= user.get("large_image_url") %>" class="user-image">
+          </div>
         </div>
-        <div class="profile-item">
-          <%= user.escape("headline") %>
+        <div class="col-xs-6 col-sm-6 col-md-5 col-md-offset-1">
+          <div class="profile-item user-name">
+            <%= user.escape("name") %>
+          </div>
+          <div class="profile-item">
+            <%= user.escape("headline") %>
+          </div>
+          <div class="profile-item">
+            <%= user.escape("industry") %>
+          </div>
+          <div class="profile-item">
+            <%= user.escape("location") %>
+          </div>
+          <br>
         </div>
-        <div class="profile-item">
-          <%= user.escape("industry") %>
-        </div>
-        <div class="profile-item">
-          <%= user.escape("location") %>
-        </div>
-        <br>
       </div>
     </div>
-      <br>
-    <div class="row"> 
-      <div class="content-area chart-container">
-        <div id="results-chart">
+    <br>
+    <div class="row">
+      <div class="content-container">
+        <div class="content-area chart-container">
+          <div id="results-chart">
+          </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-xs-12 col-sm-5 content-area personality-column">
-    <div class="personality-type">
-      <%= userResultsInfo.get("personality_type").escape("title") %>
-    </div>
-    <div class="long-personality-type">
-      <%= userResultsInfo.get("personality_type").escape("small_info") %>
-    </div>
-    <div class="personality-info lead">
-      <%= userResultsInfo.get("personality_type").get("large_info") %>
-    </div>
-    <div class="working-with-personality">
-      <ul class="nav nav-pills nav-justified">
-        <li class="active switch" data-category="colleague"><a>As Colleagues</a></li>
-        <li class="switch" data-category="manager"><a>As Managers</a></li>
-        <li class="switch" data-category="employee"><a>As Employees</a></li>
-      </ul>
-      <div class="traits-table">
+  <div class="content-container">
+    <div class="col-xs-12 col-sm-12 col-md-5 content-area personality-column">
+      <div class="personality-type">
+        <%= userResultsInfo.get("personality_type").escape("title") %>
+      </div>
+      <div class="long-personality-type">
+        <%= userResultsInfo.get("personality_type").escape("small_info") %>
+      </div>
+      <div class="personality-info lead">
+        <%= userResultsInfo.get("personality_type").get("large_info") %>
+      </div>
+      <div class="working-with-personality">
+        <ul class="nav nav-pills">
+          <li class="active switch" data-category="colleague"><a>As Colleagues</a></li>
+          <li class="switch" data-category="manager"><a>As Managers</a></li>
+          <li class="switch" data-category="employee"><a>As Employees</a></li>
+        </ul>
+        <div class="traits-table">
+        </div>
       </div>
     </div>
   </div>

@@ -3,37 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #results-chart {
-  // min-width: 310px; 
-  // max-width: 800px; 
-  // height: 400px; 
-  // width: 750px;
-  // width: 100%;
-  // min-width: 60%;
-  // position: fixed;
   margin: 3px auto;
   height: 400px;
-  // max-width: 100%;
 }
 
 .chart-container {
   height: 410px;
   margin-bottom: 2%;
-  margin-right: 4%;
+  // margin-right: 4%;
 }
 
-.disabled {
-  width: 100%;
-  // height: 800px;
-  z-index: 100;
-  background-color: rgba(255, 255, 255, 0.95);
-  /* margin: 0px; */
-  position: absolute;
-  // margin-left: -15px;
-  border-radius: 5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
 
 .user-image {
   // width: 250px;
@@ -45,15 +24,9 @@
   // max-width: 100%;
 }
 
-.no-info {
-  text-align: center;
-  font-size: 2em;
-  padding: 2% 4%
-}
-
 .user-top {
-  margin-right: 2%;
-  padding: 3% 0%;
+  // margin-right: 2%;
+  padding: 10px 0px;
 }
 
 .profile-item {
@@ -72,7 +45,7 @@
 
 .personality-type {
   font-size: 2.0em;
-  font-weight: bold;
+  // font-weight: bold;
   text-align: center;
 }
 
@@ -85,6 +58,7 @@
 .personality-column {
   // margin: 0% 2%;
   // width: 96%;
+  padding-top: 10px;
 }
 
 .personality-info {
@@ -98,4 +72,47 @@
 
 .switch:hover {
   cursor: pointer;
+}
+
+.switch {
+  width: 32%;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+
+.nav-pills > li > a {
+        background-color: #354a5f;
+        color: white;
+        // border-left: 2px solid #283a4e;
+        border-radius:0;
+    }
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover,
+.nav-pills > li > a:hover, .nav-pills > li > a:focus    {
+    background-color: #1abc9c;
+}
+
+
+
+
+
+.disabled {
+  width: 100%;
+  // height: 800px;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.95);
+  /* margin: 0px; */
+  position: absolute;
+  // margin-left: -15px;
+  border-radius: 5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.no-info {
+  text-align: center;
+  font-size: 2em;
+  padding: 2% 4%
 }
