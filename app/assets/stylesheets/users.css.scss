@@ -77,11 +77,14 @@
 }
 
 .switch {
-  width: 32%;
+  width: 33.3333%;
   text-align: center;
-  font-size: 0.9em;
+  // font-size: 0.8em;
+  font-weight: bold;
+  margin: 0px !important;
+  // margin-left: 0px;
+  border: 1px solid white;
 }
-
 
 .nav-pills > li > a {
         background-color: #354a5f;
