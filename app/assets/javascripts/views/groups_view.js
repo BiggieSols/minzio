@@ -32,6 +32,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var groupId = $node.data("id");
 
     this._highlight($node);
+    TeamProfile.lastSelectedGroup = groupId;
     this._renderGroupDetails(groupId);
   },
 
@@ -48,8 +49,9 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({groups: this.collection});
     this.$el.html(renderedContent);
-    return this._renderGroupsList()
-               ._renderNewGroup();
+    this._renderGroupsList()._renderNewGroup();
+    this._selectLastGroup();
+    return this;
   },
 
   _renderGroupsList: function() {
@@ -70,7 +72,18 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var group = this.collection.get(groupId);
     var $groupDetails = this.$('.group-details');
     var groupView = new TeamProfile.Views.GroupView({model: group});
-    $groupDetails.html(groupView.render().$el)
+    $groupDetails.html(groupView.render().$el);
+    return this;
+  },
+
+  _selectLastGroup: function() {
+    if(TeamProfile.lastSelectedGroup) {
+      this.$('.group')
+          .filter(function(i, val) {
+            return $(val).data("id") == TeamProfile.lastSelectedGroup;
+          }
+      ).click();
+    }
     return this;
   }
 });
