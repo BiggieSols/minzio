@@ -43,7 +43,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       this.userResultsInfo.fetch({
         success: function() {
           console.log("fetched dummy user data!");
-          return this.renderCallback();
+          return this._renderCallback();
         }
       });
     }

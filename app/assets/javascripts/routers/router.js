@@ -2,7 +2,8 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   initialize: function(options){
     this.$rootEl = options.$rootEl;
     TeamProfile.currentUser = new TeamProfile.Models.User({id: "current"});
-    TeamProfile.dummyUser = new TeamProfile.Models.User({id: "dummy"});
+    TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
+    TeamProfile.groups      = new TeamProfile.Collections.Groups();
 
     TeamProfile.currentUser.fetch();
     TeamProfile.dummyUser.fetch();
@@ -31,10 +32,9 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   groups: function() {
     var that = this;
     // TODO: CONVERT GLOBAL VARIABLES TO LOCAL VARIABLES
-    groups = new TeamProfile.Collections.Groups();
-    groups.fetch({
+    TeamProfile.groups.fetch({
       success: function() {
-        groupsView = new TeamProfile.Views.GroupsView({collection: groups});
+        groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
         that._swapView(groupsView);
       }
     });
