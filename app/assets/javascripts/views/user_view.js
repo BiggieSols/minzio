@@ -94,7 +94,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     var chart, that;
     that = this;
     options = options || {};
-    var width = options.width || $('#results-chart').width()*0.75;
+    var width = options.width || $('#results-chart').width()*0.7;
     console.log("width is " + width);
 
     this.$('#results-chart').highcharts({
