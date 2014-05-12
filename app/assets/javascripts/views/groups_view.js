@@ -2,11 +2,10 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   template: JST['groups/index'],
   newGroupTemplate: JST['groups/new'],
   groupsListTemplate: JST['groups/list'],
-  groupDetailsTemplate: JST['groups/show'],
 
   events: {
     "submit form":"addGroup",
-    "click .group":"select"
+    "click .group":"selectGroup"
   },
 
   addGroup: function(event) {
@@ -28,8 +27,12 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     // console.log(this.$('#group-name').val());
   },
 
-  select: function(event) {
-    this._highlight($(event.currentTarget));
+  selectGroup: function(event) {
+    var $node = $(event.currentTarget);
+    var groupId = $node.data("id");
+
+    this._highlight($node);
+    this._renderGroupDetails(groupId);
   },
 
   _highlightFirstGroup: function() {
@@ -60,6 +63,14 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var $newGroupContainer = this.$('#new-group');
     var renderedContent = this.newGroupTemplate();
     $newGroupContainer.html(renderedContent);
+    return this;
+  },
+
+  _renderGroupDetails: function(groupId) {
+    var group = this.collection.get(groupId);
+    var $groupDetails = this.$('.group-details');
+    var groupView = new TeamProfile.Views.GroupView({model: group});
+    $groupDetails.html(groupView.render().$el)
     return this;
   }
 });

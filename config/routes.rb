@@ -5,6 +5,8 @@ Teamprofile::Application.routes.draw do
   resources :personality_types
 
   resources :quiz, only: [:show]
+
+  resources :group_members, only: [:create, :destroy]
   
   resources :user_answers, only: [:index, :create]
 
@@ -13,8 +15,6 @@ Teamprofile::Application.routes.draw do
   resource :session
 
   match 'signout', to: 'sessions#destroy', as: 'signout'
-
-
 
   root to: "sessions#new"
 end

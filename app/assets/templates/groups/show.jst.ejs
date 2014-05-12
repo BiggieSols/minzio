@@ -4,8 +4,51 @@
   </div>
 
   <% group.get("members").models.forEach(function(member) { %>
+    <% var personalityType = member.get("personality_type").get("title") %>
     <div class="group-member">
-      
+      <% if(personalityType) { %>
+        <a href="<%= '/#/users/' + member.get('id') %>">
+      <% } %>
+    
+      <% if(member.get("image_url")) { %>
+        <img src="<%= member.escape('image_url') %>" class="user-photo">
+      <% } else { %>
+        <img src="/default_user.png">
+      <% } %>
+
+      <%= member.escape("name") %>
+
+      <% if(personalityType) { %>
+        </a>
+      <% } %>
+
     </div>
   <% }) %>
 </div>
+
+
+<!-- <div class="group-details">
+  <div class="group-title">
+    <%= group.escape("name") %>
+  </div>
+
+  <% group.get("members").models.forEach(function(member) { %>
+    <% var personalityType = member.get("personality_type").get("title") %>
+    <div class="group-member">
+    
+      <% if(member.get("image_url")) { %>
+        <img src="<%= member.escape('image_url') %>" class="user-photo">
+      <% } else { %>
+        <img src="/default_user.png">
+      <% } %>
+
+      <% if(personalityType) { %>
+        <a href="<%= '/#/users/' + member.get('id') %>">
+          <%= member.escape("name") %>
+        </a>
+      <% } else { %>
+        <%= member.escape("name") %>
+      <% } %>
+    </div>
+  <% }) %>
+</div> -->
