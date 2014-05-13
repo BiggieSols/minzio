@@ -4,6 +4,9 @@ class GroupMembersController < ApplicationController
     user_id  = params[:user_id]
     group_id = params[:group_id]
     group_member = GroupMember.create(user_id: user_id, group_id: group_id)
+
+    User.find(user_id).touch
+    
     render json: group_member
   end
 

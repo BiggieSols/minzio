@@ -1,10 +1,6 @@
 TeamProfile.Views.GroupView = Backbone.View.extend({
   template: JST['groups/show'],
 
-  initialize: function() {
-    this.listenTo(this.model, "sync", this.render);
-  },
-  
   render: function() {
     // console.log("model is below");
     // console.log(this.model);
@@ -12,6 +8,14 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     var renderedContent = this.template({group: this.model});
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
+    this._renderGroupMembers();
+    return this;
+  },
+
+  _renderGroupMembers: function() {
+    var $node = this.$('.group-members');
+    var groupMembersView = new TeamProfile.Views.GroupMembersView({model: this.model});
+    $node.html(groupMembersView.render().$el);
     return this;
   },
 
