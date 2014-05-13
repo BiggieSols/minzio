@@ -1,60 +1,65 @@
-<div class="group-details">
+<div class="group-container" data-id="<%= this.model.id %>">
   <div class="group-title">
     <%= group.escape("name") %>
   </div>
 
-  <div class="add-to-group">
-    <form>
-      <!-- <input type="text" -->
-    </form>
+  <div class="row">
+    <div class="col-xs-12">
+      <div id="add-connections">
+        add new user to group here
+        <!-- <input type="text" -->
+      </div>
+    </div>
   </div>
 
-  <% group.get("members").models.forEach(function(member) { %>
+  <div class="row">
+    <% group.get("members").models.forEach(function(member) { %>
     <% var personalityType = member.get("personality_type").get("title") %>
     <div class="group-member">
       <% if(personalityType) { %>
-        <a href="<%= '/#/users/' + member.get('id') %>">
-      <% } %>
-
-      <div class="row">
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-          <% if(member.get("image_url")) { %>
-            <img src="<%= member.escape('image_url') %>" class="user-photo">
-          <% } else { %>
-            <img src="/default_user.png" class="user-photo">
-          <% } %>
-        </div>
-
-      <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5">
-        <div class="member-info member-name">
-          <%= member.escape("name") %>
-        </div>
-
-        <div class="member-info">
-          <%= member.escape("headline") %>
-        </div>
-      </div>
-
-      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
-        <% if(personalityType) { %>
-          <div class="personality-type-available">
-            <%= personalityType %>
-          </div>
-        <% } else { %>
-          <div class="no-personality-type">
-            test incomplete
-          </div>
+      <a href="<%= '/#/users/' + member.get('id') %>">
         <% } %>
-      </div>
+
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+            <% if(member.get("image_url")) { %>
+            <img src="<%= member.escape('image_url') %>" class="user-photo">
+            <% } else { %>
+            <img src="/default_user.png" class="user-photo">
+            <% } %>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5">
+            <div class="member-info member-name">
+              <%= member.escape("name") %>
+            </div>
+
+            <div class="member-info">
+              <%= member.escape("headline") %>
+            </div>
+          </div>
+
+          <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+            <% if(personalityType) { %>
+            <div class="personality-type-available">
+              <%= personalityType %>
+            </div>
+            <% } else { %>
+            <div class="no-personality-type">
+              test incomplete
+            </div>
+            <% } %>
+          </div>
 
 
 
 
-      <% if(personalityType) { %>
+          <% if(personalityType) { %>
         </a>
-      <% } %>
+        <% } %>
       </div>
     </div>
     <hr>
-  <% }) %>
+    <% }) %>
+  </div>
 </div>
