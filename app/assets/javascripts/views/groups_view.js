@@ -2,6 +2,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   template: JST['groups/index'],
   newGroupTemplate: JST['groups/new'],
   groupsListTemplate: JST['groups/list'],
+  spinnerTemplate: JST['misc/spinner'],
 
   events: {
     "submit form":"addGroup",
@@ -37,6 +38,13 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this._highlight($node);
     TeamProfile.lastSelectedGroup = groupId;
     this._renderGroupDetails(groupId);
+    this._scrollToGroup();
+  },
+
+  _scrollToGroup: function() {
+    $('body').animate({
+      scrollTop:$('.group-details').offset().top - 50
+    }, 'medium');
   },
 
   _selectFirstGroup: function() {
@@ -83,6 +91,9 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     console.log(group);
 
     var $groupDetails = this.$('.group-details');
+
+    $groupDetails.html(this.spinnerTemplate());
+
     var groupView = new TeamProfile.Views.GroupView({model: group});
     $groupDetails.html(groupView.render().$el);
     return this;

@@ -82,6 +82,6 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     this.currentView = view;
 
     this.$rootEl.html(view.render().$el);
-    // $('body').animate({ scrollTop: 0 }, 0);
+    $('body').animate({ scrollTop: 0 }, 0);
   }
 });
