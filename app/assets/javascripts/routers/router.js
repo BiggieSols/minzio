@@ -53,6 +53,11 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         console.log(quiz);
         var quizView = new TeamProfile.Views.QuizView({model: quiz});
         that._swapView(quizView);
+        TeamProfile.currentUser.save({build_shadow: true}, {
+          success: function() {
+            console.log("pulled down shadow accts!");
+          }
+        });
       }
     });
   },

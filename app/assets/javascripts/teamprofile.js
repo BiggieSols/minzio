@@ -7,7 +7,7 @@ window.TeamProfile = {
     new TeamProfile.Routers.Router({$rootEl: $('#content')});
     Backbone.history.start();
   },
-  lastSelectedGroup: 40
+  lastSelectedGroup: null
 };
 
 $(document).ready(function(){

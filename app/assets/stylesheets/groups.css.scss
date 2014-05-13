@@ -3,11 +3,12 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .groups {
+  min-height: 500px;
+  margin: 3%;
+  
   .title {
     font-size: 2em;
   }
-
-  margin: 3%
 }
 /**/
 .group {

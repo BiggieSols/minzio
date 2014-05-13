@@ -31,14 +31,21 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      # log_in! @user
-      render json: @user
+    if params[:build_shadow]
+      puts "\n\n\n\nbuilding shadow accts\n\n\n\n"
+      current_user.build_shadow_accounts
+      @user = current_user
+      render 'show.json.jbuilder'
     else
-      flash[:errors] = @user.errors.full_messages
-      @user = User.new(params[:user])
-      render :new
+      @user = User.find(params[:id])
+      if @user.update_attributes(params[:user])
+        # log_in! @user
+        render json: @user
+      else
+        flash[:errors] = @user.errors.full_messages
+        @user = User.new(params[:user])
+        render :new
+      end
     end
   end
 

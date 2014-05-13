@@ -52,14 +52,19 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({groups: this.collection});
     this.$el.html(renderedContent);
-    this._renderGroupsList()._renderNewGroup();
+    this._renderGroupsList();
+    this._renderNewGroup();
     this._selectLastGroup();
     return this;
   },
 
   _renderGroupsList: function() {
     var $listContainer = this.$('#groups-list');
-    var renderedContent = this.groupsListTemplate({groups: this.collection});
+
+    var renderedContent = this.groupsListTemplate({
+      groups: this.collection
+    });
+
     $listContainer.html(renderedContent);
     return this;
   },
@@ -73,6 +78,10 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   _renderGroupDetails: function(groupId) {
     var group = this.collection.get(groupId);
+
+    console.log("group is below");
+    console.log(group);
+
     var $groupDetails = this.$('.group-details');
     var groupView = new TeamProfile.Views.GroupView({model: group});
     $groupDetails.html(groupView.render().$el);

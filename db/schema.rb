@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140510200728) do
+ActiveRecord::Schema.define(:version => 20140513184745) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -122,6 +122,7 @@ ActiveRecord::Schema.define(:version => 20140510200728) do
     t.datetime "updated_at",          :null => false
     t.string   "large_image_url"
     t.integer  "personality_type_id"
+    t.text     "connections"
   end
 
   add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"

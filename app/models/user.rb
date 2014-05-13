@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   # serialize :description, JSON
-  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation, :personality_type_id #temporary
+  serialize :connections, JSON
+
+  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation, :personality_type_id, :connections
 
   before_validation :set_password_digest, on: :create
   
@@ -66,7 +68,39 @@ class User < ActiveRecord::Base
   # end
 
   def build_shadow_accounts
-    
+    connections = self.linkedin.connections["all"]
+
+    # TEMP TO AVOID BUILDING TOO MANY ACCTS
+    connections = connections[0..1]
+
+    all_uids = connections.map {|c| c["id"]}
+    existing_uids = User.where(uid: all_uids).map { |u| u.uid }
+
+    uids = connections.map {|c| c["id"]}
+
+    self.connections ||= []
+
+    ActiveRecord::Base.transaction do 
+      connections.each do |connection|
+        uid = connection["id"]
+        next if existing_uids.include? uid
+        # user = User.where(uid: uid).first_or_initialize
+        user = User.new
+        user.pub_profile  = connection["site_standard_profile_request"]["url"].split("&").first
+        user.name         = connection["first_name"] + " " + connection["last_name"]
+        user.headline     = connection["headline"]
+        user.industry     = connection["industry"]
+        user.location     = connection["location"]
+        user.image_url    = connection["picture_url"]
+        user.uid          = connection["id"]
+        if user.save
+          self.connections << {name: user.name, image_url: user.image_url, id: user.id}
+        else
+          puts "save failed for user with uid: #{user.uid}"
+        end
+      end
+    end
+    self.save
   end
 
   def set_personality_type
@@ -113,8 +147,6 @@ class User < ActiveRecord::Base
     @client ||= LinkedIn::Client.new(ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"])
     @client.authorize_from_access(self.access_token, self.access_token_secret)
     @client
-
-    # TODO: auto-create accounts for connections. @client.connections gives a set of hash-like LinkedIn Objects
   end
 
   def password_matches_confirmation

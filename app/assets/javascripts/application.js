@@ -16,6 +16,7 @@
 //= require highcharts-custom
 //= require underscore
 //= require backbone
+//= require select2
 //= require teamprofile
 //= require_tree ../templates
 //= require_tree ./models

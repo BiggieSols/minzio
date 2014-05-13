@@ -3,7 +3,11 @@ class SessionsController < ApplicationController
     auth_hash = request.env['omniauth.auth']
     log_in! User.from_omniauth(auth_hash)
     # render json: auth_hash
-    redirect_to "/#/users/#{current_user.id}"
+    if current_user.personality_type_id
+      redirect_to "/#/groups"
+    else
+      redirect_to "/#/quiz/4"
+    end
   end
 
   def new

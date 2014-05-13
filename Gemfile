@@ -29,6 +29,7 @@ gem 'figaro'
 gem 'launchy'
 gem 'linkedin'
 gem 'backbone-on-rails'
+gem 'select2-rails'
 # gem 'flatui-rails'
 
 
