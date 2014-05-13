@@ -3,6 +3,12 @@
     <%= group.escape("name") %>
   </div>
 
+  <div class="add-to-group">
+    <form>
+      <!-- <input type="text" -->
+    </form>
+  </div>
+
   <% group.get("members").models.forEach(function(member) { %>
     <% var personalityType = member.get("personality_type").get("title") %>
     <div class="group-member">
