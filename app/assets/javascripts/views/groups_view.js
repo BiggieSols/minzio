@@ -23,7 +23,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
           $groupInput.val("");
           that.collection.add(group, {at: 0});
           that._renderGroupsList();
-          that._highlightFirstGroup();
+          that._selectFirstGroup();
         }
       });
     }
@@ -39,9 +39,9 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this._renderGroupDetails(groupId);
   },
 
-  _highlightFirstGroup: function() {
+  _selectFirstGroup: function() {
     var group = this.$('.group').eq(0);
-    this._highlight(group);
+    group.click();
   },
 
   _highlight: function(node) {

@@ -29,7 +29,7 @@ gem 'figaro'
 gem 'launchy'
 gem 'linkedin'
 gem 'backbone-on-rails'
-gem 'flatui-rails'
+# gem 'flatui-rails'
 
 
 # To use ActiveModel has_secure_password

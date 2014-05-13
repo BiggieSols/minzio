@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require flat-ui
 //= require highcharts-custom
 //= require underscore
 //= require backbone
