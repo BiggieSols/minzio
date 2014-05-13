@@ -13,17 +13,20 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var $groupInput = this.$('#group-name');
     event.preventDefault();
     var groupName = $groupInput.val();
-    console.log("group name is "  +  groupName);
-    var group = new TeamProfile.Models.Group({name: groupName});
 
-    group.save({}, {
-      success: function() {
-        $groupInput.val("");
-        that.collection.add(group, {at: 0});
-        that._renderGroupsList();
-        that._highlightFirstGroup();
-      }
-    });
+    if(groupName !== "") {
+      console.log("group name is "  +  groupName);
+      var group = new TeamProfile.Models.Group({name: groupName});
+
+      group.save({}, {
+        success: function() {
+          $groupInput.val("");
+          that.collection.add(group, {at: 0});
+          that._renderGroupsList();
+          that._highlightFirstGroup();
+        }
+      });
+    }
     // console.log(this.$('#group-name').val());
   },
 

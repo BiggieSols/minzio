@@ -6,16 +6,37 @@
   .title {
     font-size: 2em;
   }
+
+  margin: 3%
 }
 /**/
 .group {
   font-size: 1.2em;
   height: 3%;
+  border-radius: 5px;
+  // margin: 1% 0%;
+  padding-left: 1%;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+// .new-group-input {
+//   height: 36px;
+// }
+
+.member-name {
+  font-weight: bold;
 }
 
 .user-photo {
-  width: 75px;
-  height: 75px;
+  // width: 75px;
+  // height: 75px;
+  height: 100%;
+  width: 100%;
+}
+
+.personality-type-available {
+  font-size: 1.3em
 }
 
 .group:hover {
