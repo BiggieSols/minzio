@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  skip_before_filter :require_login, only: [:create_from_linkedin, :new, :create]
+  
   def create_from_linkedin
     auth_hash = request.env['omniauth.auth']
     log_in! User.from_omniauth(auth_hash)
@@ -33,6 +35,9 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out!
+    puts "\n"*5
+    puts "logging out"
+    puts "\n"*5
     redirect_to new_session_path
   end
 

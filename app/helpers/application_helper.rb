@@ -6,7 +6,9 @@ module ApplicationHelper
   end
 
   def current_user
-    @current_user ||= User.find_by_session_token(session[:session_token])
+    return nil if !session[:session_token]
+    # @current_user ||= User.includes(:groups => [:members]).find_by_session_token(session[:session_token])
+    @current_user ||= User.includes(:groups).find_by_session_token(session[:session_token])
   end
 
   def current_user=(user)
@@ -24,7 +26,7 @@ module ApplicationHelper
     !!current_user
   end
 
-  # def require_login
-  #   redirect_to landing_url unless logged_in?
-  # end
+  def require_login
+    redirect_to empty_url unless logged_in?
+  end
 end

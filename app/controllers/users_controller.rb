@@ -1,13 +1,33 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_login, only: [:show, :new, :create]
+
+  # remove this in production
   def index
+    render json: {}
   end
 
   def show
-    params[:id] = current_user.id if params[:id] == "current"
-    params[:id] = 1 if params[:id] == "dummy"
-    
-    @user = User.find(params[:id])
-    render 'show.json.jbuilder'
+    # puts "\n"*5
+    # puts "current_user is below"
+    # puts current_user
+    # puts "\n"*5
+
+    if !current_user
+      render json: {}
+    else
+      params[:id] = current_user.id if params[:id] == "current"
+      params[:id] = 1 if params[:id] == "dummy"
+      if(params[:id] == "current")
+        @user = User.includes(:personality_type, :groups => [:members]).find(current_user.id)
+        render 'show.json.jbuilder'
+      elsif current_user.valid_connection_ids.include?(params[:id].to_i)
+        @user = User.includes(:personality_type).find(params[:id])
+        # at some point only pull down a limited set of results
+        render 'show.json.jbuilder'
+      else
+        render json: {}
+      end
+    end
   end
 
   def new

@@ -1,4 +1,6 @@
 class GroupsController < ApplicationController
+  before_filter :require_login
+  
   def index
     @groups = current_user.groups
                           .includes(

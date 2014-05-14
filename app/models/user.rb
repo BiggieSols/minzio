@@ -58,6 +58,20 @@ class User < ActiveRecord::Base
     nil
   end
 
+  def valid_connection_ids
+    return @valid_ids if @valid_ids
+    puts "\n\n\n\n\n"
+    puts "retrieving valid connection IDs"
+    puts "\n\n\n\n\n"
+    
+    @valid_ids = []
+    # load all connection IDs
+    @valid_ids = self.connections.map {|c| c["id"]}
+
+    # load all connections in groups
+    @valid_ids += self.groups.includes(:members).map(&:member_ids).flatten.uniq
+  end
+
   # def interpreted_mbti_test_result
   #   questions_per_category = 5 #hard-coded 5 questions
   #   results = self.mbti_test_result

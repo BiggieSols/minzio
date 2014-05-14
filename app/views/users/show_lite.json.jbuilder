@@ -1,0 +1,1 @@
+json.partial!('users/user_lite', user: @user)

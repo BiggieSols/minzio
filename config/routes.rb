@@ -16,5 +16,7 @@ Teamprofile::Application.routes.draw do
 
   match 'signout', to: 'sessions#destroy', as: 'signout'
 
+  get 'empty', to: 'static_pages#empty'
+
   root to: "sessions#new"
 end

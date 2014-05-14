@@ -24,9 +24,15 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // "items": "all_items",
     // "friends":"friends",
     // "onboard":"onboard"
+    "": "home",
     "users/:id":"user",
     "quiz/:id":"quiz",
     "groups":"groups"
+  },
+
+  home: function() {
+    var homeView = new TeamProfile.Views.HomeView();
+    this._swapView(homeView);
   },
 
   groups: function() {
