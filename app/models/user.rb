@@ -69,41 +69,37 @@ class User < ActiveRecord::Base
   # end
 
   def build_shadow_accounts
-    connections = self.linkedin.connections["all"]
+    linkedin_connects       = self.linkedin.connections["all"]
 
     # TEMP TO AVOID BUILDING TOO MANY ACCTS
     # connections = connections[0..1]
 
-    all_uids        = connections.map {|c| c["id"]}
-    existing_users  = User.where(uid: all_uids)
-    existing_uids   = existing_users.map { |u| u.uid }
+    linkedin_connects_uids  = linkedin_connects.map {|c| c["id"]}
 
-    connection_uids = connections.map {|c| c["id"]}
-
-    self.connections ||= []
+    # "Existing" means users who are already in the database and match the current user's connections' uids
+    existing_users_assn     = User.where(uid: linkedin_connects_uids)
+    existing_users_hash     = {}
+    existing_users_assn.each {|u| existing_users_hash[u.uid] = u}
+    # reset connections since they will be rebuilt
+    self.connections        = []
 
     ActiveRecord::Base.transaction do 
-      connections.each do |connection|
+      linkedin_connects.each do |connection|
         uid = connection["id"]
-
-        if !connection_uids.include?(uid)
-          if existing_uids.include?(uid)
-            user = existing_users.find_by_uid(uid)
-          else
-          # user = User.where(uid: uid).first_or_initialize
-            user = User.new
-            user.pub_profile  = clean { connection["site_standard_profile_request"]["url"].split("&").first }
-            user.name         = clean { connection["first_name"] + " " + connection["last_name"] }
-            user.headline     = clean { connection["headline"] }
-            user.industry     = clean { connection["industry"] }
-            user.location     = clean { connection["location"] }
-            user.image_url    = clean { connection["picture_url"] }
-            user.uid          = clean { connection["id"] }
-            user.save if (user.uid && user.name)
-          end
-
-          self.connections << {name: user.name, image_url: user.image_url, id: user.id}
+        user = existing_users_hash[uid]
+        if !user
+        # user = User.where(uid: uid).first_or_initialize
+          user              = User.new
+          user.pub_profile  = clean { connection["site_standard_profile_request"]["url"].split("&").first }
+          user.name         = clean { connection["first_name"] + " " + connection["last_name"] }
+          user.headline     = clean { connection["headline"] }
+          user.industry     = clean { connection["industry"] }
+          user.location     = clean { connection["location"]["name"] }
+          user.image_url    = clean { connection["picture_url"] }
+          user.uid          = clean { connection["id"] }
+          user.save if (user.uid && user.name)
         end
+        self.connections << {name: user.name, image_url: user.image_url, id: user.id}
       end
       self.save
     end
