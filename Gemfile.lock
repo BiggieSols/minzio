@@ -44,6 +44,11 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
+    delayed_job (4.0.1)
+      activesupport (>= 3.0, < 4.2)
+    delayed_job_active_record (4.0.1)
+      activerecord (>= 3.0, < 4.2)
+      delayed_job (>= 3.0, < 4.1)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -146,6 +151,7 @@ DEPENDENCIES
   backbone-on-rails
   bcrypt-ruby (~> 3.0.0)
   coffee-rails (~> 3.2.1)
+  delayed_job_active_record
   figaro
   jbuilder
   jquery-rails

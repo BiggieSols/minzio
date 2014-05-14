@@ -37,15 +37,15 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
     this._highlight($node);
     TeamProfile.lastSelectedGroup = groupId;
-    this._renderGroupDetails(groupId);
-    this._scrollToGroup();
+    this._renderGroupDetails(groupId);//._scrollToGroup();
   },
 
-  _scrollToGroup: function() {
-    $('body').animate({
-      scrollTop:$('.group-details').offset().top - 50
-    }, 'medium');
-  },
+  // causing some rednering errors. turning off for now
+  // _scrollToGroup: function() {
+  //   $('body').animate({
+  //     scrollTop:$('.group-details').offset().top - 50
+  //   }, 'medium');
+  // },
 
   _selectFirstGroup: function() {
     var group = this.$('.group').eq(0);

@@ -6,6 +6,8 @@ class GroupMembersController < ApplicationController
     group_member = GroupMember.create(user_id: user_id, group_id: group_id)
 
     User.find(user_id).touch
+
+    current_user.send_message(user_id, group_id)
     
     render json: group_member
   end
