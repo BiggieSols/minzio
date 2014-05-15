@@ -73,6 +73,8 @@ GEM
     json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
+    letter_opener (1.2.0)
+      launchy (~> 2.2)
     linkedin (0.4.7)
       hashie (~> 2.0)
       multi_json (~> 1.0)
@@ -156,6 +158,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   launchy
+  letter_opener
   linkedin
   nokogiri
   omniauth

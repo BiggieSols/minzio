@@ -31,6 +31,8 @@ gem 'linkedin'
 gem 'backbone-on-rails'
 gem 'select2-rails'
 gem 'delayed_job_active_record'
+
+gem 'letter_opener'
 # gem 'flatui-rails'
 
 
