@@ -3,13 +3,14 @@ class GroupMembersController < ApplicationController
     puts params
     user_id  = params[:user_id]
     group_id = params[:group_id]
-    group_member = GroupMember.create(user_id: user_id, group_id: group_id)
 
-    User.find(user_id).touch
-
-    current_user.send_message(user_id, group_id)
-    
-    render json: group_member
+    ActiveRecord::Base.transaction do
+      User.find(user_id).touch
+      group_member = GroupMember.create(user_id: user_id, group_id: group_id)
+      invite = Invitation.create(from_user_id: current_user.id, to_user_id: user_id, group_id: params[:group_id], message: "")
+      invite.send_message
+      render json: group_member
+    end
   end
 
   def destroy

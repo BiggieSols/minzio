@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140514002237) do
+ActiveRecord::Schema.define(:version => 20140515220333) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -61,9 +61,11 @@ ActiveRecord::Schema.define(:version => 20140514002237) do
     t.text     "message",      :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "group_id"
   end
 
   add_index "invitations", ["from_user_id"], :name => "index_invitations_on_from_user_id"
+  add_index "invitations", ["group_id"], :name => "index_invitations_on_group_id"
   add_index "invitations", ["to_user_id"], :name => "index_invitations_on_to_user_id"
 
   create_table "personality_types", :force => true do |t|

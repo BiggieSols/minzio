@@ -150,30 +150,6 @@ class User < ActiveRecord::Base
     @results
   end 
 
-  def send_message(user_id, group_id)
-    receiving_user = User.find(user_id)
-    group = Group.find(group_id)
-
-
-    # self.linkedin.send_message("subject goes here", "body goes here", [self.uid, receiving_user.uid])
-
-    if receiving_user.account_active
-      puts "\n"*5
-      puts "account already active"
-      puts "sending email notification!"
-      puts "\n"*5
-    else
-      puts "\n"*5
-      puts "sending LinkedIn message"
-      puts "\n"*5
-      message_subject = "Join me on TeamProfile"
-      message_text = "I just added you to my group '#{group.name}' on TeamProfile. \nWill you take 2 minutes to create an account and join me so we can see each others' work personality profile results?\n http://www.teamprofile.com"
-    # TO TEST, SEND ALL MESSAGES TO MY TEST ACCOUNT (user_id: 3)
-      self.linkedin.send_message(message_subject, message_text, [self.uid, "3gVtJAMsun"])
-    end
-  end
-  handle_asynchronously :send_message
-
   def set_session_token
     self.session_token = SecureRandom.urlsafe_base64(16);
   end
