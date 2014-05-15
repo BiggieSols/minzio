@@ -127,13 +127,28 @@ class User < ActiveRecord::Base
     end
   end
 
+  # temporarily sending via LinkedIn. eventually send via email
+  def send_completion_notification
+    self.inviting_users.each do |u|
+      message_subject = "Finished the TeamGlide assessment"
+      message_text = "I just finished the personality profile for TeamGlide. \nCheck out the results at www.teamglide.com/#/groups"
+      self.linkedin.send_message(message_subject, message_text, ["3gVtJAMsun"])
+    end
+  end
+  handle_asynchronously :send_completion_notification
+
   def set_personality_type
+    first_test_attempt = self.personality_type_id.nil?
+
     results_str = ""
     mbti_test_result.each do |types, val|
       results_str += val > 0 ? types[0] : types[1]
     end
     puts results_str
     self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
+
+    self.send_completion_notification if first_test_attempt
+
     self.save
   end
 
