@@ -9,15 +9,21 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     "click .group":"selectGroup",
   },
 
-  showCreateGroupPopover: function() {
-    var title = "step 1: create a group";
-    var content = "create a group for you and your colleagues to share your test results";
-    this.$('#group-name').data("container", "body")
-                         .data("toggle", "popover")
-                         .data("placement", "bottom")
-                         .data("content", content)
-                         .data("title", title)
-                         .popover('show');
+  _renderCreateGroupPopover: function() {
+    var that = this;
+    setTimeout(function() {
+      if(that.collection.models.length === 0) {
+        var title = "step 1: create a group";
+        var content = "create a group for you and your colleagues to share your test results";
+        that.$('#group-name').data("container", "body")
+                             .data("toggle", "popover")
+                             .data("placement", "bottom")
+                             .data("content", content)
+                             .data("title", title)
+                             .popover('show');
+      }
+    }, 1000);
+    return this;
   },
 
   removePopovers: function() {
@@ -82,9 +88,10 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({groups: this.collection});
     this.$el.html(renderedContent);
-    this._renderGroupsList();
-    this._renderNewGroup();
-    this._selectLastGroup();
+    this._renderGroupsList()
+        ._renderNewGroup()
+        ._selectLastGroup()
+        ._renderCreateGroupPopover();
     return this;
   },
 

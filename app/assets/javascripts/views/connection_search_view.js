@@ -9,17 +9,20 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     this.width = "180px";
   },
 
-  showAddMemberPopover: function() {
-    if(this.model.get("members").length == 1) {
-      var title = "Add a group member";
-      var content = "Add your LinkedIn connections to the group! Note that this will send a an invite message via LinkedIn";
-      this.$('.select2-search-field').data("container", "body")
-                                     .data("toggle", "popover")
-                                     .data("placement", "bottom")
-                                     .data("content", content)
-                                     .data("title", title)
-                                     .popover('show');
-    }
+  _renderAddMemberPopover: function() {
+    var that = this;
+    setTimeout(function() {
+      if(that.model.get("members").length == 1) {
+        var title = "Add a group member";
+        var content = "Add your LinkedIn connections to the group! Note that this will send a an invite message via LinkedIn";
+        that.$('.select2-search-field').data("container", "body")
+                                       .data("toggle", "popover")
+                                       .data("placement", "bottom")
+                                       .data("content", content)
+                                       .data("title", title)
+                                       .popover('show');
+      }
+    }, 500);
     return this;
   },
 
@@ -54,7 +57,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({users: TeamProfile.currentUser.get("connections")});
     this.$el.html(renderedContent);
-    this._renderSelect2();
+    this._renderSelect2()._renderAddMemberPopover();
     return this;
   },
 
