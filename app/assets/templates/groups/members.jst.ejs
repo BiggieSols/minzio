@@ -1,12 +1,11 @@
-<div class="row">
   <% group.get("members").models.forEach(function(member) { %>
   <% var personalityType = member.get("personality_type").get("title") %>
-  <div class="group-member">
+  <div class="row">
     <% if(personalityType) { %>
     <a href="<%= '/#/users/' + member.get('id') %>">
       <% } %>
 
-      <div class="row">
+      <div class="group-member">
         <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
           <% if(member.get("image_url")) { %>
           <img src="<%= member.escape('image_url') %>" class="user-photo">
@@ -43,4 +42,3 @@
   </div>
   <hr>
   <% }) %>
-</div>

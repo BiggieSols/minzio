@@ -2,6 +2,22 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   tagName: "span",
 
   template: JST['misc/connection_search'],
+  spinnerTemplate: JST['misc/spinner'],
+
+  events: {
+    "click .reload-contacts":"reloadContacts"
+  },
+
+  reloadContacts: function() {
+    var spinner = this.spinnerTemplate();
+    this.$('.reload-contacts').html(spinner);
+    var that = this;
+    TeamProfile.currentUser.save({build_shadow: true}, {
+      success: function() {
+        that.render();
+      }
+    });
+  },
 
   // needs to be overridden in subclasses
   initialize: function() {

@@ -1,6 +1,23 @@
 TeamProfile.Views.GroupView = Backbone.View.extend({
   template: JST['groups/show'],
 
+  events: {
+    "click .cannot-find-connect-faq":"toggleFAQ"
+  },
+
+  // need to refactor this but it works for now
+  toggleFAQ: function() {
+    // var $faq          = this.$('.cannot-find-connect-faq');
+    var $instructions = this.$('.enable-account-instructions');
+    
+    if($instructions.hasClass("invisible")) {
+      $instructions.removeClass("invisible");
+      $instructions.slideDown();
+    } else {
+      $instructions.slideToggle();
+    }
+  },
+
   render: function() {
     // console.log("model is below");
     // console.log(this.model);
