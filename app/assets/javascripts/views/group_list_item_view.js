@@ -5,14 +5,17 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   events: {
     "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
-    "click .submit-button":"submitForm"
+    "click .submit-button":"submitForm",
+    "keydown .change-group-name":"testEscape"
   },
 
-  // initialize: function() {
-  //   this.listenTo(this.model, "sync", this.render);
-  // },
+  testEscape: function(e) {
+    if(e.keyCode == 27) {
+      this.render();
+    }
+  },
 
-  // yeah this is super kludgy. 
+  // yeah this is super kludgy. result of bootstrap styling issues - I don't want to talk about it.
   submitForm: function(event) {
     event.preventDefault();
     this.$('.edit-group-form').submit();
@@ -37,9 +40,6 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log("model is below");
-    console.log(this.model);
-
     var renderedContent = this.template({group: this.model});
     this.$el.html(renderedContent);
     return this;

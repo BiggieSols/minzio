@@ -9,6 +9,26 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     "click .group":"selectGroup",
   },
 
+  showCreateGroupPopover: function() {
+    var title = "step 1: create a group";
+    var content = "create a group for you and your colleagues to share your test results";
+    this.$('#group-name').data("container", "body")
+                         .data("toggle", "popover")
+                         .data("placement", "bottom")
+                         .data("content", content)
+                         .data("title", title)
+                         .popover('show');
+  },
+
+  removePopovers: function() {
+    $('.popover').remove();
+  },
+
+  remove: function() {
+    this.removePopovers();
+    return Backbone.View.prototype.remove.call(this);
+  },
+
   createGroup: function(event) {
     var that = this;
     var $groupInput = this.$('#group-name');
@@ -70,6 +90,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   _renderGroupsList: function() {
     var $listContainer = this.$('#groups-list');
+    $listContainer.html("");
 
 
     this.collection.forEach(function(group) {
@@ -95,16 +116,17 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   _renderGroupDetails: function(groupId) {
     var group = this.collection.get(groupId);
-
-    console.log("group is below");
-    console.log(group);
-
     var $groupDetails = this.$('.group-details');
-
     $groupDetails.html(this.spinnerTemplate());
 
-    var groupView = new TeamProfile.Views.GroupView({model: group});
-    $groupDetails.html(groupView.render().$el);
+    // clean up event listeners
+    if(this.groupView) {
+      console.log("removing group");
+      this.groupView.remove();
+    }
+
+    this.groupView = new TeamProfile.Views.GroupView({model: group});
+    $groupDetails.html(this.groupView.render().$el);
     return this;
   },
 

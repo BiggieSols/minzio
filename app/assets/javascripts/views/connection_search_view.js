@@ -9,6 +9,20 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     this.width = "180px";
   },
 
+  showAddMemberPopover: function() {
+    if(this.model.get("members").length == 1) {
+      var title = "Add a group member";
+      var content = "Add your LinkedIn connections to the group! Note that this will send a an invite message via LinkedIn";
+      this.$('.select2-search-field').data("container", "body")
+                                     .data("toggle", "popover")
+                                     .data("placement", "bottom")
+                                     .data("content", content)
+                                     .data("title", title)
+                                     .popover('show');
+    }
+    return this;
+  },
+
   dropdownFormat: function(state) {
     return "<div class='row'><div class='col-xs-4'><img class='lazy friend-dropdown' src='" + state.url + "' class='dropdown-img'/></div><div class='col-xs-8 user-name-dropdown'>" + state.text  + "</div></div>";
   },
@@ -40,10 +54,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({users: TeamProfile.currentUser.get("connections")});
     this.$el.html(renderedContent);
-    this._initalizeSelect2();
-
-    // TODO: move to another view? doesn't work within the current element
-
+    this._renderSelect2();
     return this;
   },
 
@@ -77,7 +88,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     });
   },
 
-  _initalizeSelect2: function() {
+  _renderSelect2: function() {
     this.$('.connection-selector').select2({
       data: this._generateSelect2Data(),
       minimumInputLength: 3,
@@ -90,5 +101,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
     this.$('.select2-choice').css("padding", "0px 10px");
     this._identifyFieldChanges();
+    return this;
   },
 });
