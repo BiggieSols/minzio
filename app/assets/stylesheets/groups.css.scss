@@ -10,16 +10,51 @@
     font-size: 2em;
   }
 }
+
+
 /**/
 .group {
+  position: relative;
+
   font-size: 1.2em;
-  height: 3%;
+  height: 40px;
   border-radius: 5px;
   // margin: 1% 0%;
   padding-left: 1%;
   padding-top: 1%;
   padding-bottom: 1%;
+
+  .group-name,.group-edit{
+  width:50%; position:absolute;
 }
+
+  .group-name {
+    left:0;
+    margin-left: 10px;
+  }
+  .group-edit{
+    right:0;
+    text-align: right;
+    margin-right: 10px;
+  }
+
+  .change-group-name {
+    position: absolute;
+    left: 0;
+    width: 75%;
+    margin: 0px;
+    margin-left: 4px;
+  }
+
+  .update-buton,.submit-button{
+    position: absolute !important;
+    right: 0 !important;
+    width: 20%;
+    margin-right: 5px !important;
+  }
+
+}
+
 
 // .new-group-input {
 //   height: 36px;

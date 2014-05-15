@@ -5,11 +5,11 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   spinnerTemplate: JST['misc/spinner'],
 
   events: {
-    "submit form":"addGroup",
-    "click .group":"selectGroup"
+    "submit .new-group-form":"createGroup",
+    "click .group":"selectGroup",
   },
 
-  addGroup: function(event) {
+  createGroup: function(event) {
     var that = this;
     var $groupInput = this.$('#group-name');
     event.preventDefault();
@@ -35,9 +35,11 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var $node = $(event.currentTarget);
     var groupId = $node.data("id");
 
-    this._highlight($node);
-    TeamProfile.lastSelectedGroup = groupId;
-    this._renderGroupDetails(groupId);//._scrollToGroup();
+    if(!$node.hasClass("editing")) {
+      this._highlight($node);
+      TeamProfile.lastSelectedGroup = groupId;
+      this._renderGroupDetails(groupId);//._scrollToGroup();      
+    }
   },
 
   // causing some rednering errors. turning off for now
@@ -69,11 +71,18 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   _renderGroupsList: function() {
     var $listContainer = this.$('#groups-list');
 
-    var renderedContent = this.groupsListTemplate({
-      groups: this.collection
+
+    this.collection.forEach(function(group) {
+      var groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
+      var renderedContent = groupListItemView.render().$el;
+      $listContainer.append(renderedContent);
     });
 
-    $listContainer.html(renderedContent);
+    // var renderedContent = this.groupsListTemplate({
+    //   groups: this.collection
+    // });
+
+    // $listContainer.html(renderedContent);
     return this;
   },
 
