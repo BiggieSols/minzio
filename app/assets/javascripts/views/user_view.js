@@ -4,7 +4,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   initialize: function() {
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
-    this.rightCategories = ['Extroverted', 'Sensing', 'Thinking', 'Judging'];
+    this.rightCategories = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
 
     // check to see if personality test is complete
     if(this.model.get("personality_type").get("title")) {
