@@ -3,10 +3,14 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   editGroupTemplate: JST['groups/edit'],
 
   events: {
-    "click .edit-button":"editGroup",
+    "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
     "click .submit-button":"submitForm"
   },
+
+  // initialize: function() {
+  //   this.listenTo(this.model, "sync", this.render);
+  // },
 
   // yeah this is super kludgy. 
   submitForm: function(event) {
@@ -15,25 +19,21 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   },
 
   updateGroup: function(event) {
-    console.log("updating the group");
     event.preventDefault();
+    var newName = this.$('.change-group-name').val();
+    var that = this;
+    this.model.save({name: newName}, {
+      success: function() {
+        that.render().$('.group').click();
+      }
+    });
   },
 
-  editGroup: function(event) {
-    // event.preventDefault();
-    // console.log("attempting to edit group");
-    // var $groupNode = $(event.currentTarget).closest('.group');
-    // console.log("group node is below");
-    // console.log($groupNode);
-
-    // $groupNode.addClass("editing");
-    // $groupNode.removeClass("active");
-
+  renderEditForm: function(event) {
     var renderedContent = this.editGroupTemplate({group: this.model});
     this.$el.html(renderedContent);
-    // $groupNode.html(renderedContent);
     this.$('.change-group-name').focus();
-    // $groupNode.html
+    return this;
   },
 
   render: function() {
