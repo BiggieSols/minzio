@@ -16,6 +16,8 @@ class Invitation < ActiveRecord::Base
       puts "\n"*5
       puts "account already active"
       puts "sending email notification!"
+      msg = UserMailer.group_invitation(sending_user, receiving_user, group)
+      msg.deliver!
       puts "\n"*5
     else
       puts "\n"*5

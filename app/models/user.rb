@@ -129,10 +129,11 @@ class User < ActiveRecord::Base
 
   # temporarily sending via LinkedIn. eventually send via email
   def send_completion_notification
-    self.inviting_users.each do |u|
-      message_subject = "Finished the TeamGlide assessment"
-      message_text = "I just finished the personality profile for TeamGlide. \nCheck out the results at www.teamglide.com/#/groups"
-      self.linkedin.send_message(message_subject, message_text, ["3gVtJAMsun"])
+    self.inviting_users.uniq.each do |u|
+      # message_subject = "Finished the TeamGlide assessment"
+      # message_text = "I just finished the personality profile for TeamGlide. \nCheck out the results at www.teamglide.com/#/groups"
+      # self.linkedin.send_message(message_subject, message_text, ["3gVtJAMsun"])
+      msg = UserMailer.invitee_profile_completion(inviting_user: u, invited_user: self)
     end
   end
   handle_asynchronously :send_completion_notification
