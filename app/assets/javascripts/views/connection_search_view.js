@@ -5,7 +5,13 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   spinnerTemplate: JST['misc/spinner'],
 
   events: {
-    "click .reload-contacts":"reloadContacts"
+    "click .reload-contacts":"reloadContacts",
+    "mouseover .glyphicon-refresh":"showToolTip",
+  },
+
+  showToolTip: function(event) {
+    console.log("showing the tooltip");
+    $(event.currentTarget).tooltip('show');
   },
 
   reloadContacts: function() {
