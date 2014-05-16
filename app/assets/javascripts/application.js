@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require twitter/bootstrap
 //= require highcharts-custom
 //= require underscore
 //= require backbone

@@ -8,6 +8,8 @@ gem 'rails', '3.2.15'
 gem 'sqlite3'
 
 
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -20,7 +22,13 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
+
+# for bootstrap
+gem 'therubyracer'  # If using Ruby
+gem 'jquery-ui-rails'
+gem 'less-rails-bootstrap'
 gem 'jquery-rails'
+
 
 gem 'omniauth'
 gem 'omniauth-linkedin'
@@ -33,8 +41,6 @@ gem 'select2-rails'
 gem 'delayed_job_active_record'
 
 gem 'letter_opener'
-# gem 'flatui-rails'
-
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.0.0', require: 'bcrypt'
@@ -46,7 +52,6 @@ gem 'jbuilder'
 # gem 'unicorn'
 
 gem 'nokogiri'
-# gem 'open-uri'
 
 # Deploy with Capistrano
 # gem 'capistrano'
