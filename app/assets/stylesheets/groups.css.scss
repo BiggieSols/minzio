@@ -24,6 +24,7 @@ a:hover {
     position: absolute;
     right: 0;
     line-height: 30px;
+    margin-right: 10%;
   }
 
   .spinner {
@@ -38,6 +39,10 @@ a:hover {
   }
 }
 
+.group-container {
+  margin-left: 3%;
+  margin-right: 3%;
+}
 
 .enable-account-instructions {
   font-size: 0.9em;
@@ -119,6 +124,12 @@ a:hover {
   width: 100%;
   max-width: 80px;
   max-height: 80px;
+}
+
+.user-name-dropdown {
+  padding-top: 14px;
+  // TODO: make this more elegant
+  margin-left: -10%;
 }
 
 .personality-type-available {

@@ -22,7 +22,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   // needs to be overridden in subclasses
   initialize: function() {
     this.placeholder = "Add a group member...";
-    this.width = "180px";
+    this.width = "270px";
   },
 
   _renderAddMemberPopover: function() {
