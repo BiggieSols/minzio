@@ -1,4 +1,16 @@
 Teamprofile::Application.configure do
+
+  ActionMailer::Base.smtp_settings = {
+    :address              => "smtp.mandrillapp.com",
+    :port                 => 25, # ports 587 and 2525 are also supported with STARTTLS
+    :enable_starttls_auto => true, # detects and uses STARTTLS
+    :user_name            => ENV["MANDRILL_USERNAME"],
+    :password             => ENV["MANDRILL_PASSWORD"], # SMTP password is any valid API key
+    :authentication       => 'login', # Mandrill supports 'plain' or 'login'
+    :domain               => 'teamglide.com', # your domain to identify your server when connecting
+  }
+  ActionMailer::Base.delivery_method ||= :smtp
+
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests
