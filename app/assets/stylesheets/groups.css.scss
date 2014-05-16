@@ -42,6 +42,11 @@ a:hover {
 .group-container {
   margin-left: 3%;
   margin-right: 3%;
+
+  .cannot-find-connect-faq a {
+    font-size: 0.8em;
+    text-decoration: none;
+  }
 }
 
 .enable-account-instructions {
