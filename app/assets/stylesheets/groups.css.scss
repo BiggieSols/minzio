@@ -31,14 +31,11 @@ a:hover {
     right: 0;
   // text-align: left;
   // line-height: 48px;
-  img {
-    height: 30px;
-    width: 30px;
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
-}
-
-
-  
 }
 
 
@@ -54,25 +51,31 @@ a:hover {
   .title {
     font-size: 2em;
   }
+
+  #groups-list {
+    margin-left: 2%;
+    margin-right: 2%;
+  }
 }
 
 
-/**/
+.group:hover {
+  background-color: #DDDDDD;
+}
+
 .group {
   position: relative;
 
   font-size: 1.2em;
-  height: 40px;
   border-radius: 5px;
   // margin: 1% 0%;
-  padding-left: 1%;
-  padding-top: 1%;
-  padding-bottom: 1%;
+  padding-top: 20px;
+  padding-bottom: 44px;
 
   .group-name,.group-edit{
-  width:50%; position:absolute;
+    width:50%; position:absolute;
 
-}
+  }
   .group-name {
     left:0;
     margin-left: 10px;
@@ -127,7 +130,7 @@ a:hover {
 }
 
 .active {
-  background-color: #34495E;
+  background-color: #34495E !important;
   color: white;
 }
 
