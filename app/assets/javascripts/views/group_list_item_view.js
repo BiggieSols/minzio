@@ -6,7 +6,13 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
     "click .submit-button":"submitForm",
-    "keydown .change-group-name":"testEscape"
+    "keydown .change-group-name":"testEscape",
+    "mouseover .non-admin":"showToolTip",
+  },
+
+  showToolTip: function(event) {
+    // console.log("got here");
+    $(event.currentTarget).tooltip('show');
   },
 
   initialize: function() {
