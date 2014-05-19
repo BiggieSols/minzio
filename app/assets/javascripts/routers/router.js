@@ -69,7 +69,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
         that._changeActiveNav($('#test-nav'));
 
-        TeamProfile.currentUser.save({build_shadow: true}, {
+        TeamProfile.currentUser.save({build_shadow: true, async: true}, {
           success: function() {
             console.log("pulled down shadow accts!");
           }

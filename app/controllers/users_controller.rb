@@ -46,8 +46,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:build_shadow]
-      puts "\n\n\n\nbuilding shadow accts\n\n\n\n"
+    if params[:build_shadow] && params[:async]
+      puts "\n\n\n\nbuilding shadow accts async\n\n\n\n"
+      current_user.delay.build_shadow_accounts
+      @user = current_user
+      render 'show.json.jbuilder'
+    elsif params[:build_shadow]
+      puts "\n\n\n\nbuilding shadow accts synchronously\n\n\n\n"
       current_user.build_shadow_accounts
       @user = current_user
       render 'show.json.jbuilder'
