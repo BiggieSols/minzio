@@ -19,9 +19,6 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   },
 
   render: function() {
-    // console.log("model is below");
-    // console.log(this.model);
-    // group = this.model
     var renderedContent = this.template({group: this.model});
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
@@ -42,12 +39,12 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     return this;
   },
 
-  removePopovers: function() {
+  _removePopovers: function() {
     $('.popover').remove();
   },
 
   remove: function() {
-    this.removePopovers();
+    this._removePopovers();
     this.groupMembersView.remove();
     this.connectionSearchView.remove();
     return Backbone.View.prototype.remove.call(this);

@@ -1,7 +1,6 @@
 TeamProfile.Views.GroupsView = Backbone.View.extend({
   template: JST['groups/index'],
   newGroupTemplate: JST['groups/new'],
-  groupsListTemplate: JST['groups/list'],
   spinnerTemplate: JST['misc/spinner'],
 
   events: {

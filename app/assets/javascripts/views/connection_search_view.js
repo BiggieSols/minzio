@@ -10,7 +10,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   showToolTip: function(event) {
-    console.log("showing the tooltip");
     $(event.currentTarget).tooltip('show');
   },
 
@@ -37,12 +36,19 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
       if(that.model.get("members").length == 1) {
         var title = "Add a group member";
         var content = "Add your LinkedIn connections to the group! Note that this will send a an invite message via LinkedIn";
-        that.$('.select2-search-field').data("container", "body")
-                                       .data("toggle", "popover")
-                                       .data("placement", "bottom")
-                                       .data("content", content)
-                                       .data("title", title)
-                                       .popover('show');
+        var $container = that.$('.select2-search-field');
+
+        console.log("container is below");
+        console.log($container);
+
+        if($container[0].clientWidth > 0) {
+          $container.data("container", "body")
+                    .data("toggle", "popover")
+                    .data("placement", "bottom")
+                    .data("content", content)
+                    .data("title", title)
+                    .popover('show');
+        }
       }
     }, 500);
     return this;
