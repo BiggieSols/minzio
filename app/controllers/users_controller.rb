@@ -7,11 +7,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    # puts "\n"*5
-    # puts "current_user is below"
-    # puts current_user
-    # puts "\n"*5
-
     if !current_user
       render json: {}
     else

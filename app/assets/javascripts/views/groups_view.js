@@ -9,6 +9,10 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     "click .group":"selectGroup",
   },
 
+  initialize: function() {
+    this.listenTo(this.collection, 'destroy', this._renderGroupsList);
+  },
+
   _renderCreateGroupPopover: function() {
     var that = this;
     setTimeout(function() {
@@ -98,19 +102,11 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   _renderGroupsList: function() {
     var $listContainer = this.$('#groups-list');
     $listContainer.html("");
-
-
     this.collection.forEach(function(group) {
       var groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
       var renderedContent = groupListItemView.render().$el;
       $listContainer.append(renderedContent);
     });
-
-    // var renderedContent = this.groupsListTemplate({
-    //   groups: this.collection
-    // });
-
-    // $listContainer.html(renderedContent);
     return this;
   },
 

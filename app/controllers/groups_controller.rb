@@ -18,11 +18,17 @@ class GroupsController < ApplicationController
   def create
     puts params
     @group = Group.new
-    @group = Group.new(name: params[:group][:name])
+    @group = Group.new(name: params[:group][:name], admin_id: current_user.id)
     @group.members << current_user
     @group.save
     # current_user.groups << @group
     # @group.reload
+    render 'show.json.jbuilder'
+  end
+
+  def destroy
+    @group = Group.find(params[:id])
+    @group.destroy if @group.admin_id == current_user.id
     render 'show.json.jbuilder'
   end
 
