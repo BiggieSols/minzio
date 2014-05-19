@@ -6,6 +6,17 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   events: {
     "submit .new-group-form":"createGroup",
     "click .group":"selectGroup",
+    "click .remove-group-confirm":"removeGroup"
+  },
+
+  removeGroup: function(event) {
+    this.$('.modal').modal("hide");
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    var groupId = this.$('.active').data("id");
+    var group = this.collection.get(groupId);
+    // this._renderGroupsList();
+    group.destroy();
   },
 
   initialize: function() {
@@ -66,10 +77,10 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
     currentGroupId = this.groupView ? this.groupView.model.id : null;
 
+    // temporarily removing this feature. not causing performance issues anyway
     invalidGroupId = !((currentGroupId === null) || (currentGroupId != groupId));
 
-
-    if(!($node.hasClass("editing") || invalidGroupId)) {
+    if(!($node.hasClass("editing"))) {// || invalidGroupId)) {
       console.log("loading new group");
       this._highlight($node);
       TeamProfile.lastSelectedGroup = groupId;

@@ -1,3 +1,24 @@
+<!-- Modal -->
+<!-- move to another parent class -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm group deletion</h4>
+      </div>
+      <div class="modal-body">
+        Do you really want to delete this group?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger remove-group-confirm">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="group" data-id="<%= group.id %>">
   <div class="group-name">
     <%= group.get("name") %>
@@ -8,7 +29,7 @@
     </a>
       <ul class="dropdown-menu dropdown-menu-right" role="menu">
         <li role="presentation" class="edit-button"><a role="menuitem" tabindex="-1">Edit</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1">Delete</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myModal">Delete</a></li>
       </ul>
     </div>
   </div>

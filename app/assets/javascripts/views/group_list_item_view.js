@@ -6,29 +6,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
     "click .submit-button":"submitForm",
-    // "click .modify-group-button":"showDropdown",
     "keydown .change-group-name":"testEscape"
-  },
-
-  showDropdown: function() {
-    console.log("rendering dropdown");
-    console.log(this.$('.dropdown').attr("class"));
-    // this.$('.dropdown').addClass("open");
-    // this.$('.dropdown').addClass("open");
-    this.initializeDropdown();
-  },
-
-  initializeDropdown: function() {
-    this.$('.dropdown').toggleClass("open");
-    // var that = this;
-    // $('.dropdown').click(function(event) {
-    //   event.stopPropagation();
-    // });
-
-    // $('html').click(function() {
-    //   that.$('.dropdown').removeClass("open");
-    // });
-
   },
 
   testEscape: function(e) {
@@ -52,6 +30,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     this.model.save({name: newName}, {
       success: function() {
         that.render().$('.group').click();
+        // that.$('.group').addClass("active");
       }
     });
   },
@@ -59,6 +38,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   renderEditForm: function(event) {
     var renderedContent = this.editGroupTemplate({group: this.model});
     this.$el.html(renderedContent);
+    this.$('.group').addClass("active");
     this.$('.change-group-name').focus();
     return this;
   },

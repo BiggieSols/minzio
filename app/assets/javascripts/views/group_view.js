@@ -25,6 +25,7 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     this._renderGroupMembers();
     return this;
   },
+  
   _renderGroupMembers: function() {
     // if there is only one member in the group, prompt to add more
     var $node = this.$('.group-members');
