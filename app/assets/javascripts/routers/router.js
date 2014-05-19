@@ -38,6 +38,12 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   groups: function() {
     var that = this;
     // TODO: CONVERT GLOBAL VARIABLES TO LOCAL VARIABLES
+
+    if(TeamProfile.groups.collection && TeamProfile.groups.collection.length > 0) {
+      groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
+      this._swapView(groupsView);
+    }
+
     TeamProfile.groups.fetch({
       success: function() {
         groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
