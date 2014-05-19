@@ -33,14 +33,12 @@ class GroupsController < ApplicationController
   end
 
   def update
-    puts "\n"*5
-    puts "group params below"
-    puts params
-    puts "\n"*5
-
     @group = Group.find(params[:id])
-    @group.update_attributes(name: params[:name]) if @group.name != params[:name] 
     
+    if @group.admin_id == current_user.id && @group.name != params[:name] 
+      @group.update_attributes(name: params[:name])
+    end
+
     render 'show.json.jbuilder'
   end
 end
