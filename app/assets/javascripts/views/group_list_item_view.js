@@ -9,6 +9,10 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     "keydown .change-group-name":"testEscape"
   },
 
+  initialize: function() {
+    this.listenToOnce(TeamProfile.currentUser, 'sync', this.render);
+  },
+
   testEscape: function(e) {
     if(e.keyCode == 27) {
       console.log("pressed escape");
@@ -36,7 +40,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   },
 
   renderEditForm: function(event) {
-    var renderedContent = this.editGroupTemplate({group: this.model});
+    var renderedContent = this.editGroupTemplate({group: this.model, currentUser: TeamProfile.currentUser});
     this.$el.html(renderedContent);
     this.$('.group').addClass("active");
     this.$('.change-group-name').focus();

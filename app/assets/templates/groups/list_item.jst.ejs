@@ -23,6 +23,8 @@
   <div class="group-name">
     <%= group.get("name") %>
   </div>
+  <% if(group.get("admin_id") === TeamProfile.currentUser.id) { %>
+
   <div class="group-edit dropdown">
     <a class="modify-group-button" data-toggle="dropdown">
       <span class="glyphicon glyphicon-pencil dropdown-toggle"></span>
@@ -32,5 +34,7 @@
         <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myModal">Delete</a></li>
       </ul>
     </div>
+
+  <% } %>
   </div>
 </div>
