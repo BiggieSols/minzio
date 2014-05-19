@@ -24,3 +24,24 @@ body {
 // a:hover {
 //   color: #1abc9c
 // }
+
+.footer {
+  padding: 0px 50px;
+  margin-top: 3%;
+  background-color: rgb(230, 230, 230);
+
+  .footer-content {
+    text-align: center;
+
+    .footer-item a {
+      color: rgba(44, 62, 80, 0.6);
+      font-size: 0.8em;
+      padding: 0% 2%;
+    }
+
+    .footer-item a:hover {
+      color: #16a085;
+      text-decoration: none;
+    }
+  }
+}
