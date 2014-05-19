@@ -3,21 +3,19 @@
     <%= group.get("name") %>
   </div>
   <div class="group-edit">
-    <a class="edit-button">
+    <a class="modify-group-button">
       <span class="glyphicon glyphicon-pencil"></span>
     </a>
  
-<!--   <div class="dropdown">
-    <button class="btn dropdown-toggle sr-only" type="button" id="dropdownMenu1" data-toggle="dropdown">
-      <span class="glyphicon glyphicon-pencil"></span>  
-    </button>
-    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Action</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Another action</a></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Something else here</a></li>
-      <li role="presentation" class="divider"></li>
-      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Separated link</a></li>
-    </ul>
+    <div class="dropdown">
+
+      <button class="btn dropdown-toggle sr-only" type="button" data-toggle="dropdown">
+        <span class="glyphicon glyphicon-pencil"></span>  
+      </button>
+      <ul class="dropdown-menu dropdown-menu-right" role="menu">
+        <li role="presentation" class="edit-button"><a role="menuitem" tabindex="-1">Edit</a></li>
+        <li role="presentation"><a role="menuitem" tabindex="-1">Delete</a></li>
+      </ul>
+    </div>
   </div>
- --></div>
 </div>

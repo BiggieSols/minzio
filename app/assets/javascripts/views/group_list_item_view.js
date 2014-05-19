@@ -6,7 +6,14 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
     "click .submit-button":"submitForm",
+    "click .modify-group-button":"showDropdown",
     "keydown .change-group-name":"testEscape"
+  },
+
+  showDropdown: function() {
+    console.log("rendering dropdown");
+    console.log(this.$('.dropdown'));
+    this.$('.dropdown').addClass("open");
   },
 
   testEscape: function(e) {

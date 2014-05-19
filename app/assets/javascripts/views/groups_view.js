@@ -45,7 +45,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var groupName = $groupInput.val();
 
     if(groupName !== "") {
-      console.log("group name is "  +  groupName);
+
       var group = new TeamProfile.Models.Group({name: groupName});
 
       group.save({}, {
@@ -64,7 +64,13 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var $node = $(event.currentTarget);
     var groupId = $node.data("id");
 
-    if(!$node.hasClass("editing")) {
+    currentGroupId = this.groupView ? this.groupView.model.id : null;
+
+    invalidGroupId = !((currentGroupId === null) || (currentGroupId != groupId));
+
+
+    if(!($node.hasClass("editing") || invalidGroupId)) {
+      console.log("loading new group");
       this._highlight($node);
       TeamProfile.lastSelectedGroup = groupId;
       this._renderGroupDetails(groupId);//._scrollToGroup();      
@@ -102,7 +108,8 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     var $listContainer = this.$('#groups-list');
     $listContainer.html("");
     this.collection.forEach(function(group) {
-      var groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
+      // var groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
+      groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
       var renderedContent = groupListItemView.render().$el;
       $listContainer.append(renderedContent);
     });
@@ -123,7 +130,6 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
     // clean up event listeners
     if(this.groupView) {
-      console.log("removing group");
       this.groupView.remove();
     }
 
