@@ -6,18 +6,35 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     "click .edit-button":"renderEditForm",
     "submit .edit-group-form":"updateGroup",
     "click .submit-button":"submitForm",
-    "click .modify-group-button":"showDropdown",
+    // "click .modify-group-button":"showDropdown",
     "keydown .change-group-name":"testEscape"
   },
 
   showDropdown: function() {
     console.log("rendering dropdown");
-    console.log(this.$('.dropdown'));
-    this.$('.dropdown').addClass("open");
+    console.log(this.$('.dropdown').attr("class"));
+    // this.$('.dropdown').addClass("open");
+    // this.$('.dropdown').addClass("open");
+    this.initializeDropdown();
+  },
+
+  initializeDropdown: function() {
+    this.$('.dropdown').toggleClass("open");
+    // var that = this;
+    // $('.dropdown').click(function(event) {
+    //   event.stopPropagation();
+    // });
+
+    // $('html').click(function() {
+    //   that.$('.dropdown').removeClass("open");
+    // });
+
   },
 
   testEscape: function(e) {
     if(e.keyCode == 27) {
+      console.log("pressed escape");
+      this.$('.dropdown').removeClass("open");
       this.render();
     }
   },
