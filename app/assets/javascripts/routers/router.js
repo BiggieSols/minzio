@@ -42,6 +42,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
       success: function() {
         groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
         that._swapView(groupsView);
+        that._changeActiveNav($('#groups-nav'));
       }
     });
   },
@@ -59,6 +60,9 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         console.log(quiz);
         var quizView = new TeamProfile.Views.QuizView({model: quiz});
         that._swapView(quizView);
+
+        that._changeActiveNav($('#test-nav'));
+
         TeamProfile.currentUser.save({build_shadow: true}, {
           success: function() {
             console.log("pulled down shadow accts!");
@@ -77,8 +81,14 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
       success: function() {
         var userView = new TeamProfile.Views.UserView({model: user});
         that._swapView(userView);
+        that._changeActiveNav($('#profile-nav'));
       }
     });
+  },
+
+  _changeActiveNav: function($navItem) {
+    $('nav .active').removeClass("active");
+    $navItem.addClass("active");
   },
 
   _swapView: function(view) {

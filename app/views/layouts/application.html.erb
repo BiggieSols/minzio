@@ -31,7 +31,7 @@
 <% if current_user %>
 <body>
   <div id="lightbox"></div>
-  <nav class="navbar navbar-inverse navbar-fixed-top" id="top-nav">
+  <nav class="navbar navbar-default navbar-fixed-top" id="top-nav">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -50,18 +50,16 @@
 
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <span id="friend-search-form">
-            </span>
             <ul class="nav navbar-nav navbar-right">
-              <li>
+              <li id="profile-nav">
                 <%= link_to "Your Profile", "/#/users/#{current_user.id}", class: "top-nav-link" %>
               </li>
 
-              <li>
+              <li id="groups-nav">
                 <%= link_to "Groups", "/#/groups", class: "top-nav-link" %>
               </li>
 
-              <li>
+              <li id="test-nav">
                 <%= link_to "Personality Test", "/#/quiz/4", class: "top-nav-link" %>
               </li>
 
@@ -98,37 +96,6 @@
       </div>
     </div>
 
-<!--     
-    <div class="bottom-menu bottom-menu-inverse">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-2 navbar-brand">
-            <a href="#fakelink" class="fui-flat"></a>
-          </div>
-
-          <div class="col-md-8">
-            <ul class="bottom-links">
-              <li><a href="#fakelink">About Us</a></li>
-              <li><a href="#fakelink">Store</a></li>
-              <li class="active"><a href="#fakelink">Jobs</a></li>
-              <li><a href="#fakelink">Privacy</a></li>
-              <li><a href="#fakelink">Terms</a></li>
-              <li><a href="#fakelink">Follow Us</a></li>
-              <li><a href="#fakelink">Support</a></li>
-              <li><a href="#fakelink">Links</a></li>
-            </ul>
-          </div>
-
-          <div class="col-md-2">
-            <ul class="bottom-icons">
-              <li><a href="#fakelink" class="fui-pinterest"></a></li>
-              <li><a href="#fakelink" class="fui-facebook"></a></li>
-              <li><a href="#fakelink" class="fui-twitter"></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div> 
-    /bottom-menu-inverse -->
+    
   </body>
   </html>
