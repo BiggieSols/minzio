@@ -24,10 +24,40 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // "items": "all_items",
     // "friends":"friends",
     // "onboard":"onboard"
-    "": "home",
-    "users/:id":"user",
-    "quiz/:id":"quiz",
-    "groups":"groups"
+    ""         : "home",
+    "about"    : "about",
+    "contact"  : "contact",
+    "terms"    : "terms",
+    "privacy"  : "privacy",
+    "support"  : "support",
+    "users/:id": "user",
+    "quiz/:id" : "quiz",
+    "groups"   : "groups"
+  },
+
+  about: function() {
+    this._staticPage("about");
+  },
+
+  contact: function() {
+    this._staticPage("contact");
+  },
+
+  terms: function() {
+    this._staticPage("terms");
+  },
+
+  privacy: function() {
+    this._staticPage("privacy");
+  },
+
+  support: function() {
+    this._staticPage("support");
+  },
+
+  _staticPage: function(title) {
+    var staticPageView = new TeamProfile.Views.StaticPageView({pageName: title});
+    this._swapView(staticPageView);
   },
 
   home: function() {
