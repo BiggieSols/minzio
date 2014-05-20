@@ -35,7 +35,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     setTimeout(function() {
       if(that.model.get("members").length == 1) {
         var title = "Add a group member";
-        var content = "Add your LinkedIn connections to the group! Note that this will send a an invite message via LinkedIn";
+        var content = "Invite your LinkedIn connections to the group! <br/><div class='linkedin-warning'>Note: this will send a message via LinkedIn on your behalf</div>";
         var $container = that.$('.select2-search-field');
 
         console.log("container is below");
@@ -47,7 +47,8 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
                     .data("placement", "bottom")
                     .data("content", content)
                     .data("title", title)
-                    .popover('show');
+                    .data("html", true)
+                    .popover('show', {html: true});
         }
       }
     }, 500);
