@@ -6,6 +6,7 @@ class SessionsController < ApplicationController
     log_in! User.from_omniauth(auth_hash)
     # render json: auth_hash
     if current_user.personality_type_id
+      current_user.delay.build_shadow_accounts
       redirect_to "/#/groups"
     else
       redirect_to "/#/how"

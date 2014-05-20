@@ -72,6 +72,7 @@ a:hover {
   #groups-list {
     margin-left: 2%;
     margin-right: 2%;
+    margin-bottom: 5%;
   }
 
   .glyphicon-pencil {
@@ -153,9 +154,6 @@ a:hover {
 //   height: 36px;
 // }
 
-.member-name {
-  font-weight: bold;
-}
 
 .user-photo {
   // width: 75px;
@@ -177,6 +175,14 @@ a:hover {
 }
 
 .group-member {
+  .member-name {
+    font-weight: bold;
+  }
+
+  .member-info {
+    overflow: hidden;
+  }
+
   color: rgba(44, 62, 80, 0.7);
 
   a {
