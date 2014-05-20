@@ -60,40 +60,26 @@ class User < ActiveRecord::Base
 
   def valid_connection_ids
     return @valid_ids if @valid_ids
-    puts "\n\n\n\n\n"
-    puts "retrieving valid connection IDs"
-    puts "\n\n\n\n\n"
-    
+    return [] if !self.connections
+
     @valid_ids = []
     # load all connection IDs
+
     @valid_ids = self.connections.map {|c| c["id"]}
 
     # load all connections in groups
     @valid_ids += self.groups.includes(:members).map(&:member_ids).flatten.uniq
   end
 
-  # def interpreted_mbti_test_result
-  #   questions_per_category = 5 #hard-coded 5 questions
-  #   results = self.mbti_test_result
-  #   result_string = results.keys.map do |key|
-  #     char = results[key] > 0 ? key[0] : key[1]
-  #     magnitude = (results[key].to_f / questions_per_category).abs
-  #     [char, magnitude]
-  #   end
-  # end
-
-  def build_shadow_accounts
+  def build_shadow_accounts    
     linkedin_connects       = self.linkedin.connections["all"]
-
-    # TEMP TO AVOID BUILDING TOO MANY ACCTS
-    # connections = connections[0..1]
-
     linkedin_connects_uids  = linkedin_connects.map {|c| c["id"]}
 
     # "Existing" means users who are already in the database and match the current user's connections' uids
     existing_users_assn     = User.where(uid: linkedin_connects_uids)
     existing_users_hash     = {}
     existing_users_assn.each {|u| existing_users_hash[u.uid] = u}
+
     # reset connections since they will be rebuilt
     self.connections        = []
 

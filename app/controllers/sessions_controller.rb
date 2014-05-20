@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if current_user.personality_type_id
       redirect_to "/#/groups"
     else
-      redirect_to "/#/quiz/4"
+      redirect_to "/#/how"
     end
   end
 

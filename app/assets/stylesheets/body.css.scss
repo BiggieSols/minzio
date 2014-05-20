@@ -5,7 +5,7 @@ body {
   // margin-bottom: 15px;;
 
   a {
-    text-decoration:none;
+    text-decoration:none !important;
   }
 }
 
@@ -44,22 +44,5 @@ body {
       color: #16a085;
       text-decoration: none;
     }
-  }
-}
-
-.static-info-container {
-  padding: 2% 5%;
-}
-
-.support-page {
-  text-align: center;
-
-  .support-title {
-    font-size: 3em;
-    margin-bottom: 3%;
-  }
-
-  .support-details {
-    font-size: 1.2em;
   }
 }

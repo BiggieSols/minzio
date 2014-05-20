@@ -7,36 +7,28 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
     TeamProfile.currentUser.fetch();
     TeamProfile.dummyUser.fetch();
-    // TeamProfile.currentUser = new GiftMe.Models.User({id: "current"});
-
-    // GiftMe.currentUser.fetch();
-    // GiftMe.users.fetch({
-    //   success: function() {
-    //     GiftMe.loadNav();
-    //   }
-    // });
   },
 
   routes: {
-    // "users/:id/recommended": "recommended_items",
-    // "users/:id": "user",
-    // "items/:id": "item",
-    // "items": "all_items",
-    // "friends":"friends",
-    // "onboard":"onboard"
-    ""         : "home",
-    "about"    : "about",
-    "contact"  : "contact",
-    "terms"    : "terms",
-    "privacy"  : "privacy",
-    "support"  : "support",
-    "users/:id": "user",
-    "quiz/:id" : "quiz",
-    "groups"   : "groups"
+    ""           : "home",
+    "how"        : "how",
+    "contact"    : "contact",
+    "terms"      : "terms",
+    "privacy"    : "privacy",
+    "support"    : "support",
+    "users/:id"  : "user",
+    "assessment" : "quiz",
+    "groups"     : "groups"
   },
 
-  about: function() {
-    this._staticPage("about");
+  how: function() {
+    if(TeamProfile.howRedirect) {
+      TeamProfile.howRedirect = false;
+      Backbone.history.navigate("assessment", {trigger: true});
+    } else {
+      var howItWorksView = new TeamProfile.Views.HowItWorksView();
+      this._swapView(howItWorksView);
+    }
   },
 
   contact: function() {
@@ -58,6 +50,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   _staticPage: function(title) {
     var staticPageView = new TeamProfile.Views.StaticPageView({pageName: title});
     this._swapView(staticPageView);
+    this._changeActiveNav($('#none'));
   },
 
   home: function() {
@@ -83,29 +76,35 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     });
   },
 
-  quiz: function(id) {
-    // console.log("attempting to render quiz")
+  quiz: function() {
+    if(!TeamProfile.currentUser.get("name")) {
+      TeamProfile.howRedirect = true;
+      window.location = "/auth/linkedin";
+    } else {
+      var id = 4;
+      var quiz = new TeamProfile.Models.Quiz({id: id});
+      var that = this;
+      quiz.fetch({
+        success: function() {
+          // console.log("fetched the quiz");
+          console.log(quiz);
+          var quizView = new TeamProfile.Views.QuizView({model: quiz});
+          that._swapView(quizView);
 
-    // TODO make this a local var
-    var quiz = new TeamProfile.Models.Quiz({id: id});
-    var that = this;
+          that._changeActiveNav($('#test-nav'));
 
-    quiz.fetch({
-      success: function() {
-        // console.log("fetched the quiz");
-        console.log(quiz);
-        var quizView = new TeamProfile.Views.QuizView({model: quiz});
-        that._swapView(quizView);
+          async = TeamProfile.currentUser.get("connections") ? true : false;
 
-        that._changeActiveNav($('#test-nav'));
-
-        TeamProfile.currentUser.save({build_shadow: true, async: true}, {
-          success: function() {
-            console.log("pulled down shadow accts!");
-          }
-        });
-      }
-    });
+          // if(TeamProfile.currentUser.get("connections")) {
+          //   TeamProfile.currentUser.save({build_shadow: true, async: true}, {});
+          // } else {
+          console.log("async is " + async);
+          TeamProfile.currentUser.save({build_shadow: true, async: async}, {});
+          // }
+        }
+      });
+    }
+    // temporary
   },
 
   // optimize later to pull down all friends 

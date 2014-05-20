@@ -1,3 +1,62 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.static-info-container {
+  padding: 2% 5%;
+}
+
+.support-page {
+  text-align: center;
+
+  .support-title {
+    font-size: 3em;
+    margin-bottom: 3%;
+  }
+
+  .support-details {
+    font-size: 1.2em;
+  }
+}
+
+#how-it-works {
+  text-align: center;
+  .get-started {
+    margin: auto;
+    display: block;
+  }
+
+  .how-segment {
+    margin-bottom: 5%;
+    .how-title {
+      font-size: 3em;
+      margin-bottom: 3%;
+    }
+
+    .how-content {
+      margin-bottom: 10%;
+
+
+      .how-it-works-img {
+        margin: auto;
+        display: block;
+        width: 100%;
+        box-shadow: 0 0 5px #2c3e50;
+        -moz-box-shadow: 0 0 5px #2c3e50;
+        -webkit-box-shadow: 0 0 5px #2c3e50;
+
+        // max-height: 250px;
+      }
+
+      .how-step {
+        font-size: 1.8em;
+      }
+
+      .how-text {
+        font-size: 1.2em;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
