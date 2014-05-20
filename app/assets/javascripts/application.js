@@ -19,6 +19,7 @@
 //= require select2
 //= require teamprofile
 //= require jquery.lazyload.min
+//= require jquery.cookie
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections

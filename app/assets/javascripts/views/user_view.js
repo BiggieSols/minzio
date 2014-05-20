@@ -1,5 +1,4 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
-  template: JST['quizzes/results'],
   template: JST['users/show'],
 
   initialize: function() {
@@ -23,6 +22,10 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   events: {
     "click .switch":"changeCategory",
+  },
+
+  test: function() {
+    console.log("got here");
   },
 
   changeCategory: function(event) {
@@ -66,7 +69,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
-    setTimeout(function() {that._renderDisabledDivs()}, 1000);
+    setTimeout(function() {that._renderDisabledDivs();}, 1000);
+    setTimeout(function() {that._renderGroupPopover();}, 8000);
+    
     return this;
   },
 
@@ -152,10 +157,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       series: [{
         color: "#1abc9c",
         customInfo: "here goes the info",
-        data: this._formattedResults({series: "primary"}),//[-0.2, 0.4, -0.8, 1.0],
+        data: this._formattedResults({series: "primary"}),
         showInLegend: false
       }, {
-        // data: [-0.2, -0.3, -0.4, -0.25],
         color: "#34495e",
         data: this._formattedResults({series: "secondary"}),
         showInLegend: false
@@ -185,5 +189,28 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       series.push(modifiedVal);
     }
     return series;
-  }
+  },
+
+  _renderGroupPopover: function() {
+    var that = this;
+    if($.cookie("newUser") == 1) {
+      $.cookie("newUser", 0);
+      var title = "set up your groups!";
+      var content = "When you're ready, compare results with your co-workers on the \"Groups\" tab";
+      var $container = $('#groups-nav');
+      $container.data("container", "body")
+                .data("toggle", "popover")
+                .data("placement", "bottom")
+                .data("content", content)
+                .data("position", "fixed")
+                .data("title", title)
+                .popover('show');
+
+      // remove the popover on click.
+      $('.popover').on("click", function(e) {
+        $(event.currentTarget).remove();
+      });
+    }
+    return this;
+  },
 });

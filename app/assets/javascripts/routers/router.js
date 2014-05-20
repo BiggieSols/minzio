@@ -114,7 +114,8 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     var user = new TeamProfile.Models.User({id: id});
     user.fetch({
       success: function() {
-        var userView = new TeamProfile.Views.UserView({model: user});
+        // var userView = new TeamProfile.Views.UserView({model: user});
+        userView = new TeamProfile.Views.UserView({model: user});
         that._swapView(userView);
         that._changeActiveNav($('#profile-nav'));
       }
