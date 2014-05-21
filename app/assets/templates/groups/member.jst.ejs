@@ -21,12 +21,20 @@
             <span class="group-admin">
               (admin)
             </span>
-          <% } %>
+          <% } %> 
         </div>
 
         <div class="member-info">
           <%= member.escape("headline") %>
         </div>
+
+      <% if(deletePermitted && personalityType) { %>
+      </a>
+      <br>
+        <div class="group-admin make-admin" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="transfer all admin privileges to <%= member.escape("name").split(" ")[0] %>"><span class="glyphicon glyphicon-transfer"></span> transfer admin</div>
+      <a href="<%= '/#/users/' + member.get("id") %>">
+      <% } %>
+
       </div>
 
       <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
