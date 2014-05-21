@@ -5,7 +5,7 @@
     <a href="<%= '/#/users/' + member.get('id') %>">
       <% } %>
 
-      <div class="group-member">
+      <div class="group-member" data-id="<%= member.id %>">
         <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
           <% if(member.get("image_url")) { %>
           <img src="<%= member.escape('image_url') %>" class="user-photo">
