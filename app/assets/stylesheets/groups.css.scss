@@ -47,6 +47,22 @@ a:hover {
   margin-left: 3%;
   margin-right: 3%;
 
+  .group-member-container {
+    position: relative;
+    .destroy {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-right: 3%;
+      margin-top: 1%;
+      padding: 15px;
+    }
+
+    .destroy:hover {
+      cursor:pointer;
+    }
+  }
+
   .cannot-find-connect-faq a {
     font-size: 0.8em;
     text-decoration: none;
@@ -75,7 +91,7 @@ a:hover {
     margin-bottom: 5%;
   }
 
-  .glyphicon-pencil {
+  .glyphicon-pencil, .glyphicon-remove, .glyphicon-transfer, .make-admin {
     // set pencil to be default color
     color: rgba(44, 62, 80, 0.6);
   }
@@ -135,9 +151,6 @@ a:hover {
     margin-right: 5px !important;
   }
 
-  .non-admin {
-    opacity: 0.3;
-  }
 
   .dropdown-menu {
     min-width: 100px;
@@ -149,6 +162,9 @@ a:hover {
 
 }
 
+.non-admin {
+  opacity: 0.3;
+}
 
 // .new-group-input {
 //   height: 36px;
@@ -179,6 +195,11 @@ a:hover {
     font-weight: bold;
   }
 
+  .group-admin {
+    font-size: 0.9em;
+    font-weight: normal;
+  }
+
   .member-info {
     overflow: hidden;
   }
@@ -199,4 +220,8 @@ a:hover {
   margin-top: 10px;
   font-size: 0.7em;
   font-weight: bold;
+}
+
+.make-admin:hover {
+  cursor: pointer;
 }

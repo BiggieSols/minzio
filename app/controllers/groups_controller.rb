@@ -34,9 +34,15 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    
-    if @group.admin_id == current_user.id && @group.name != params[:name] 
-      @group.update_attributes(name: params[:name])
+
+    admin_param = params[:group][:admin_id]
+
+    current_user_valid  = @group.admin_id == current_user.id
+    valid_admin_id      = !admin_param || @group.member_ids.include?(params[:group][:admin_id].to_i)
+
+    # if @group.admin_id == current_user.id# && @group.name != params[:name] 
+    if current_user_valid && valid_admin_id
+      @group.update_attributes(params[:group])
     end
 
     render 'show.json.jbuilder'

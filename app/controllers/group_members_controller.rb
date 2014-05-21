@@ -14,12 +14,17 @@ class GroupMembersController < ApplicationController
   end
 
   def destroy
+    puts "\n"*5
+    puts "params are: #{params}"
+    puts "\n"*5
     user_id  = params[:user_id]
     group_id = params[:group_id]
     group = Group.find(group_id)
+
+    # server side security check to prevent unauthorized member delete requests
     if group.admin_id == current_user.id
       group_member = GroupMember.find_by_user_id_and_group_id(user_id, group_id)
-      group_member.destroy
+      group_member.destroy #if group_member #(error handling)
     end
     render json: group_member
   end
