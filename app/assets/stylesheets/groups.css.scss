@@ -81,8 +81,8 @@ a:hover {
   }
 
   .active {
+    color: white !important;
     background-color: #1abc9c !important;
-    color: white;
 
     .glyphicon-pencil {
     // make it easier to click the icon
@@ -181,16 +181,6 @@ a:hover {
 
   .member-info {
     overflow: hidden;
-  }
-
-  color: rgba(44, 62, 80, 0.7);
-
-  a {
-    color: rgba(44, 62, 80, 1);
-  }
-
-  a:hover {
-    color: #18bc9c;
   }
 }
 

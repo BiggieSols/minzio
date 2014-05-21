@@ -1,4 +1,4 @@
-* {
+a, li {
   -webkit-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
   -moz-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
   -o-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
@@ -13,7 +13,12 @@ body {
   // margin-bottom: 15px;;
 
   a {
+    color: #16a085;
     text-decoration:none !important;
+  }
+
+  a:hover {
+    color: #16b085;
   }
 }
 
