@@ -1,44 +1,44 @@
-  <% group.get("members").models.forEach(function(member) { %>
-  <% var personalityType = member.get("personality_type").get("title") %>
-  <div class="row">
-    <% if(personalityType) { %>
-    <a href="<%= '/#/users/' + member.get('id') %>">
-      <% } %>
+<% group.get("members").models.forEach(function(member) { %>
+<% var personalityType = member.get("personality_type").get("title") %>
+<div class="row">
+  <% if(personalityType) { %>
+  <a href="<%= '/#/users/' + member.get('id') %>">
+    <% } %>
 
-      <div class="group-member" data-id="<%= member.id %>">
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
-          <% if(member.get("image_url")) { %>
-          <img src="<%= member.escape('image_url') %>" class="user-photo">
-          <% } else { %>
-          <img src="/default_user.png" class="user-photo">
-          <% } %>
+    <div class="group-member" data-id="<%= member.id %>">
+      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+        <% if(member.get("image_url")) { %>
+        <img src="<%= member.escape('image_url') %>" class="user-photo">
+        <% } else { %>
+        <img src="/default_user.png" class="user-photo">
+        <% } %>
+      </div>
+
+      <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5">
+        <div class="member-info member-name">
+          <%= member.escape("name") %>
         </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5">
-          <div class="member-info member-name">
-            <%= member.escape("name") %>
-          </div>
-
-          <div class="member-info">
-            <%= member.escape("headline") %>
-          </div>
+        <div class="member-info">
+          <%= member.escape("headline") %>
         </div>
+      </div>
 
-        <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
-          <% if(personalityType) { %>
-          <div class="personality-type-available">
-            <%= personalityType %>
-          </div>
-          <% } else { %>
-          <div class="no-personality-type">
-            test incomplete
-          </div>
-          <% } %>
-        </div>
+      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
         <% if(personalityType) { %>
-      </a>
-      <% } %>
-    </div>
+        <div class="personality-type-available">
+          <%= personalityType %>
+        </div>
+        <% } else { %>
+        <div class="no-personality-type">
+          test incomplete
+        </div>
+        <% } %>
+      </div>
+      <% if(personalityType) { %>
+    </a>
+    <% } %>
   </div>
-  <hr>
-  <% }) %>
+</div>
+<hr>
+<% }) %>

@@ -1,0 +1,57 @@
+<% var personalityType = member.get("personality_type").get("title") %>
+<div class="row group-member-container">
+  <% if(personalityType) { %>
+  <a href="<%= '/#/users/' + member.get("id") %>">
+    <% } %>
+
+    <div class="group-member" data-id="<%= member.get("id") %>">
+      <div class="col-xs-4 col-sm-4 col-md-3 col-lg-2">
+        <% if(member.get("image_url")) { %>
+        <img src="<%= member.escape('image_url') %>" class="user-photo">
+        <% } else { %>
+        <img src="/default_user.png" class="user-photo">
+        <% } %>
+      </div>
+
+      <div class="col-xs-4 col-sm-4 col-md-5 col-lg-5">
+        <div class="member-info member-name">
+          <%= member.escape("name") %> 
+
+          <% if(isAdmin) { %>
+            <span class="group-admin">
+              (admin)
+            </span>
+          <% } %>
+        </div>
+
+        <div class="member-info">
+          <%= member.escape("headline") %>
+        </div>
+      </div>
+
+      <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2">
+        <% if(personalityType) { %>
+        <div class="personality-type-available">
+          <%= personalityType %>
+        </div>
+        <% } else { %>
+        <div class="no-personality-type">
+          test incomplete
+        </div>
+        <% } %>
+      </div>
+      <% if(personalityType) { %>
+    </a>
+    <% } %>
+  </div>
+  <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"> -->
+  <% if(deletePermitted) { %>
+    <span class="glyphicon glyphicon-remove destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove <%= member.escape("name").split(" ")[0] %> from the group"></span>
+  <% } else if(isCurrentUser) { %>
+    <span class="glyphicon glyphicon-remove destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove yourself from the group"></span>
+  <% } else { %>
+    <span class="glyphicon glyphicon-remove destroy non-admin" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the group admin can remove users"></span>
+  <% } %>
+  <!-- </div> -->
+</div>
+<hr>
