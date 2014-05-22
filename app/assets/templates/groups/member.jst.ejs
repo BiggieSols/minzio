@@ -57,13 +57,13 @@
   </div>
   <!-- <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1"> -->
   <% if(deletePermitted) { %>
-    <span class="glyphicon glyphicon-remove destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove <%= member.escape("name").split(" ")[0] %> from the group"></span>
+    <button class="btn btn-default btn-sm destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove <%= member.escape("name").split(" ")[0] %> from the group"><span class="glyphicon glyphicon-remove"></span></button>
   <% } else if(isCurrentUser && !isAdmin) { %>
-    <span class="glyphicon glyphicon-remove destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove yourself from the group"></span>
+    <button class="btn btn-default btn-sm destroy admin-destroy" data-toggle="tooltip" data-placement="top" title="" data-original-title="remove yourself from the group"><span class="glyphicon glyphicon-remove"></span></button>
   <% } else if(isCurrentUser && isAdmin) { %>
-    <span class="glyphicon glyphicon-remove destroy non-admin" data-toggle="tooltip" data-placement="top" title="" data-original-title="you need to transfer admin privileges before removing yourself!"></span>
+    <button class="btn btn-default btn-sm destroy non-admin" data-toggle="tooltip" data-placement="top" title="" data-original-title="you need to transfer admin privileges before removing yourself!"><span class="glyphicon glyphicon-remove"></span></button>
   <% } else { %>
-    <span class="glyphicon glyphicon-remove destroy non-admin" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the group admin can remove users"></span>
+    <button class="btn btn-default btn-sm destroy non-admin" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the group admin can remove users"><span class="glyphicon glyphicon-remove"></span></button>
   <% } %>
   <!-- </div> -->
 </div>
