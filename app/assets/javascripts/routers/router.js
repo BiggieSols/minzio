@@ -123,6 +123,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   _changeActiveNav: function($navItem) {
+    console.log("changing active nav");
     $('nav .active').removeClass("active");
     $navItem.addClass("active");
   },

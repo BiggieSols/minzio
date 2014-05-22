@@ -20,7 +20,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.collection, 'destroy', this._renderGroupsList);
+    this.listenTo(this.collection, 'sync', this._renderGroupsList);
   },
 
   _renderCreateGroupPopover: function() {
@@ -101,7 +101,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   _highlight: function(node) {
-    $(".active").removeClass("active");
+    $(".groups .active").removeClass("active");
     node.addClass("active");
   },
 
@@ -110,7 +110,6 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this.$el.html(renderedContent);
     this._renderGroupsList()
         ._renderNewGroup()
-        ._selectLastGroup()
         ._renderCreateGroupPopover();
     return this;
   },
@@ -124,7 +123,8 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
       var renderedContent = groupListItemView.render().$el;
       $listContainer.append(renderedContent);
     });
-    return this;
+
+    return this._selectLastGroup();
   },
 
   _renderNewGroup: function() {

@@ -21,8 +21,13 @@ class GroupMembersController < ApplicationController
     group_id = params[:group_id]
     group = Group.find(group_id)
 
-    # server side security check to prevent unauthorized member delete requests
-    if group.admin_id == current_user.id
+    self_removal      = params[:user_id].to_i == current_user.id
+    non_admin_removal = user_id != group.admin_id
+    user_is_admin     = group.admin_id == current_user.id
+
+    # server side security check to prevent unauthorized member delete requests OR deletion of group admin
+    # if group.admin_id == current_user.id && user_id != group.admin_id
+    if non_admin_removal && (user_is_admin || self_removal)
       group_member = GroupMember.find_by_user_id_and_group_id(user_id, group_id)
       group_member.destroy #if group_member #(error handling)
     end

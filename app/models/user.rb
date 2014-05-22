@@ -101,6 +101,7 @@ class User < ActiveRecord::Base
         end
         self.connections << {name: user.name, image_url: user.image_url, id: user.id}
       end
+      self.connections << {name: self.name, image_url: self.image_url, id: self.id}
       self.save
     end
   end
