@@ -104,6 +104,10 @@ a:hover {
     // make it easier to click the icon
     color:white;
     }
+
+    .glyphicon-pencil:hover {
+      color: #2c3e50;
+    }
   }
 }
 
@@ -200,7 +204,7 @@ a:hover {
     font-weight: normal;
   }
 
-  .member-info {
+  .member-info, .no-personality-type {
     overflow: hidden;
   }
 }
