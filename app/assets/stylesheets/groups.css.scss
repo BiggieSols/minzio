@@ -22,9 +22,9 @@ a:hover {
 
   .reload-contacts {
     position: absolute;
-    right: 0;
+    left: 0;
     line-height: 30px;
-    margin-right: 10%;
+    margin-left: 285px;
   }
 
   .spinner {
@@ -47,20 +47,35 @@ a:hover {
   margin-left: 3%;
   margin-right: 3%;
 
+  hr {
+    margin: 0px;
+    // border: 0px;
+  }
+
   .group-member-container {
     position: relative;
+    margin: 0px;
+    border-radius: 5px;
+    padding: 3% 0%;
+
     .destroy {
       position: absolute;
       top: 0;
       right: 0;
-      margin-right: 3%;
-      margin-top: 1%;
+      margin: 0.5%;
+      padding: 3px 7px;
+      // margin-right: 3%;
+      // margin-top: 1%;
       // padding: 15px;
     }
 
     .destroy:hover {
       cursor:pointer;
     }
+  }
+
+  .group-member-container:hover {
+    background-color: #DDDDDD;
   }
 
   .cannot-find-connect-faq a {
@@ -70,8 +85,8 @@ a:hover {
 }
 
 .enable-account-instructions {
-  font-size: 0.9em;
-  padding: 2px 10px;
+  font-size: 0.7em;
+  padding: 3px 0px;
 }
 
 .groups {
