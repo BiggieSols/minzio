@@ -130,13 +130,40 @@ class User < ActiveRecord::Base
   end
   handle_asynchronously :send_completion_notification
 
+  # def set_personality_type
+  #   first_test_attempt = self.personality_type_id.nil?
+
+  #   results_str = ""
+  #   mbti_test_result.each do |types, val|
+  #     results_str += val > 0 ? types[0] : types[1]
+  #   end
+  #   puts "\n"*5
+  #   puts results_str.inspect
+  #   puts "\n"*5
+
+  #   self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
+
+  #   self.send_completion_notification if first_test_attempt
+
+  #   self.save
+  # end
+
+
   def set_personality_type
     first_test_attempt = self.personality_type_id.nil?
 
-    results_str = ""
-    mbti_test_result.each do |types, val|
-      results_str += val > 0 ? types[0] : types[1]
+    results_ordering = {"ei"=>0, "sn"=>1, "tf"=>2, "jp"=>3}
+
+    mbti_results = self.mbti_test_result.to_a.sort do |a, b|
+      results_ordering[a.first] <=>  results_ordering[b.first]
     end
+
+    results_str = ""
+    mbti_results.each do |result|
+      p "result is #{result.last.class}"
+      results_str += result.last > 0 ? result[0][0] : result[0][1]
+    end
+
     puts "\n"*5
     puts results_str.inspect
     puts "\n"*5
@@ -147,6 +174,7 @@ class User < ActiveRecord::Base
 
     self.save
   end
+
 
   def mbti_test_result
     return @results if @results
