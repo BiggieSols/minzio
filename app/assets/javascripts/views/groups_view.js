@@ -92,11 +92,11 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   // causing some rednering errors. turning off for now
-  // _scrollToGroup: function() {
-  //   $('body').animate({
-  //     scrollTop:$('.group-details').offset().top - 50
-  //   }, 'medium');
-  // },
+  _scrollToGroup: function() {
+    $('body').animate({
+      scrollTop:$('.group-details').offset().top - 50
+    }, 'medium');
+  },
 
   _renderGroupDetails: function(groupId) {
     var group = this.collection.get(groupId);
