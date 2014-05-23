@@ -10,7 +10,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.collection, 'sync', this._renderGroupsList);
+    this.listenTo(this.collection, 'change[:title]', this._renderGroupsList);
     this.listenTo(this.collection, 'destroy', this._renderPostGroupRemoval);
   },
 
@@ -124,7 +124,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
       $listContainer.append(renderedContent);
     });
 
-    return this._selectLastGroup();
+    return this;
   },
 
   _renderNewGroup: function() {

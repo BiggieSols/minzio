@@ -24,6 +24,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     var renderedContent = this.template({users: TeamProfile.currentUser.get("connections")});
     this.$el.html(renderedContent);
     this._renderSelect2()._renderAddMemberPopover();
+    console.log("rendering connection search view");
     return this;
   },
 
