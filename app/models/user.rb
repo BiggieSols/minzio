@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     user
   end
 
+  def num_sent_invitations
+    self.sent_invitations.length
+  end
+
   def self.find_by_credentials(params={email: nil, password: nil})
     user = User.find_by_email(params[:email]);
     return user if user && user.is_password?(params[:password])

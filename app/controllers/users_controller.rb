@@ -16,7 +16,7 @@ class UsersController < ApplicationController
         puts "\n"*5
         puts "fetching current user"
         puts "\n"*5
-        @user = User.includes(:personality_type, :groups => [:members]).find(current_user.id)
+        @user = User.includes(:personality_type, :sent_invitations, :groups => [:members]).find(current_user.id)
         render 'show.json.jbuilder'
       elsif current_user.valid_connection_ids.include?(params[:id].to_i)
         puts "\n"*5

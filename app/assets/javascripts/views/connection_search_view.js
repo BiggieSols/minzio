@@ -49,6 +49,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     groupMembership.save({}, {
       success: function() {
         console.log("group membership saved!");
+        that._showPostInviteModal();
+        var num_sent_invitations = TeamProfile.currentUser.get("num_sent_invitations");
+        TeamProfile.currentUser.set("num_sent_invitations", num_sent_invitations + 1);
         that.model.fetch();
       }
     });
@@ -86,7 +89,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
       }
     });
   },
-
 
   _removePopover: function(event) {
     this.$('.select2-search-field').popover("hide");
@@ -132,6 +134,12 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     this.$('.select2-choice').css("padding", "0px 10px");
     this._identifyFieldChanges();
     return this;
+  },
+
+  _showPostInviteModal: function() {
+    if(TeamProfile.currentUser.get("num_sent_invitations") === 0) {
+      $('#first-invite-confirm').modal("show");
+    }
   },
 
   _showToolTip: function(event) {
