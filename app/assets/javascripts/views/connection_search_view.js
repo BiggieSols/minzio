@@ -41,8 +41,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _formAction: function(params) {
-    // console.log("form is taking an action!");
-    // params.item_id = $(event.currentTarget).closest(".item").data("id");
     params.group_id = $('.group-container').data("id");
     console.log(params);
     var groupMembership = new TeamProfile.Models.GroupMember(params);
