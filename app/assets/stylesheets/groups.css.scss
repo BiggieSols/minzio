@@ -30,8 +30,6 @@ a:hover {
   .spinner {
     position: absolute;
     left: 0;
-  // text-align: left;
-  // line-height: 48px;
   img {
     height: 30px;
     width: 30px;
@@ -49,7 +47,6 @@ a:hover {
 
   hr {
     margin: 0px;
-    // border: 0px;
   }
 
   .group-member-container {
@@ -65,9 +62,6 @@ a:hover {
       margin-top: 1%;
       margin-right: 1%;
       padding: 3px 7px;
-      // margin-right: 3%;
-      // margin-top: 1%;
-      // padding: 15px;
     }
 
     .destroy:hover {
@@ -96,7 +90,6 @@ a:hover {
   
   .title {
     font-size: 2em;
-    // margin-left: 3%;
     padding-left: 2%;
     padding-right: 5%;
   }
@@ -135,10 +128,8 @@ a:hover {
 
 .group {
   position: relative;
-
   font-size: 1.2em;
   border-radius: 5px;
-  // margin: 1% 0%;
   padding-top: 20px;
   padding-bottom: 44px;
 
@@ -186,14 +177,8 @@ a:hover {
   opacity: 0.3;
 }
 
-// .new-group-input {
-//   height: 36px;
-// }
-
 
 .user-photo {
-  // width: 75px;
-  // height: 75px;
   height: 100%;
   width: 100%;
   max-width: 80px;
@@ -225,11 +210,6 @@ a:hover {
   }
 }
 
-
-
-// .glyphicon-pencil:hover {
-//   color: #1abc9c;
-// }
 
 .friend-dropdown {
   height: 50px;
