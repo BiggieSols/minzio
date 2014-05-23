@@ -32,12 +32,11 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   _renderCreateGroupPopover: function() {
     var that = this;
-    setTimeout(function() {
+    this.createPopoverTimer = setTimeout(function() {
       if(that.collection.models.length === 0) {
         var title = "step 1: create a group";
         var content = "create a group for you and your colleagues to share your test results";
         that.$('#group-name').data("container", "body")
-                             .data("toggle", "popover")
                              .data("placement", "bottom")
                              .data("content", content)
                              .data("title", title)
@@ -53,6 +52,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   remove: function() {
     this.removePopovers();
+    if(this.createPopoverTimer) clearTimeout(this.createPopoverTimer);
     return Backbone.View.prototype.remove.call(this);
   },
 

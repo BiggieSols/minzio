@@ -7,10 +7,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   events: {
     "click .reload-contacts":"reloadContacts",
     "mouseover .glyphicon-refresh":"showToolTip",
-    "focus .select2-input" :"removePopover"
+    "focus .select2-input" :"_removePopover"
   },
 
-  removePopover: function(event) {
+  _removePopover: function(event) {
     console.log("got here");
     this.$('.select2-search-field').popover("hide");
   },

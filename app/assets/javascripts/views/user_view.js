@@ -70,7 +70,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
     setTimeout(function() {that._renderDisabledDivs();}, 1000);
-    setTimeout(function() {that._renderGroupPopover();}, 8000);
+    // setTimeout(function() {that._renderGroupPopover();}, 8000);
     
     return this;
   },
@@ -193,24 +193,28 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderGroupPopover: function() {
     var that = this;
-    if($.cookie("newUser") == 1) {
+    // if($.cookie("newUser") == 1) {
       $.cookie("newUser", 0);
       var title = "set up your groups!";
-      var content = "When you're ready, compare results with your co-workers on the \"Groups\" tab";
+      var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
       var $container = $('#groups-nav');
       $container.data("container", "body")
-                .data("toggle", "popover")
                 .data("placement", "bottom")
+                .data("trigger", "manual")
                 .data("content", content)
-                .data("position", "fixed")
                 .data("title", title)
+                .data("html", true)
                 .popover('show');
 
+      // fix popover position
+      $('.popover').addClass("popover-fixed");
+      $container.popover("show");
+
       // remove the popover on click.
-      $('.popover').on("click", function(e) {
-        $(event.currentTarget).remove();
+      $('.popover, #groups-nav').on("click", function(e) {
+        $('.popover').remove();
       });
-    }
+    // }
     return this;
   },
 });
