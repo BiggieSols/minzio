@@ -7,6 +7,12 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   events: {
     "click .reload-contacts":"reloadContacts",
     "mouseover .glyphicon-refresh":"showToolTip",
+    "focus .select2-input" :"removePopover"
+  },
+
+  removePopover: function(event) {
+    console.log("got here");
+    this.$('.select2-search-field').popover("hide");
   },
 
   showToolTip: function(event) {
@@ -48,7 +54,8 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
                     .data("content", content)
                     .data("title", title)
                     .data("html", true)
-                    .popover('show', {html: true});
+                    .data("trigger", "manual")
+                    .popover('show');
         }
       }
     }, 500);

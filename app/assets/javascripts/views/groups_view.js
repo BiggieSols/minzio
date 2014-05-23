@@ -21,6 +21,13 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   initialize: function() {
     this.listenTo(this.collection, 'sync', this._renderGroupsList);
+    this.listenTo(this.collection, 'destroy', this._renderPostGroupRemoval);
+  },
+
+  _renderPostGroupRemoval: function() {
+    this._renderGroupsList();
+    this.$('.group-details').html("");
+    this.removePopovers();
   },
 
   _renderCreateGroupPopover: function() {
