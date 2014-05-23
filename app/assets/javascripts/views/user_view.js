@@ -1,6 +1,10 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
   template: JST['users/show'],
 
+  events: {
+    "click .switch":"_changeCategory",
+  },
+
   initialize: function() {
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
     this.rightCategories = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
@@ -20,15 +24,26 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     });
   },
 
-  events: {
-    "click .switch":"changeCategory",
+
+  remove: function() {
+    if(this.this.disabledDivTimeout) clearTimeout(this.this.disabledDivTimeout);
+    if(this.this.groupPromptTimeout) clearTimeout(this.this.groupPromptTimeout);
+    return Backbone.View.prototype.remove.call(this);
   },
 
-  test: function() {
-    console.log("got here");
+  render: function() {
+    if(this.userResultsInfo.get("name")) {
+      return this._renderCallback();
+    } else {
+      this.userResultsInfo.fetch({
+        success: function() {
+          return this._renderCallback();
+        }
+      });
+    }
   },
 
-  changeCategory: function(event) {
+  _changeCategory: function(event) {
     var clickedItem = $(event.currentTarget);
     if(!clickedItem.hasClass("active")) {
       var newCategory = clickedItem.data("category");
@@ -39,16 +54,26 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     }
   },
 
-  render: function() {
-    if(this.userResultsInfo.get("name")) {
-      return this._renderCallback();
+  _formattedResults: function(options) {
+    var result = this.userResultsInfo.get("mbti_test_result");
+    var series = [];
+    for(var key in result){
+      var val = result[key];
+      var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
+      if(options.series === "secondary") {
+        modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
+      }
+      series.push(modifiedVal);
+    }
+    return series;
+  },
+
+  _pointCategory: function(point) {
+    if(point.y < 0) {
+      return point.category;
     } else {
-      this.userResultsInfo.fetch({
-        success: function() {
-          console.log("fetched dummy user data!");
-          return this._renderCallback();
-        }
-      });
+      var idx = this.leftCategories.indexOf(point.category);
+      return this.rightCategories[idx];
     }
   },
 
@@ -69,29 +94,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
-    setTimeout(function() {that._renderDisabledDivs();}, 1000);
-    // setTimeout(function() {that._renderGroupPopover();}, 8000);
+    this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
+    this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
     
-    return this;
-  },
-
-  _renderDisabledDivs: function() {
-    if(this.dummyData === true) {
-      console.log(this.$('#results-chart'));
-      this.$('#results-chart').prepend("<div class='disabled'></div>");
-      this.$('.personality-column').prepend("<div class='disabled'><div class='no-info'>Sorry, " + this.model.get("name") + " hasn't completed the personality profile!</div></div>");
-      this.$('.disabled').each(function(idx, val) {
-        $(val).animate({
-          width: $(val).parent().width(),
-          height: $(val).parent().height()
-        }, 500);
-      });
-    }
-    return this;
-  },
-
-  _renderTraitsTable: function() {
-    this.$('.traits-table').html(this.traitsTableView.render().$el);
     return this;
   },
 
@@ -100,7 +105,6 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     that = this;
     options = options || {};
     var width = options.width || $('#results-chart').width()*0.7;
-    console.log("width is " + width);
 
     this.$('#results-chart').highcharts({
       chart: {
@@ -149,7 +153,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
       tooltip: {
         formatter: function(){
-          return "<b>" + Highcharts.numberFormat(Math.abs(this.point.y)*100, 0) + "% " + that.pointCategory(this.point) + "</b>";
+          return "<b>" + Highcharts.numberFormat(Math.abs(this.point.y)*100, 0) + "% " + that._pointCategory(this.point) + "</b>";
           // return "<b>" + this.point.series.customInfo + "</b>"
         }
       },
@@ -168,32 +172,23 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
-  pointCategory: function(point) {
-    if(point.y < 0) {
-      return point.category;
-    } else {
-      var idx = this.leftCategories.indexOf(point.category);
-      return this.rightCategories[idx];
+  _renderDisabledDivs: function() {
+    if(this.dummyData === true) {
+      this.$('#results-chart').prepend("<div class='disabled'></div>");
+      this.$('.personality-column').prepend("<div class='disabled'><div class='no-info'>Sorry, " + this.model.get("name") + " hasn't completed the personality profile!</div></div>");
+      this.$('.disabled').each(function(idx, val) {
+        $(val).animate({
+          width: $(val).parent().width(),
+          height: $(val).parent().height()
+        }, 500);
+      });
     }
-  },
-
-  _formattedResults: function(options) {
-    var result = this.userResultsInfo.get("mbti_test_result");
-    var series = [];
-    for(var key in result){
-      var val = result[key];
-      var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
-      if(options.series === "secondary") {
-        modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
-      }
-      series.push(modifiedVal);
-    }
-    return series;
+    return this;
   },
 
   _renderGroupPopover: function() {
     var that = this;
-    // if($.cookie("newUser") == 1) {
+    if($.cookie("newUser") == 1) {
       $.cookie("newUser", 0);
       var title = "set up your groups!";
       var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
@@ -214,7 +209,12 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       $('.popover, #groups-nav').on("click", function(e) {
         $('.popover').remove();
       });
-    // }
+    }
+    return this;
+  },
+
+  _renderTraitsTable: function() {
+    this.$('.traits-table').html(this.traitsTableView.render().$el);
     return this;
   },
 });
