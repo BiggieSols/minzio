@@ -4,19 +4,9 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   spinnerTemplate: JST['misc/spinner'],
 
   events: {
-    "submit .new-group-form":"createGroup",
-    "click .group":"selectGroup",
-    "click .remove-group-confirm":"removeGroup"
-  },
-
-  removeGroup: function(event) {
-    this.$('.modal').modal("hide");
-    $('body').removeClass('modal-open');
-    $('.modal-backdrop').remove();
-    var groupId = this.$('.active').data("id");
-    var group = this.collection.get(groupId);
-    // this._renderGroupsList();
-    group.destroy();
+    "submit .new-group-form":"_createGroup",
+    "click .group":"_selectGroup",
+    "click .remove-group-confirm":"_removeGroup"
   },
 
   initialize: function() {
@@ -24,39 +14,22 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this.listenTo(this.collection, 'destroy', this._renderPostGroupRemoval);
   },
 
-  _renderPostGroupRemoval: function() {
-    this._renderGroupsList();
-    this.$('.group-details').html("");
-    this.removePopovers();
-  },
-
-  _renderCreateGroupPopover: function() {
-    var that = this;
-    this.createPopoverTimer = setTimeout(function() {
-      if(that.collection.models.length === 0) {
-        var title = "step 1: create a group";
-        var content = "create a group for you and your colleagues to share your test results";
-        that.$('#group-name').data("container", "body")
-                             .data("placement", "bottom")
-                             .data("content", content)
-                             .data("title", title)
-                             .popover('show');
-      }
-    }, 1000);
-    return this;
-  },
-
-  removePopovers: function() {
-    $('.popover').remove();
-  },
-
   remove: function() {
-    this.removePopovers();
+    this._removePopovers();
     if(this.createPopoverTimer) clearTimeout(this.createPopoverTimer);
     return Backbone.View.prototype.remove.call(this);
   },
 
-  createGroup: function(event) {
+  render: function() {
+    var renderedContent = this.template({groups: this.collection});
+    this.$el.html(renderedContent);
+    this._renderGroupsList()
+        ._renderNewGroup()
+        ._renderCreateGroupPopover();
+    return this;
+  },
+
+  _createGroup: function(event) {
     var that = this;
     var $groupInput = this.$('#group-name');
     event.preventDefault();
@@ -75,24 +48,47 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
         }
       });
     }
-    // console.log(this.$('#group-name').val());
   },
 
-  selectGroup: function(event) {
-    var $node = $(event.currentTarget);
-    var groupId = $node.data("id");
+  _highlight: function(node) {
+    $(".groups .active").removeClass("active");
+    node.addClass("active");
+  },
 
-    currentGroupId = this.groupView ? this.groupView.model.id : null;
+  _removeGroup: function(event) {
+    this.$('.modal').modal("hide");
+    $('body').removeClass('modal-open');
+    $('.modal-backdrop').remove();
+    var groupId = this.$('.active').data("id");
+    var group = this.collection.get(groupId);
+    // this._renderGroupsList();
+    group.destroy();
+  },
 
-    // temporarily removing this feature. not causing performance issues anyway
-    invalidGroupId = !((currentGroupId === null) || (currentGroupId != groupId));
+  _renderCreateGroupPopover: function() {
+    var that = this;
+    this.createPopoverTimer = setTimeout(function() {
+      if(that.collection.models.length === 0) {
+        var title = "step 1: create a group";
+        var content = "create a group for you and your colleagues to share your test results";
+        that.$('#group-name').data("container", "body")
+                             .data("placement", "bottom")
+                             .data("content", content)
+                             .data("title", title)
+                             .popover('show');
+      }
+    }, 1000);
+    return this;
+  },
 
-    if(!($node.hasClass("editing"))) {// || invalidGroupId)) {
-      console.log("loading new group");
-      this._highlight($node);
-      TeamProfile.lastSelectedGroup = groupId;
-      this._renderGroupDetails(groupId);//._scrollToGroup();      
-    }
+  _removePopovers: function() {
+    $('.popover').remove();
+  },
+
+  _renderPostGroupRemoval: function() {
+    this._renderGroupsList();
+    this.$('.group-details').html("");
+    this._removePopovers();
   },
 
   // causing some rednering errors. turning off for now
@@ -102,24 +98,21 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   //   }, 'medium');
   // },
 
-  _selectFirstGroup: function() {
-    var group = this.$('.group').eq(0);
-    group.click();
-  },
+  _renderGroupDetails: function(groupId) {
+    var group = this.collection.get(groupId);
+    var $groupDetails = this.$('.group-details');
+    $groupDetails.html(this.spinnerTemplate());
 
-  _highlight: function(node) {
-    $(".groups .active").removeClass("active");
-    node.addClass("active");
-  },
+    // clean up event listeners
+    if(this.groupView) {
+      this.groupView.remove();
+    }
 
-  render: function() {
-    var renderedContent = this.template({groups: this.collection});
-    this.$el.html(renderedContent);
-    this._renderGroupsList()
-        ._renderNewGroup()
-        ._renderCreateGroupPopover();
+    this.groupView = new TeamProfile.Views.GroupView({model: group});
+    $groupDetails.html(this.groupView.render().$el);
     return this;
   },
+
 
   _renderGroupsList: function() {
     var $listContainer = this.$('#groups-list');
@@ -141,19 +134,25 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     return this;
   },
 
-  _renderGroupDetails: function(groupId) {
-    var group = this.collection.get(groupId);
-    var $groupDetails = this.$('.group-details');
-    $groupDetails.html(this.spinnerTemplate());
+  _selectFirstGroup: function() {
+    var group = this.$('.group').eq(0);
+    group.click();
+  },
 
-    // clean up event listeners
-    if(this.groupView) {
-      this.groupView.remove();
+  _selectGroup: function(event) {
+    var $node = $(event.currentTarget);
+    var groupId = $node.data("id");
+
+    currentGroupId = this.groupView ? this.groupView.model.id : null;
+
+    // temporarily removing this feature. not causing performance issues anyway
+    invalidGroupId = !((currentGroupId === null) || (currentGroupId != groupId));
+
+    if(!($node.hasClass("editing"))) {// || invalidGroupId)) {
+      this._highlight($node);
+      TeamProfile.lastSelectedGroup = groupId;
+      this._renderGroupDetails(groupId);//._scrollToGroup();      
     }
-
-    this.groupView = new TeamProfile.Views.GroupView({model: group});
-    $groupDetails.html(this.groupView.render().$el);
-    return this;
   },
 
   _selectLastGroup: function() {
