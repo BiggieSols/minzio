@@ -130,17 +130,12 @@ class User < ActiveRecord::Base
   end
   handle_asynchronously :send_completion_notification
 
+
   def set_personality_type
     first_test_attempt = self.personality_type_id.nil?
 
-    results_ordering = {"ei"=>0, "sn"=>1, "tf"=>2, "jp"=>3}
-
-    mbti_results = self.mbti_test_result.to_a.sort do |a, b|
-      results_ordering[a.first] <=>  results_ordering[b.first]
-    end
-
     results_str = ""
-    mbti_results.each do |result|
+    self.mbti_test_result.each do |result|
       p "result is #{result.last.class}"
       results_str += result.last > 0 ? result[0][0] : result[0][1]
     end
@@ -158,16 +153,22 @@ class User < ActiveRecord::Base
 
 
   def mbti_test_result
-    return @results if @results
+    return @results_arr if @results_arr
 
-    @results = Hash.new {|h, k| h[k] = 0}
+    results_hash = Hash.new {|h, k| h[k] = 0}
 
     self.answers.each do |answer|
       answer_result = answer.result_calc
       key = answer_result.keys.first
-      @results[key] += answer_result[key]
+      results_hash[key] += answer_result[key]
     end
-    @results
+
+    results_ordering = {"ei"=>0, "sn"=>1, "tf"=>2, "jp"=>3}
+
+    @results_arr = results_hash.to_a.sort do |a, b|
+      results_ordering[a.first] <=>  results_ordering[b.first]
+    end
+    @results_arr
   end 
 
   def set_session_token

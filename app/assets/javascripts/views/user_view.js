@@ -57,14 +57,23 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   _formattedResults: function(options) {
     var result = this.userResultsInfo.get("mbti_test_result");
     var series = [];
-    for(var key in result){
-      var val = result[key];
+    // for(var key in result){
+    //   var val = result[key];
+    //   var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
+    //   if(options.series === "secondary") {
+    //     modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
+    //   }
+    //   series.push(modifiedVal);
+    // }
+    
+    result.forEach(function(result) {
+      var val = result[1];
       var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
       if(options.series === "secondary") {
         modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
       }
       series.push(modifiedVal);
-    }
+    });
     return series;
   },
 
