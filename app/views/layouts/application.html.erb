@@ -51,7 +51,9 @@
             <ul class="nav navbar-nav navbar-right">
               <% if current_user %>
               <li id="profile-nav">
-                <%= link_to "Your Profile", "/#/users/#{current_user.id}", class: "top-nav-link" %>
+                <a href="<%= "/#/users/#{current_user.id}" %>" class="top-nav-link top-nav-img-link">
+                  <img src="<%= current_user.image_url %>" class="nav-img ">  <%= current_user.name.split.first %>
+                </a>
               </li>
 
               <li id="groups-nav">

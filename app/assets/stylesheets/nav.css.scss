@@ -14,6 +14,25 @@
   font-size: 2em;
 }
 
+.nav-img {
+  max-height: 25px;
+}
+
+.top-nav-link {
+  margin-bottom: -5px;
+}
+
+a:hover {
+  img {
+    box-shadow: 0 0 4px #18BC9C;
+  }
+}
+
+.top-nav-img-link {
+  padding-top: 20px !important;
+  height: 60px;
+}
+
 // .navbar-header .navbar-brand:hover {
 //   color: #1abc9c;
 // }
