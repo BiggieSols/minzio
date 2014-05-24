@@ -1,25 +1,49 @@
 class UserMailer < ActionMailer::Base
   default from: "sol@teamglide.com"
+  default url:  "http://www.teamglide.com"
 
   def welcome_email(user)
     @user           = user
     @url            = 'http://www.teamglide.com'
-    mail(to: user.email, subject: 'Welcome to TeamGlide!')
+    mail(to: user.email, subject: 'Welcome to MindSparrow!')
   end
 
 
-  def group_invitation(from_user, to_user, group)
-    @from_user      = from_user
-    @to_user        = to_user
-    @group          = group
-    @url            = 'http://www.teamglide.com'
-    mail(to: to_user.email, subject: 'Welcome to TeamGlide!')
+  def group_invitation(params = {from_user: nil, to_user: nil, group: nil})
+    puts "\n"
+    puts params[:to_user]
+    puts "\n"
+    @from_user      = params[:from_user]
+    @to_user        = params[:to_user]
+    @group          = params[:group]
+    mail(to: @to_user.email, subject: "#{@to_user.name} added you to a group on MindSparrow")
   end
 
-  def invitee_profile_completion(params)
+  def group_removal(params = {from_user: nil, to_user: nil, group: nil})
+    @from_user      = params[:from_user]
+    @to_user        = params[:to_user]
+    @group          = params[:group]
+    mail(to: @to_user.email, subject: "You've been removed from a group on MindSparrow")
+  end
+
+  def group_deleted(params = {from_user: nil, to_user: nil, group: nil})
+    @from_user      = params[:from_user]
+    @to_user        = params[:to_user]
+    @group          = params[:group]
+    mail(to: @to_user.email, subject: "your group was deleted on Mindsparrow")
+  end
+
+  def admin_transfer(params = {from_user: nil, to_user: nil, group: nil})
+    @from_user      = params[:from_user]
+    @to_user        = params[:to_user]
+    @group          = params[:group]
+    mail(to: @to_user.email, subject: "You are now the admin for '#{@group.name}' on MindSparrow")
+  end
+
+  def invitee_profile_completion(params = {inviting_user: nil, invited_user: nil})
     puts params
     @inviting_user  = params[:inviting_user]
     @invited_user   = params[:invited_user]
-    mail(to: @inviting_user.email, subject: "New personality results available for #{@invited_user.name}!")
+    mail(to: @inviting_user.email, subject: "#{@invited_user.name} has new personality results on MindSparrow")
   end
 end

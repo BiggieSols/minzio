@@ -17,6 +17,12 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
 
   initialize: function() {
     this.listenToOnce(TeamProfile.currentUser, 'sync', this.render);
+    this.listenTo(this.model, 'change', this._renderAndSelect);
+  },
+
+  _renderAndSelect: function() {
+    console.log("got to render and select call");
+    this.render().$('.group').click();
   },
 
   testEscape: function(e) {
@@ -37,12 +43,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
     event.preventDefault();
     var newName = this.$('.change-group-name').val();
     var that = this;
-    this.model.save({name: newName}, {
-      success: function() {
-        that.render().$('.group').click();
-        // that.$('.group').addClass("active");
-      }
-    });
+    this.model.save({name: newName}, {});
   },
 
   renderEditForm: function(event) {

@@ -8,14 +8,13 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
   },
 
   events: {
-    "click .admin-destroy":"removeMember",
-    "mouseenter .destroy":"showTooltip",
-    "mouseenter .make-admin":"showTooltip",
-    "click .make-admin":"confirmAdminTransfer",
-    // "mouseleave .destroy":"hideTooltip"
+    "click .admin-destroy":"_removeMember",
+    "mouseenter .destroy":"_showTooltip",
+    "mouseenter .make-admin":"_showTooltip",
+    "click .make-admin":"_confirmAdminTransfer",
   },
 
-  confirmAdminTransfer: function() {
+  _confirmAdminTransfer: function() {
     $('#transfer-modal .modal-body').html("Are you sure you want to transfer all admin privileges to " + this.model.get("name") + "? You will no longer be the admin for this group!");
     $('#transfer-modal').modal("show");
 
@@ -26,7 +25,7 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
     });
   },
 
-  showTooltip: function(event) {
+  _showTooltip: function(event) {
     // if(!this.toolTipActive) {
       // this.toolTipActive = true;
       $(event.currentTarget).tooltip("show");
@@ -36,19 +35,10 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
   _transferAdmin: function() {
     console.log("got here");
     $('#transfer-modal').modal("hide");
-
-    // $('body').removeClass('modal-open');
-    // $('.modal-backdrop').remove();
-
-    this.group.set("admin_id", this.model.get("id"));
-    this.group.save();
+    this.group.save({admin_id: this.model.get("id")});
   },
 
-  // throttledAdminTransfer: function() {
-  //   return _.throttle(this._transferAdmin, 5000).bind(this);
-  // },
-
-  removeMember: function() {
+  _removeMember: function() {
     var that = this;
     var user_id = this.model.get("id");
     var group_id = $('.group-member-container').eq(0).closest('.group-container').data("id");

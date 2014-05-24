@@ -30,6 +30,12 @@ class GroupMembersController < ApplicationController
     if non_admin_removal && (user_is_admin || self_removal)
       group_member = GroupMember.find_by_user_id_and_group_id(user_id, group_id)
       group_member.destroy #if group_member #(error handling)
+
+      # TODO: move this to a separate removal class?
+      if User.find(user_id).account_active && user_id.to_i != current_user.id #don't send message for self-removal from group
+        UserMailer.delay.group_removal(from_user: current_user, to_user: User.find(user_id), group: Group.find(group_id))
+      end
+
     end
     render json: group_member
   end

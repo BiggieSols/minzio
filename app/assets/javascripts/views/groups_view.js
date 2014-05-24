@@ -10,13 +10,24 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.listenTo(this.collection, 'change[:title]', this._renderGroupsList);
+    // this.listenTo(this.collection, 'change[:name]', this._renderGroupsList);
+    this.groupListItems = [];
     this.listenTo(this.collection, 'destroy', this._renderPostGroupRemoval);
+
+  },
+
+  test: function() {
+    alert("test succeeded!");
   },
 
   remove: function() {
     this._removePopovers();
     if(this.createPopoverTimer) clearTimeout(this.createPopoverTimer);
+
+    this.groupListItems.forEach(function(view) {
+      view.remove();
+    });
+    
     return Backbone.View.prototype.remove.call(this);
   },
 
@@ -115,11 +126,13 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
 
   _renderGroupsList: function() {
+    var that = this;
     var $listContainer = this.$('#groups-list');
     $listContainer.html("");
     this.collection.forEach(function(group) {
       // var groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
       groupListItemView = new TeamProfile.Views.GroupListItemView({model: group});
+      that.groupListItems.push(groupListItemView);
       var renderedContent = groupListItemView.render().$el;
       $listContainer.append(renderedContent);
     });
