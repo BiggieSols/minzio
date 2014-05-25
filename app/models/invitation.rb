@@ -1,6 +1,7 @@
+
 class Invitation < ActiveRecord::Base
   # attr_accessible :title, :body
-  attr_accessible :from_user_id, :to_user_id, :group_id, :message
+  attr_accessible :from_user_id, :to_user_id, :group_id, :message, :message_sent
 
   belongs_to :sending_user,   foreign_key: :from_user_id, class_name: "User"
   belongs_to :receiving_user, foreign_key: :to_user_id,   class_name: "User"
@@ -35,6 +36,6 @@ class Invitation < ActiveRecord::Base
       end
     end
   end
-  # handle_asynchronously :send_message
+  handle_asynchronously :send_message
 
 end

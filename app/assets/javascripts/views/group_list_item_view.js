@@ -17,7 +17,8 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
 
   initialize: function() {
     this.listenToOnce(TeamProfile.currentUser, 'sync', this.render);
-    this.listenTo(this.model, 'change', this._renderAndSelect);
+    this.listenTo(this.model, 'change:name', this._renderAndSelect);
+    this.listenTo(this.model, 'change:admin_id', this._renderAndSelect);
   },
 
   _renderAndSelect: function() {
