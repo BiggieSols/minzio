@@ -58,6 +58,8 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
           that._selectFirstGroup();
         }
       });
+    } else {
+      this.$('#group-name').focus();
     }
   },
 
