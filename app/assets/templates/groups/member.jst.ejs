@@ -15,21 +15,18 @@
 
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
         <div class="member-info member-name">
-          <% if(isAdmin) { %>
-            <span class="glyphicon glyphicon-star"></span> 
-          <% } %> 
           <%= member.escape("name") %> 
-
-          <% if(isAdmin) { %>
-            <span class="group-admin">
-              (admin)
-            </span>
-          <% } %> 
         </div>
 
         <div class="member-info">
           <%= member.escape("headline") %>
         </div>
+          <% if(isAdmin) { %>
+            <div class="group-admin">
+              <span class="label label-default"><span class="glyphicon glyphicon-star"></span> admin</span>
+            </div>
+          <% } %> 
+
 
       <% if(deletePermitted && personalityType) { %>
       </a>
