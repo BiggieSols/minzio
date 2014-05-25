@@ -14,12 +14,18 @@
   font-size: 2em;
 }
 
+.brand {
+  max-width: 200px;
+  margin-top: -12px;
+}
+
 .nav-img {
   max-height: 25px;
 }
 
 .top-nav-link {
   margin-bottom: -5px;
+  font-weight: bold;
 }
 
 a:hover {

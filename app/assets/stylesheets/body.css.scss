@@ -1,14 +1,17 @@
 a, li, img {
-  -webkit-transition: all 0.2s ease-in-out, width 0, height 0, top 0, left 0;
-  -moz-transition: all 0.2s ease-in-out, width 0, height 0, top 0, left 0;
-  -o-transition: all 0.2s ease-in-out, width 0, height 0, top 0, left 0;
-  transition: all 0.2s ease-in-out, width 0, height 0, top 0, left 0; 
+  -webkit-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  -moz-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  -o-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0; 
 }
 
 body {
-  background-color: rgb(220, 220, 220) !important;
+  background-color: #f2f2f2 !important;
   margin-top: 85px;
   padding-bottom: 60px;
+  color: #555 !important;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
 
   a {
     color: #16a085;
@@ -17,6 +20,11 @@ body {
 
   a:hover {
     color: #16c085;
+  }
+
+  .container-fluid {
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 

@@ -27,9 +27,10 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-fixed-top" id="top-nav">
+  <nav class="navbar navbar-inverse navbar-fixed-top" id="top-nav">
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-10 col-md-offset-1">
@@ -42,8 +43,9 @@
             </button>
 
             <a class="navbar-brand" href="/#/items">
-              <% #image_tag 'EggsBook_logo_transparent_background.png', class: "brand" %>
-              TeamProfile
+              <% # image_tag 'mind_sparrow_logo.png', class: "brand" %>
+              <!-- MindSparrow -->
+              <img src="mind_sparrow_logo.png" class="brand">
             </a>
 
           </div>
@@ -69,7 +71,7 @@
               </li>
               <% else %>
               <li>
-                <%= link_to("Sign in with LinkedIn", "/auth/linkedin", class: "top-nav-link")%>
+                <%= link_to("Already a member?", "/auth/linkedin", class: "top-nav-link")%>
               </li>
               <% end %>
             </ul>
