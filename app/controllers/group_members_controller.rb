@@ -14,7 +14,7 @@ class GroupMembersController < ApplicationController
       User.find(user_id).touch
       group_member = GroupMember.create(user_id: user_id, group_id: group_id)
       invite = Invitation.create(from_user_id: current_user.id, to_user_id: user_id, group_id: params[:group_id], message: message_text)
-      invite.send_message
+      invite.handle_message
       render json: group_member
     end
   end

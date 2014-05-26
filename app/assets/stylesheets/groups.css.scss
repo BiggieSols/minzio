@@ -6,19 +6,24 @@ a:hover {
   cursor:pointer;
 }
 
-.invisible {
-  display: none;
-}
-
 #add-connections {
   .connection-container {
     height: 50px;
     position: relative;    
   }
 
-  .linkedin-msg-text {
-    height: 100px !important;
-    color: #555;
+  .linkedin-msg-container {
+    display: none;
+    .linkedin-msg-subject {
+      // height: 100px !important;
+      font-weight: bold;
+      color: #555;
+    }
+
+    .linkedin-msg-text {
+      height: 100px !important;
+      color: #555;
+    }    
   }
 
   #connection-search {
@@ -87,6 +92,7 @@ a:hover {
 }
 
 .enable-account-instructions {
+  display: none;
   font-size: 0.7em;
   padding: 3px 0px;
 }

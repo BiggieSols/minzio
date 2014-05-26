@@ -56,9 +56,11 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
       success: function() {
         console.log("group membership saved!");
         that._showPostInviteModal();
-        
+
         // change the default message text
-        that.$(".linkedin-msg-text").css("display", "none").html(params.message_text);
+        that.$(".linkedin-msg-text").html(params.message_text);
+        that.$(".linkedin-msg-container").slideUp();
+
         var num_sent_invitations = TeamProfile.currentUser.get("num_sent_invitations");
         TeamProfile.currentUser.set("num_sent_invitations", num_sent_invitations + 1);
         that.model.fetch();
@@ -103,7 +105,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     this.$('.select2-search-field').popover("hide");
 
     // also make sure message text is visible
-    this.$(".linkedin-msg-text").slideDown();
+    this.$(".linkedin-msg-container").slideDown();
   },
 
   _renderAddMemberPopover: function() {
@@ -160,6 +162,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
   _toggleMessageText: function(event) {
     console.log("got here");
-    $(".linkedin-msg-text").slideToggle();
+    $(".linkedin-msg-container").slideToggle();
   }
 });
