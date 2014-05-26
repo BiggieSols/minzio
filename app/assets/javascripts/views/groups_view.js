@@ -36,7 +36,8 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this.$el.html(renderedContent);
     this._renderGroupsList()
         ._renderNewGroup()
-        ._renderCreateGroupPopover();
+        ._renderCreateGroupPopover()
+        ._selectLastGroup();
     return this;
   },
 
