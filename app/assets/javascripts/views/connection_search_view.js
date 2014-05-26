@@ -5,9 +5,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   spinnerTemplate: JST['misc/spinner'],
 
   events: {
-    "click .reload-contacts":"_reloadContacts",
-    "mouseover .glyphicon-refresh":"_showToolTip",
-    "focus .select2-input" :"_removePopover"
+    "click      .reload-contacts"                             :"_reloadContacts",
+    "click      .default-message-dropdown"                    :"_toggleMessageText",
+    "focus      .select2-input"                               :"_removePopover",
+    "mouseover  .glyphicon-question-sign, .glyphicon-refresh" :"_showToolTip",
   },
 
   initialize: function() {
@@ -21,7 +22,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   render: function() {
-    var renderedContent = this.template({users: TeamProfile.currentUser.get("connections")});
+    var renderedContent = this.template({
+      users: TeamProfile.currentUser.get("connections"),
+      group: this.model
+    });
     this.$el.html(renderedContent);
     this._renderSelect2()._renderAddMemberPopover();
     console.log("rendering connection search view");
@@ -42,7 +46,8 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _formAction: function(params) {
-    params.group_id = $('.group-container').data("id");
+    params.group_id     = $('.group-container').data("id");
+    params.message_text = this.$('.linkedin-msg-text').val();
     console.log(params);
     var groupMembership = new TeamProfile.Models.GroupMember(params);
 
@@ -51,6 +56,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
       success: function() {
         console.log("group membership saved!");
         that._showPostInviteModal();
+        
+        // change the default message text
+        that.$(".linkedin-msg-text").css("display", "none").html(params.message_text);
         var num_sent_invitations = TeamProfile.currentUser.get("num_sent_invitations");
         TeamProfile.currentUser.set("num_sent_invitations", num_sent_invitations + 1);
         that.model.fetch();
@@ -93,6 +101,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
   _removePopover: function(event) {
     this.$('.select2-search-field').popover("hide");
+
+    // also make sure message text is visible
+    this.$(".linkedin-msg-text").slideDown();
   },
 
   _renderAddMemberPopover: function() {
@@ -146,4 +157,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _showToolTip: function(event) {
     $(event.currentTarget).tooltip('show');
   },
+
+  _toggleMessageText: function(event) {
+    console.log("got here");
+    $(".linkedin-msg-text").slideToggle();
+  }
 });

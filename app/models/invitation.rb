@@ -27,12 +27,12 @@ class Invitation < ActiveRecord::Base
         puts "sending LinkedIn message"
         puts "\n"*5
         message_subject = "Join me on TeamProfile"
-        message_text = "I just added you to my group '#{group.name}' on TeamProfile. \nWill you take 2 minutes to create an account and join me so we can see each others' work personality profile results?\n http://www.teamprofile.com"
+        message_text = self.message#"I just added you to my group '#{group.name}' on TeamProfile. \nWill you take 2 minutes to create an account and join me so we can see each others' work personality profile results?\n http://www.teamprofile.com"
 
         # TO TEST, SEND ALL MESSAGES TO MY TEST ACCOUNT (user_id: 3)
         # dummy uid is for Sol Garger's primary linkedin account
         sending_user.linkedin.send_message(message_subject, message_text, ["3gVtJAMsun"])
-        self.update_attributes(message: message_text)
+        # self.update_attributes(message: message_text)
       end
     end
   end
