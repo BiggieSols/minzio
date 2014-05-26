@@ -200,7 +200,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     if($.cookie("newUser") == 1) {
       $.cookie("newUser", 0);
       // var title = "set up your groups!";
-      var title =  '<span class="popover-title">set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
+      var title = "Set up your groups!"; //'<span class="popover-title">set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
       var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
       var $container = $('#groups-nav');
       $container.data("container", "body")
