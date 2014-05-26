@@ -14,6 +14,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   initialize: function() {
     this.placeholder = "Add a group member...";
     this.width = "270px";
+
+    // used to prevent additional sliding down of linkedin info
+    this.usersAdded = false;
   },
 
   remove: function() {
@@ -46,12 +49,16 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _formAction: function(params) {
-    params.group_id     = $('.group-container').data("id");
-    params.message_text = this.$('.linkedin-msg-text').val();
+    params.group_id         = $('.group-container').data("id");
+    params.message_subject  = this.$('.linkedin-msg-subject').val();
+    params.message_text     = this.$('.linkedin-msg-text').val();
+    var groupMembership     = new TeamProfile.Models.GroupMember(params);
+    this.usersAdded         = true;
+    var that                = this;
     console.log(params);
-    var groupMembership = new TeamProfile.Models.GroupMember(params);
 
-    var that = this;
+    // that.$(".linkedin-msg-container").slideUp("fast");
+
     groupMembership.save({}, {
       success: function() {
         console.log("group membership saved!");
@@ -59,7 +66,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
         // change the default message text
         that.$(".linkedin-msg-text").html(params.message_text);
-        that.$(".linkedin-msg-container").slideUp();
 
         var num_sent_invitations = TeamProfile.currentUser.get("num_sent_invitations");
         TeamProfile.currentUser.set("num_sent_invitations", num_sent_invitations + 1);
@@ -103,9 +109,14 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
   _removePopover: function(event) {
     this.$('.select2-search-field').popover("hide");
+    this._showLinkedinMsg();
+  },
 
-    // also make sure message text is visible
-    this.$(".linkedin-msg-container").slideDown();
+  _showLinkedinMsg: function() {
+    if (this.$('.linkedin-msg-container').css("display") === "none" && this.usersAdded === false) {
+      console.log("showing the message");
+      this.$(".linkedin-msg-container").slideDown();
+    }
   },
 
   _renderAddMemberPopover: function() {

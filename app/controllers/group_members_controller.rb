@@ -1,9 +1,10 @@
 class GroupMembersController < ApplicationController
   def create
     puts params
-    user_id       = params[:user_id]
-    group_id      = params[:group_id]
-    message_text  = params[:message_text]
+    user_id           = params[:user_id]
+    group_id          = params[:group_id]
+    message_text      = params[:message_text]
+    message_subject   = params[:message_subject]
 
     # clean message text
     if !message_text.downcase.index("www.mindsparrow.com")
@@ -13,7 +14,14 @@ class GroupMembersController < ApplicationController
     ActiveRecord::Base.transaction do
       User.find(user_id).touch
       group_member = GroupMember.create(user_id: user_id, group_id: group_id)
-      invite = Invitation.create(from_user_id: current_user.id, to_user_id: user_id, group_id: params[:group_id], message: message_text)
+
+      invite = Invitation.create( 
+                                  from_user_id: current_user.id, 
+                                  to_user_id: user_id, 
+                                  group_id: params[:group_id], 
+                                  message: message_text, 
+                                  subject: message_subject
+                                )
       invite.handle_message
       render json: group_member
     end
