@@ -1,9 +1,15 @@
+// testing no curved edges design
+* {
+  border-radius: 0px !important;
+}
+
 a, li, img {
   -webkit-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
   -moz-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
   -o-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
   transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0; 
 }
+
 
 body {
   background-color: #f2f2f2 !important;

@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.flush-right {
+  padding-right: 0;
+  margin-right: 0;
+}
+
 a:hover {
   cursor:pointer;
 }
@@ -108,10 +114,18 @@ a:hover {
   }
 
   #groups-list {
-    margin-left: 2%;
+    margin-left: 5%;
     margin-right: 2%;
     margin-bottom: 5%;
   }
+
+  @media (max-width: 767px) {
+    #groups-list {
+      margin-left: 2%;
+      margin-right: 5%;
+    }
+  }
+
 
   .glyphicon-pencil, .glyphicon-remove, .glyphicon-transfer, .make-admin {
     // set pencil to be default color
@@ -165,7 +179,7 @@ a:hover {
     left: 0;
     width: 75%;
     margin: 0px;
-    margin-left: 4px;
+    margin-left: 6px;
   }
 
   .update-buton,.submit-button{
@@ -173,6 +187,8 @@ a:hover {
     right: 0 !important;
     width: 20%;
     margin-right: 5px !important;
+    padding-left: 0;
+    padding-right: 0;
   }
 
 
