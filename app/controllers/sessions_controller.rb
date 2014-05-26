@@ -39,7 +39,7 @@ class SessionsController < ApplicationController
     puts "\n"*5
     puts "logging out"
     puts "\n"*5
-    redirect_to new_session_path
+    redirect_to root_url
   end
 
 end

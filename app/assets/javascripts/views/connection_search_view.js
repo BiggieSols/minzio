@@ -49,15 +49,15 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _formAction: function(params) {
+    var that, groupMembership;
+    that                    = this;
     params.group_id         = $('.group-container').data("id");
     params.message_subject  = this.$('.linkedin-msg-subject').val();
     params.message_text     = this.$('.linkedin-msg-text').val();
-    var groupMembership     = new TeamProfile.Models.GroupMember(params);
     this.usersAdded         = true;
-    var that                = this;
     console.log(params);
 
-    // that.$(".linkedin-msg-container").slideUp("fast");
+    groupMembership         = new TeamProfile.Models.GroupMember(params);
 
     groupMembership.save({}, {
       success: function() {
@@ -115,8 +115,25 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _showLinkedinMsg: function() {
     if (this.$('.linkedin-msg-container').css("display") === "none" && this.usersAdded === false) {
       console.log("showing the message");
-      this.$(".linkedin-msg-container").slideDown();
+      this.$(".connection-container").addClass("linkedin-info-open");
+      // this.$(".linkedin-msg-container").slideDown();
+      this._linkedinMsgOpen();
     }
+  },
+
+  _linkedinMsgClose: function() {
+    this.$(".linkedin-msg-container").slideUp();
+    this._toggleExpandGlyph();
+  },
+
+  _linkedinMsgOpen: function() {
+    this.$(".linkedin-msg-container").slideDown();
+    this._toggleExpandGlyph();
+  },
+
+  _toggleExpandGlyph: function() {
+    this.$('.glyphicon-expand').toggleClass("invisible");
+    this.$('.glyphicon-collapse-down').toggleClass("invisible");
   },
 
   _renderAddMemberPopover: function() {
@@ -172,7 +189,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _toggleMessageText: function(event) {
-    console.log("got here");
     $(".linkedin-msg-container").slideToggle();
+    this._toggleExpandGlyph();
   }
 });
