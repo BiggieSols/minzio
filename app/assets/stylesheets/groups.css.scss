@@ -11,8 +11,15 @@ a:hover {
 }
 
 #add-connections {
-  height: 50px;
-  position: relative;
+  .connection-container {
+    height: 50px;
+    position: relative;    
+  }
+
+  .linkedin-msg-text {
+    height: 100px !important;
+    color: #555;
+  }
 
   #connection-search {
     position: absolute;
@@ -30,11 +37,11 @@ a:hover {
   .spinner {
     position: absolute;
     left: 0;
-  img {
-    height: 30px;
-    width: 30px;
+    img {
+      height: 30px;
+      width: 30px;
+    }
   }
-}
 }
 
 .group-title-text {
