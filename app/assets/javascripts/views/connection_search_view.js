@@ -100,7 +100,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     var spinner = this.spinnerTemplate();
     this.$('.reload-contacts').html(spinner);
     var that = this;
-    TeamProfile.currentUser.save({build_shadow: true}, {
+    TeamProfile.currentUser.save({build_shadow: true, async: false}, {
       success: function() {
         that.render();
       }

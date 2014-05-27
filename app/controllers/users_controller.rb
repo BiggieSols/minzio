@@ -59,23 +59,36 @@ class UsersController < ApplicationController
   end
 
   def update
+    # params.delete("connections")
+    # params.delete("user")
+    # puts "\n"*5
+    # puts params.keys.sort
+    # puts "\n"*5
+    # puts "build_shadow: #{params[:build_shadow]}"
+    # puts "async: #{params[:async]}"
+
+
     if params[:build_shadow] && (params[:async] == true)
-      puts "\n"*5
-      puts "ASYNC: building shadow accounts"
-      puts "\n"*5
+      # puts "\n"*5
+      # puts "ASYNC: building shadow accounts"
+      # puts "\n"*5
 
       current_user.delay.build_shadow_accounts
       @user = current_user
       render 'show.json.jbuilder'
     elsif params[:build_shadow] && (params[:async] == false)
-      puts "\n"*5
-      puts "SYNCHRONOUS: building shadow accounts"
-      puts "\n"*5
+      # puts "\n"*5
+      # puts "SYNCHRONOUS: building shadow accounts"
+      # puts "\n"*5
 
       current_user.build_shadow_accounts
       @user = current_user
       render 'show.json.jbuilder'
     else
+      # puts "\n"*5
+      # puts "NOT BUILDING SHADOW ACCOUNTS"
+      # puts "\n"*5
+
       @user = User.find(params[:id])
       if @user.update_attributes(params[:user])
         # log_in! @user
