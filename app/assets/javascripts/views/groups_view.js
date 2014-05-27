@@ -178,6 +178,8 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
             return $(val).data("id") == TeamProfile.lastSelectedGroup;
           }
       ).click();
+    } else {
+      this._selectFirstGroup();
     }
     return this;
   }

@@ -55,6 +55,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   home: function() {
     var homeView = new TeamProfile.Views.HomeView();
+    this._changeActiveNav($('#none'));
     this._swapView(homeView);
   },
 
