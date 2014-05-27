@@ -5,9 +5,8 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @user           = user
     @url            = 'http://www.teamglide.com'
-    mail(to: user.email, subject: 'Welcome to MindSparrow!')
+    mail(to: user.email, subject: 'Thanks for joining MindSparrow. Now what?')
   end
-
 
   def group_invitation(params = {from_user: nil, to_user: nil, group: nil})
     puts "\n"
@@ -23,14 +22,14 @@ class UserMailer < ActionMailer::Base
     @from_user      = params[:from_user]
     @to_user        = params[:to_user]
     @group          = params[:group]
-    mail(to: @to_user.email, subject: "You've been removed from a group on MindSparrow")
+    mail(to: @to_user.email, subject: "You've been removed from the group '#{@group.name}' on MindSparrow")
   end
 
   def group_deleted(params = {from_user: nil, to_user: nil, group: nil})
     @from_user      = params[:from_user]
     @to_user        = params[:to_user]
     @group          = params[:group]
-    mail(to: @to_user.email, subject: "your group was deleted on Mindsparrow")
+    mail(to: @to_user.email, subject: "your group '#{@group.name}' was deleted on Mindsparrow")
   end
 
   def admin_transfer(params = {from_user: nil, to_user: nil, group: nil})
