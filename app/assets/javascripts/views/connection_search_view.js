@@ -72,6 +72,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
         that.model.fetch();
       }
     });
+    this._renderSpinner();
     this._clearForm();
   },
 
@@ -97,8 +98,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _reloadContacts: function() {
-    var spinner = this.spinnerTemplate();
-    this.$('.reload-contacts').html(spinner);
+    this._renderSpinner();
     var that = this;
     TeamProfile.currentUser.save({build_shadow: true, async: false}, {
       success: function() {
@@ -110,6 +110,12 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _removePopover: function(event) {
     this.$('.select2-search-field').popover("hide");
     this._showLinkedinMsg();
+  },
+
+  _renderSpinner: function() {
+    var spinner = this.spinnerTemplate();
+    this.$('.reload-contacts').html(spinner);
+    return this;
   },
 
   _showLinkedinMsg: function() {
