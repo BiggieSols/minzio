@@ -59,7 +59,13 @@ class Invitation < ActiveRecord::Base
 
         # TO TEST, SEND ALL MESSAGES TO MY TEST ACCOUNT (user_id: 3)
         # dummy uid is for Sol Garger's primary linkedin account
-        sending_user.linkedin.send_message(self.subject, self.message, ["3gVtJAMsun"])
+        if Rails.env.production?
+          to_user_uid = receiving_user.uid
+        else
+          to_user_uid = "3gVtJAMsun"
+        end
+        
+        sending_user.linkedin.send_message(self.subject, self.message, [to_user_uid])
         # self.update_attributes(message: message_text)
       end
     end

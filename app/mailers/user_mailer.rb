@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "sol@mindsparrow.com"
-  default url:  "http://www.mindsparrow.com"
+  default url:  "http://www.mindsparrow.herokuapp.com"
 
   def welcome_email(user)
     @user           = user
