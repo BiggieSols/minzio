@@ -140,8 +140,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     var that = this;
     this.popoverTimeout = setTimeout(function() {
       if(that.model.get("members").length == 1) {
+        that._linkedinMsgOpen();
+
         var title = "Add a group member";
-        var content = "Invite your LinkedIn connections to the group! <br/><div class='linkedin-warning'>Note: this will send a message via LinkedIn on your behalf</div>";
+        var content = "Invite your LinkedIn connections to the group! <br/><div class='linkedin-warning'>IMPORTANT: This will send a message via LinkedIn on your behalf. You can customize your message below</div>";
         var $container = that.$('.select2-search-field');
 
         console.log("container is below");
@@ -150,7 +152,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
         if($container[0].clientWidth > 0) {
           $container.data("container", "body")
                     .data("toggle", "popover")
-                    .data("placement", "bottom")
+                    .data("placement", "right")
                     .data("content", content)
                     .data("title", title)
                     .data("html", true)

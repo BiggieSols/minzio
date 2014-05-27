@@ -1,10 +1,10 @@
 class UserMailer < ActionMailer::Base
-  default from: "sol@teamglide.com"
-  default url:  "http://www.teamglide.com"
+  default from: "sol@mindsparrow.com"
+  default url:  "http://www.mindsparrow.com"
 
   def welcome_email(user)
     @user           = user
-    @url            = 'http://www.teamglide.com'
+    @url            = 'http://www.mindsparrow.com'
     mail(to: user.email, subject: 'Thanks for joining MindSparrow. Now what?')
   end
 
