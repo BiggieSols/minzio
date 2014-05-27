@@ -158,7 +158,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
         if($container[0].clientWidth > 0) {
           $container.data("container", "body")
                     .data("toggle", "popover")
-                    .data("placement", "right")
+                    .data("placement", "top")
                     .data("content", content)
                     .data("title", title)
                     .data("html", true)
