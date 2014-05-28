@@ -7,8 +7,8 @@ class GroupMembersController < ApplicationController
     message_subject   = params[:message_subject]
 
     # clean message text
-    if !message_text.downcase.index("www.mindsparrow.com")
-      message_text += " -- http://www.mindsparrow.com"
+    if !message_text.downcase.index("www.minzio.com")
+      message_text += " -- http://www.minzio.com"
     end
 
     ActiveRecord::Base.transaction do

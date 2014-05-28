@@ -33,7 +33,7 @@ class Invitation < ActiveRecord::Base
 
   #   sending_user          = User.find(self.from_user_id)
   #   receiving_user_uids   = messages.map {|m| m.receiving_user.uid}
-  #   message_subject       = "Join me on MindSparrow"
+  #   message_subject       = "Join me on Minzio"
   #   messsage_text         = messages[-1].message
   # end
 
