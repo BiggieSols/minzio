@@ -61,6 +61,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   groups: function() {
     var that = this;
+    // var groupsView;
     // TODO: CONVERT GLOBAL VARIABLES TO LOCAL VARIABLES
 
     if(TeamProfile.groups.collection && TeamProfile.groups.collection.length > 0) {
@@ -70,9 +71,19 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
     TeamProfile.groups.fetch({
       success: function() {
-          groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
-        that._swapView(groupsView);
-        that._changeActiveNav($('#groups-nav'));
+        groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
+        if(TeamProfile.currentUser.get("name")) {
+          that._swapView(groupsView);
+          that._changeActiveNav($('#groups-nav'));
+        } else {
+          TeamProfile.currentUser.fetch({
+            success: function() {
+              console.log("current user not yet loaded");
+              that._swapView(groupsView);
+              that._changeActiveNav($('#groups-nav'));
+            }
+          });
+        }
       }
     });
   },
