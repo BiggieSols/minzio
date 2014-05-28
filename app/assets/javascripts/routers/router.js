@@ -129,7 +129,11 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         // var userView = new TeamProfile.Views.UserView({model: user});
         userView = new TeamProfile.Views.UserView({model: user});
         that._swapView(userView);
-        that._changeActiveNav($('#profile-nav'));
+        if(id == TeamProfile.currentUser.get("id")) {
+          that._changeActiveNav($('#profile-nav'));
+        } else {
+          that._changeActiveNav($('#none'));
+        }
       }
     });
   },
