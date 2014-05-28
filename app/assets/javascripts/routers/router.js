@@ -6,7 +6,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     TeamProfile.groups      = new TeamProfile.Collections.Groups();
 
     TeamProfile.currentUser.fetch();
-    TeamProfile.dummyUser.fetch();
+    // TeamProfile.dummyUser.fetch();
   },
 
   routes: {
@@ -70,7 +70,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
     TeamProfile.groups.fetch({
       success: function() {
-        groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
+          groupsView = new TeamProfile.Views.GroupsView({collection: TeamProfile.groups});
         that._swapView(groupsView);
         that._changeActiveNav($('#groups-nav'));
       }
