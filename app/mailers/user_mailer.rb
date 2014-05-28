@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
     @from_user      = params[:from_user]
     @to_user        = params[:to_user]
     @group          = params[:group]
-    mail(to: @to_user.email, subject: "#{@to_user.name} added you to a group on Minzio")
+    mail(to: @to_user.email, subject: "#{@from_user.name} added you to a group on Minzio")
   end
 
   def group_removal(params = {from_user: nil, to_user: nil, group: nil})
