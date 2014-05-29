@@ -1,5 +1,16 @@
 // testing no curved edges design
 
+.btn-warning:hover {
+  box-shadow: 0 0 3px tomato !important;
+  color: tomato !important;
+  background-color:white !important;
+  -webkit-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  -moz-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  -o-transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0;
+  transition: all 0.1s ease-in-out, width 0, height 0, top 0, left 0; 
+
+}
+
 html {
   overflow-x:hidden !important;
 }
