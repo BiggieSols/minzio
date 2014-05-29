@@ -1,5 +1,7 @@
-CSV.open("test_csv", "wb") do |csv|
+CSV.open("test_csv.csv", "wb") do |csv|
   PersonalityType.all.each do |p|
+    csv << [p.title]
+    csv << [p.large_info]
     csv << p.as_colleague
     csv << p.as_employee
     csv << p.as_manager
