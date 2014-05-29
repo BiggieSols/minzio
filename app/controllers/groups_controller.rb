@@ -45,9 +45,14 @@ class GroupsController < ApplicationController
     valid_admin_id      = !admin_param || @group.member_ids.include?(params[:group][:admin_id].to_i)
     changed_admin_id    = @group.admin_id != admin_param
 
+    puts "\n"*10
+    puts "valid_admin_id: #{valid_admin_id}"
+    puts "current_user_valid: #{current_user_valid}"
+    puts "\n"*10
+
     # if @group.admin_id == current_user.id# && @group.name != params[:name] 
     if current_user_valid && valid_admin_id
-      if changed_admin_id && @group.update_attributes(params[:group])
+      if @group.update_attributes(params[:group]) && changed_admin_id
         UserMailer.delay.admin_transfer(from_user: current_user, to_user: @group.admin, group: @group)
       end
     end
