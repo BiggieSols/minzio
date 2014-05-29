@@ -1,4 +1,9 @@
 // testing no curved edges design
+
+html {
+  overflow-x:hidden !important;
+}
+
 * {
   border-radius: 0px !important;
 }
@@ -16,7 +21,6 @@ a, li, img {
 
 
 body {
-  overflow-x:hidden;
   background-color: #f2f2f2 !important;
   margin-top: 85px;
   padding-bottom: 60px;

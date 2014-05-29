@@ -1,3 +1,14 @@
+.svg-img {
+  // display: block;
+  // margin: auto;
+  height: 200px;
+}
+
+// svg {
+//   display: block;
+//   margin: auto;
+// }
+
 #landing-page {
   h1, h2, h3, h4, h5, h6 {
       font-family: 'Lato', sans-serif;
@@ -151,13 +162,31 @@
       }
   }
 
-  #bottomwrap {
+  #mid-wrap {
     h1 {
       color: white;
+      margin-top: 8%;
+    }
+
+    p {
+      margin: auto;//0 8% 5% 0;
+      max-width: 300px;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    object {
+      margin-top: 12%;
     }
     width: 100%;
     background-color: #2C3E50;
     padding-bottom: 3%;
+  }
+
+  #bottom {
+    h4 {
+      color: rgba(0, 0, 0, 0.6)
+    }
+
+    margin-bottom: 5%;
   }
 }
 
