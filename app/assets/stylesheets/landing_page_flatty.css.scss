@@ -168,6 +168,10 @@
       margin-top: 8%;
     }
 
+    h3 {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
     p {
       margin: auto;//0 8% 5% 0;
       max-width: 300px;
@@ -179,6 +183,12 @@
     width: 100%;
     background-color: #2C3E50;
     padding-bottom: 3%;
+  }
+
+  .why-minzio {
+    h3, h4 {
+      color: rgba(0, 0, 0, 0.5);
+    }
   }
 
   #bottom {
@@ -193,9 +203,10 @@
 .how-img {
   margin: auto;
   display: block;
-  max-width: 100%;
+  max-width: 80%;
+  border: 15px solid white;
   // max-height: 250px; //temporary until resize
-  box-shadow: 0 0 5px #2c3e50;
-  -moz-box-shadow: 0 0 5px #2c3e50;
-  -webkit-box-shadow: 0 0 5px #2c3e50;
+  box-shadow: 0 0 1px #f2f2f2;
+  -moz-box-shadow: 0 0 1px #f2f2f2;
+  -webkit-box-shadow: 0 0 1px #f2f2f2;
 }
