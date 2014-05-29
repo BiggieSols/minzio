@@ -1,5 +1,6 @@
 TeamProfile.Routers.Router = Backbone.Router.extend({
   initialize: function(options){
+    this.bind('route', this._pageView);
     this.$rootEl = options.$rootEl;
     TeamProfile.currentUser = new TeamProfile.Models.User({id: "current"});
     TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
@@ -142,6 +143,12 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     console.log("changing active nav");
     $('nav .active').removeClass("active");
     $navItem.addClass("active");
+  },
+
+  // used for google analytics
+  _pageView: function() {
+    var path = Backbone.history.getFragment();
+    ga('send', 'pageview', {page: "/" + path});
   },
 
   _swapView: function(view) {

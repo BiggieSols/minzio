@@ -17,6 +17,7 @@
 //= require underscore
 //= require backbone
 //= require select2
+//= require google_analytics
 //= require teamprofile
 //= require jquery.lazyload.min
 //= require jquery.cookie
