@@ -6,8 +6,8 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
   },
 
   events: {
-    "click button":"submit",
-    "click .answer":"checkAllSubmitted"
+    "click .get-results":"submit",
+    "click .answer"     :"checkAllSubmitted"
   },
 
   checkAllSubmitted: function() {
@@ -22,7 +22,7 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
     // var renderedContent = "asdf";
     var renderedContent = this.template({quiz: this.model});
     this.$el.html(renderedContent);
-    return this._renderQuestions();
+    return this._renderQuestions()._renderModal();
   },
 
   submit: function() {
@@ -67,6 +67,13 @@ TeamProfile.Views.QuizView = Backbone.View.extend({
       }
     }
     return true;
+  },
+
+  _renderModal: function() {
+    if(TeamProfile.currentUser.get("personality_type").get("title")) {
+      this.$('#quiz-already-taken').modal("show");
+    }
+    return this;
   },
 
   _renderQuestions: function() {
