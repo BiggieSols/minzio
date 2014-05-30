@@ -33,7 +33,7 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
   },
 
   _transferAdmin: function() {
-    console.log("got here");
+    // console.log("got here");
     $('#transfer-modal').modal("hide");
     this.group.save({admin_id: this.model.get("id")});
   },

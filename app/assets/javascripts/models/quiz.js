@@ -3,7 +3,7 @@ TeamProfile.Models.Quiz = Backbone.Model.extend({
 
   parse: function(response) {
     // response.questions.forEach
-    console.log("parsing the quiz");
+    // console.log("parsing the quiz");
     response.questions = new TeamProfile.Collections.Questions(response.questions, {parse: true});
     return response;
   }

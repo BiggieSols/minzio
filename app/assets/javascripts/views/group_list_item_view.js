@@ -11,7 +11,7 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   },
 
   showToolTip: function(event) {
-    // console.log("got here");
+    // // console.log("got here");
     $(event.currentTarget).tooltip('show');
   },
 
@@ -22,13 +22,13 @@ TeamProfile.Views.GroupListItemView = Backbone.View.extend({
   },
 
   _renderAndSelect: function() {
-    console.log("got to render and select call");
+    // console.log("got to render and select call");
     this.render().$('.group').click();
   },
 
   testEscape: function(e) {
     if(e.keyCode == 27) {
-      console.log("pressed escape");
+      // console.log("pressed escape");
       this.$('.dropdown').removeClass("open");
       this.render();
     }

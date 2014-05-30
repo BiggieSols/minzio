@@ -11,6 +11,5 @@ window.TeamProfile = {
 };
 
 $(document).ready(function(){
-  // console.log("got here")
   TeamProfile.initialize();
 });

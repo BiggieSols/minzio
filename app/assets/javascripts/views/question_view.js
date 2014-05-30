@@ -12,7 +12,7 @@ TeamProfile.Views.QuestionView = Backbone.View.extend({
   render: function() {
     var renderedContent = this.template({question: this.model});
     this.$el.html(renderedContent);
-    // console.log("rendering question");
+    // // console.log("rendering question");
     this._renderAnswers();
     return this;
   },

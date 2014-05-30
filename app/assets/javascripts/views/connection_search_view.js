@@ -31,7 +31,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
     this._renderSelect2()._renderAddMemberPopover();
-    console.log("rendering connection search view");
+    // console.log("rendering connection search view");
     return this;
   },
 
@@ -55,13 +55,13 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     params.message_subject  = this.$('.linkedin-msg-subject').val();
     params.message_text     = this.$('.linkedin-msg-text').val();
     this.usersAdded         = true;
-    console.log(params);
+    // console.log(params);
 
     groupMembership         = new TeamProfile.Models.GroupMember(params);
 
     groupMembership.save({}, {
       success: function() {
-        console.log("group membership saved!");
+        // console.log("group membership saved!");
         that._showPostInviteModal();
 
         // change the default message text
@@ -120,7 +120,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
 
   _showLinkedinMsg: function() {
     if (this.$('.linkedin-msg-container').css("display") === "none" && this.usersAdded === false) {
-      console.log("showing the message");
+      // console.log("showing the message");
       this.$(".connection-container").addClass("linkedin-info-open");
       // this.$(".linkedin-msg-container").slideDown();
       this._linkedinMsgOpen();
@@ -152,8 +152,8 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
         var content = "Invite your LinkedIn connections to the group! <br/><div class='linkedin-warning'>IMPORTANT: This will send a message via LinkedIn on your behalf. You can customize your message below</div>";
         var $container = that.$('.select2-search-field');
 
-        console.log("container is below");
-        console.log($container);
+        // console.log("container is below");
+        // console.log($container);
 
         if($container[0].clientWidth > 0) {
           $container.data("container", "body")

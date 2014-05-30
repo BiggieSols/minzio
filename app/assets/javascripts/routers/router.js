@@ -86,7 +86,6 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         }
       },
       error: function() {
-        console.log("failed");
         window.location = "/auth/linkedin";
       }
     });
@@ -99,8 +98,8 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
       var quiz = new TeamProfile.Models.Quiz({id: id});
       quiz.fetch({
         success: function() {
-          // console.log("fetched the quiz");
-          // console.log(quiz);
+          // // console.log("fetched the quiz");
+          // // console.log(quiz);
           var quizView = new TeamProfile.Views.QuizView({model: quiz});
           that._swapView(quizView);
 
@@ -108,7 +107,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
           async = TeamProfile.currentUser.get("connections") ? true : false;
 
-          console.log("async is " + async);
+          // console.log("async is " + async);
           TeamProfile.currentUser.save({build_shadow: true, async: async}, {});
           // }
         }
@@ -137,7 +136,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   _changeActiveNav: function($navItem) {
-    console.log("changing active nav");
+    // console.log("changing active nav");
     $('nav .active').removeClass("active");
     $navItem.addClass("active");
   },
