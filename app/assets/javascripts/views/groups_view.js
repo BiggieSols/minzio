@@ -171,13 +171,18 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   _selectLastGroup: function() {
+    console.log("last selected group is below");
+    console.log(TeamProfile.lastSelectedGroup);
+    
     if(TeamProfile.lastSelectedGroup) {
+      console.log("selecting the first group");
       this.$('.group')
           .filter(function(i, val) {
             return $(val).data("id") == TeamProfile.lastSelectedGroup;
           }
       ).click();
     } else {
+      console.log("selecting the first group");
       this._selectFirstGroup();
     }
     return this;
