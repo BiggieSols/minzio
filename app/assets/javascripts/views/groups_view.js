@@ -79,17 +79,29 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   _renderCreateGroupPopover: function() {
+    if($.cookie("groupsPopoverShown") === "1") return this;
+
     var that = this;
     this.createPopoverTimer = setTimeout(function() {
+      var tite, content, node;
       if(that.collection.models.length === 0) {
-        var title = "step 1: create a group";
-        var content = "create a group for you and your colleagues to share your test results";
-        that.$('#group-name').data("container", "body")
-                             .data("placement", "bottom")
-                             .data("content", content)
-                             .data("title", title)
-                             .popover('show');
+        title = "step 1: create a group";
+        content = "create a group for you and your colleagues to share your test results (e.g. \"Marketing Team\")";
+        node = that.$('#group-name');
+      } else {
+        title = '<span>your groups</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
+        content = "It looks like someone already added you to this group! You can create your own groups too (e.g. \"Marketing Team\"), just use the form above";
+        node = that.$('.group').eq(0);
       }
+      
+      node.data("container", "body")
+          .data("placement", "bottom")
+          .data("content", content)
+          .data("title", title)
+          .data("html", true)
+          .popover('show');
+
+      $.cookie("groupsPopoverShown", 1);
     }, 1000);
     return this;
   },
