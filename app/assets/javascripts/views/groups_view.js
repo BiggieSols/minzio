@@ -6,7 +6,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   events: {
     "submit .new-group-form":"_createGroup",
     "click .group":"_selectGroup",
-    "click .remove-group-confirm":"_removeGroup"
+    "click .remove-group-confirm":"_removeGroup",
   },
 
   initialize: function() {
@@ -85,15 +85,15 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this.createPopoverTimer = setTimeout(function() {
       var tite, content, node;
       if(that.collection.models.length === 0) {
-        title = "step 1: create a group";
+        title = "Step 1: create a group";
         content = "create a group for you and your colleagues to share your test results (e.g. \"Marketing Team\")";
         node = that.$('#group-name');
       } else {
-        title = '<span>your groups</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
+        title = '<span>Your groups</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
         content = "It looks like someone already added you to this group! You can create your own groups too (e.g. \"Marketing Team\"), just use the form above";
         node = that.$('.group').eq(0);
       }
-      
+
       node.data("container", "body")
           .data("placement", "bottom")
           .data("content", content)
@@ -101,9 +101,19 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
           .data("html", true)
           .popover('show');
 
+      $('.custom-close').on("click", function(e) {
+        console.log("got ehre");
+        $(e.currentTarget).closest(".popover").remove();
+      });
+
       $.cookie("groupsPopoverShown", 1);
-    }, 1000);
+    }, 500);
     return this;
+  },
+
+  _removePopover: function(event) {
+    console.log("got here");
+    $(event.currentTarget).closest(".popover").remove();
   },
 
   _removePopovers: function() {

@@ -145,7 +145,9 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _renderAddMemberPopover: function() {
     var that = this;
     this.popoverTimeout = setTimeout(function() {
-      if(that.model.get("members").length == 1) {
+      // if(that.model.get("members").length == 1) {
+      if(TeamProfile.currentUser.get("num_sent_invitations") === 0) {
+
         that._linkedinMsgOpen();
 
         var title = "Add a group member";
@@ -166,7 +168,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
                     .popover('show');
         }
       }
-    }, 500);
+    }, 1000);
     return this;
   },
 
