@@ -79,28 +79,28 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         } else {
           TeamProfile.currentUser.fetch({
             success: function() {
-              console.log("current user not yet loaded");
               that._swapView(groupsView);
               that._changeActiveNav($('#groups-nav'));
-            }
+            },
           });
         }
+      },
+      error: function() {
+        console.log("failed");
+        window.location = "/auth/linkedin";
       }
     });
   },
 
   quiz: function() {
-    if(!TeamProfile.currentUser.get("name")) {
-      TeamProfile.howRedirect = true;
-      window.location = "/auth/linkedin";
-    } else {
+    var that = this;
+    this._requireLogin(function() {
       var id = 4;
       var quiz = new TeamProfile.Models.Quiz({id: id});
-      var that = this;
       quiz.fetch({
         success: function() {
           // console.log("fetched the quiz");
-          console.log(quiz);
+          // console.log(quiz);
           var quizView = new TeamProfile.Views.QuizView({model: quiz});
           that._swapView(quizView);
 
@@ -108,15 +108,12 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
           async = TeamProfile.currentUser.get("connections") ? true : false;
 
-          // if(TeamProfile.currentUser.get("connections")) {
-          //   TeamProfile.currentUser.save({build_shadow: true, async: true}, {});
-          // } else {
           console.log("async is " + async);
           TeamProfile.currentUser.save({build_shadow: true, async: async}, {});
           // }
         }
       });
-    }
+    });
     // temporary
   },
 
@@ -149,6 +146,14 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   _pageView: function() {
     var path = Backbone.history.getFragment();
     ga('send', 'pageview', {page: "/" + path});
+  },
+
+  _requireLogin: function(callback) {
+    if(!TeamProfile.currentUser.get("name")) {
+      window.location = "/auth/linkedin";
+    } else {
+      callback();
+    }
   },
 
   _swapView: function(view) {
