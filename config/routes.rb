@@ -18,5 +18,5 @@ Teamprofile::Application.routes.draw do
 
   get 'empty', to: 'static_pages#empty'
 
-  root to: "static_pages#empty"
+  root to: "static_pages#landing"
 end

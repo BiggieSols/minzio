@@ -4,4 +4,7 @@ class StaticPagesController < ApplicationController
   def empty
     render :status => 500
   end
+
+  def landing
+  end
 end
