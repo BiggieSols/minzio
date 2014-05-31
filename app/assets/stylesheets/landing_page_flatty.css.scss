@@ -10,6 +10,11 @@
 // }
 
 #landing-page {
+    // need this to fix a bug with overflow
+  // * {
+  //   max-width: 100%;
+  // }
+
   h1, h2, h3, h4, h5, h6 {
       font-family: 'Lato', sans-serif;
       font-weight: 300;
@@ -97,6 +102,8 @@
   .mt {
     margin-top: 40px;
     margin-bottom: 40px;
+    margin-left: auto;
+    margih-right: auto;
   }
 
   .form-control {
@@ -163,6 +170,10 @@
   }
 
   #mid-wrap {
+      * {
+    max-width: 100%;
+  }
+
     h1 {
       color: white;
       margin-top: 8%;
@@ -201,9 +212,11 @@
 }
 
 .how-img {
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
   display: block;
-  max-width: 80%;
+  max-width: 80% !important;
   border: 15px solid white;
   // max-height: 250px; //temporary until resize
   box-shadow: 0 0 1px #f2f2f2;
