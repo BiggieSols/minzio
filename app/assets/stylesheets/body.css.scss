@@ -17,6 +17,7 @@ html {
 
 * {
   border-radius: 0px !important;
+  max-width: inherit;
 }
 
 a, li, img {
@@ -32,12 +33,13 @@ a, li, img {
 
 
 body {
+  max-width: 100%;
   background-color: #f2f2f2 !important;
   margin-top: 85px;
   // padding-bottom: 60px;
   color: #555 !important;
   -webkit-font-smoothing: antialiased;
-  -webkit-overflow-scrolling: touch;
+  // -webkit-overflow-scrolling: touch;
 
   a {
     color: #16a085;
