@@ -90,8 +90,9 @@ class User < ActiveRecord::Base
       linkedin_connects = self.linkedin.connections(start: start, count: batch_size)["all"]
       break if linkedin_connects.nil?
       build_batch(linkedin_connects)
-      start += 500
+      start += batch_size
     end
+
   end
 
   def build_batch(linkedin_connects)
