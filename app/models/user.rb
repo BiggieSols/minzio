@@ -92,38 +92,6 @@ class User < ActiveRecord::Base
       build_batch(linkedin_connects)
       start += 500
     end
-    # build_batch(linkedin_connects)
-    # linkedin_connects_uids  = linkedin_connects.map {|c| c["id"]}
-
-    # # "Existing" means users who are already in the database and match the current user's connections' uids
-    # existing_users_assn     = User.where(uid: linkedin_connects_uids)
-    # existing_users_hash     = {}
-    # existing_users_assn.each {|u| existing_users_hash[u.uid] = u}
-
-    # # reset connections since they will be rebuilt
-    # self.connections        = []
-
-    # ActiveRecord::Base.transaction do 
-    #   linkedin_connects.each do |connection|
-    #     uid = connection["id"]
-    #     user = existing_users_hash[uid]
-    #     if !user
-    #     # user = User.where(uid: uid).first_or_initialize
-    #       user              = User.new
-    #       user.pub_profile  = clean { connection["site_standard_profile_request"]["url"].split("&").first }
-    #       user.name         = clean { connection["first_name"] + " " + connection["last_name"] }
-    #       user.headline     = clean { connection["headline"] }
-    #       user.industry     = clean { connection["industry"] }
-    #       user.location     = clean { connection["location"]["name"] }
-    #       user.image_url    = clean { connection["picture_url"] }
-    #       user.uid          = clean { connection["id"] }
-    #       user.save if (user.uid && user.name)
-    #     end
-    #     self.connections << {name: user.name, image_url: user.image_url, id: user.id}
-    #   end
-    #   self.connections << {name: self.name, image_url: self.image_url, id: self.id}
-    #   self.save
-    # end
   end
 
   def build_batch(linkedin_connects)
