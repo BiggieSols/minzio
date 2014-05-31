@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140526201549) do
+ActiveRecord::Schema.define(:version => 20140530205312) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -51,12 +51,14 @@ ActiveRecord::Schema.define(:version => 20140526201549) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.integer  "admin_id"
+    t.string   "referral_hash"
   end
 
   add_index "groups", ["admin_id"], :name => "index_groups_on_admin_id"
+  add_index "groups", ["referral_hash"], :name => "index_groups_on_referral_hash"
 
   create_table "invitations", :force => true do |t|
     t.integer  "from_user_id",                    :null => false
@@ -148,9 +150,11 @@ ActiveRecord::Schema.define(:version => 20140526201549) do
     t.integer  "personality_type_id"
     t.text     "connections"
     t.boolean  "account_active",      :default => false
+    t.string   "referral_hash"
   end
 
   add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"
+  add_index "users", ["referral_hash"], :name => "index_users_on_referral_hash"
   add_index "users", ["uid"], :name => "index_users_on_uid"
 
 end
