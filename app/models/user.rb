@@ -92,7 +92,8 @@ class User < ActiveRecord::Base
       build_batch(linkedin_connects)
       start += batch_size
     end
-
+    self.connections = self.connections.uniq
+    self.save
   end
 
   def build_batch(linkedin_connects)
@@ -118,7 +119,7 @@ class User < ActiveRecord::Base
           user.location     = clean { connection["location"]["name"] }
           user.image_url    = clean { connection["picture_url"] }
           user.uid          = clean { connection["id"] }
-          user.save if (user.uid && user.name)
+          user.save if (user.uid && user.name && user.name != "private private")
         end
         self.connections << {name: user.name, image_url: user.image_url, id: user.id}
       end
