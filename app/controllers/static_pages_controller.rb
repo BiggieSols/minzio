@@ -6,6 +6,7 @@ class StaticPagesController < ApplicationController
   end
 
   def landing
-    
+    user_referral_code  = params[:u] #u = User Referral ID
+    group_referral_code = params[:g] #g = Group Referral ID
   end
 end

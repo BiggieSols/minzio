@@ -92,6 +92,7 @@ class User < ActiveRecord::Base
       build_batch(linkedin_connects)
       start += batch_size
     end
+
     self.connections = self.connections.uniq
     self.save
   end
