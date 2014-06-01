@@ -12,6 +12,12 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
     "mouseenter .destroy":"_showTooltip",
     "mouseenter .make-admin":"_showTooltip",
     "click .make-admin":"_confirmAdminTransfer",
+    "mouseenter .member-info, .personality-type-available":"toggleUnderline",
+    "mouseleave .member-info, .personality-type-available":"toggleUnderline"
+  },
+
+  toggleUnderline: function() {
+    this.$(".member-info, .personality-type-available").toggleClass("underlined");
   },
 
   _confirmAdminTransfer: function() {
