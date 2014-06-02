@@ -20,7 +20,7 @@ class GroupMembersController < ApplicationController
                                   to_user_id: user_id, 
                                   group_id: params[:group_id], 
                                   message: message_text, 
-                                  subject: message_subject
+                                  subject: message_subject,
                                   source: "LinkedIn"
                                 )
       invite.handle_message

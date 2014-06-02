@@ -157,9 +157,13 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   _swapView: function(view) {
 
-    if(this.currentView) {
-      this.currentView.remove();
+    if($('.collapse').css("display") === "block") {
       $('.collapse').collapse("hide");
+    }
+
+    if(this.currentView) {
+
+      this.currentView.remove();
     }
     this.currentView = view;
 
