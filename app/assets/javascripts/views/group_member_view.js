@@ -17,7 +17,7 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
   },
 
   toggleUnderline: function() {
-    this.$(".member-info, .personality-type-available").toggleClass("underlined");
+    this.$("a .member-info, a .personality-type-available").toggleClass("underlined");
   },
 
   _confirmAdminTransfer: function() {
