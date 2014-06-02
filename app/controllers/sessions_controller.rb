@@ -7,8 +7,11 @@ class SessionsController < ApplicationController
     # render json: auth_hash
     if current_user.personality_type_id
       current_user.delay.build_shadow_accounts
+      # remove this later
+      check_referral_codes
       redirect_to "/#/groups"
     else
+      # puts "referring user is #{session[:referring_user].name}"
       redirect_to "/#/how"
     end
   end
@@ -29,7 +32,7 @@ class SessionsController < ApplicationController
       flash[:errors] = ["invalid username or password"]
       @user = User.new(params[:user])
       # this part below is only for rails, can remove w/ backbone
-    #   @user = User.new(params[:user])
+      # @user = User.new(params[:user])
       render :new
     end
   end
@@ -42,4 +45,15 @@ class SessionsController < ApplicationController
     redirect_to root_url
   end
 
+  # move to SessionsHelper eventually
+  def check_referral_codes
+      puts "referring user is #{User.find(session[:referring_user_id]).name}"
+      invite = Invitation.create( 
+                                  from_user_id: session[:referring_user_id], 
+                                  to_user_id: current_user.id,
+                                  message: "referral_link", 
+                                  subject: "referral_link",
+                                  source: "referral_link"
+                                )
+  end
 end

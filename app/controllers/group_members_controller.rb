@@ -21,6 +21,7 @@ class GroupMembersController < ApplicationController
                                   group_id: params[:group_id], 
                                   message: message_text, 
                                   subject: message_subject
+                                  source: "LinkedIn"
                                 )
       invite.handle_message
       render json: group_member

@@ -2,9 +2,10 @@ class User < ActiveRecord::Base
   # serialize :description, JSON
   serialize :connections, JSON
 
-  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation, :personality_type_id, :connections
+  attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation, :personality_type_id, :connections, :referral_hash
 
   before_validation :set_password_digest, on: :create
+  before_validation :set_refferal_hash, on: :create
   
   validate :password_matches_confirmation
 
@@ -188,6 +189,10 @@ class User < ActiveRecord::Base
 
   def set_session_token
     self.session_token = SecureRandom.urlsafe_base64(16);
+  end
+
+  def set_referral_hash
+    self.referral_hash = SecureRandom.urlsafe_base64(8);
   end
 
   def reset_session_token!
