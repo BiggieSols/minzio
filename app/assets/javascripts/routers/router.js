@@ -157,7 +157,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   _swapView: function(view) {
 
-    if($('.collapse').css("display") === "block") {
+    if($('.collapse').css("display") === "block" && $('.navbar-toggle').css("display") === "block") {
       $('.collapse').collapse("hide");
     }
 
