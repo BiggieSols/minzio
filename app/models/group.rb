@@ -7,7 +7,7 @@ class Group < ActiveRecord::Base
 
   has_many :invitations
 
-  before_validation :set_refferal_hash, on: :create
+  before_validation :set_referral_hash, on: :create
 
   def set_referral_hash
     self.referral_hash = SecureRandom.urlsafe_base64(8);

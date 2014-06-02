@@ -4,11 +4,11 @@ class SessionsController < ApplicationController
   def create_from_linkedin
     auth_hash = request.env['omniauth.auth']
     log_in! User.from_omniauth(auth_hash)
-    # render json: auth_hash
+
+    check_referral_codes
     if current_user.personality_type_id
       current_user.delay.build_shadow_accounts
       # remove this later
-      check_referral_codes
       redirect_to "/#/groups"
     else
       # puts "referring user is #{session[:referring_user].name}"
@@ -47,13 +47,33 @@ class SessionsController < ApplicationController
 
   # move to SessionsHelper eventually
   def check_referral_codes
-      puts "referring user is #{User.find(session[:referring_user_id]).name}"
-      invite = Invitation.create( 
-                                  from_user_id: session[:referring_user_id], 
-                                  to_user_id: current_user.id,
-                                  message: "referral_link", 
-                                  subject: "referral_link",
-                                  source: "referral_link"
-                                )
+    user_id  = session[:referring_user_id]
+    group_id = session[:referred_group_id]
+
+    invite = Invitation.where(
+                                from_user_id: user_id, 
+                                group_id:     group_id,
+                                to_user_id:   current_user.id
+                              ).first
+
+    # if the user already has completed the profile...
+    # if current_user.personality_type_id
+    if !invite
+      Invitation.create(
+                        from_user_id: user_id, 
+                        group_id:     group_id,
+                        to_user_id:   current_user.id,
+                        message:      "referral_link", 
+                        subject:      "referral_link",
+                        source:       "referral_link"      
+                       )
+
+      # if the user is not currently in the group (it's possible another user already invited current_user to the group)
+      if !current_user.group_ids.include? group_id
+        GroupMember.create(user_id: current_user.id, group_id: group_id)
+      end
+    end
+  
   end
+  # handle_asyncronously :check_referral_codes
 end

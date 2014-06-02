@@ -1,4 +1,3 @@
-
 class Invitation < ActiveRecord::Base
   # attr_accessible :title, :body
   attr_accessible :from_user_id, :to_user_id, :group_id, :message, :subject, :message_sent, :source
@@ -41,5 +40,4 @@ class Invitation < ActiveRecord::Base
     end
   end
   handle_asynchronously :handle_message
-
 end
