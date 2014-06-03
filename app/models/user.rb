@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   attr_accessible :name, :uid, :provider, :email, :description, :headline, :image_url, :location, :industry, :pub_profile, :access_token, :access_token_secret, :session_token, :password_digest, :password, :password_confirmation, :personality_type_id, :connections, :referral_hash
 
   before_validation :set_password_digest, on: :create
-  before_validation :set_refferal_hash, on: :create
+  before_validation :set_referral_hash, on: :create
   
   validate :password_matches_confirmation
 
