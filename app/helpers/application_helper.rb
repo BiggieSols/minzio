@@ -35,6 +35,7 @@ module ApplicationHelper
     group_id = session[:referred_group_id]
 
     return if !current_user || !user_id
+    return if current_user.id == user_id #can't invite yourself
 
     invite = Invitation.where(
                                 from_user_id: user_id, 
