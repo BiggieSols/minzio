@@ -1,6 +1,7 @@
 class UserMailer < ActionMailer::Base
-  default from: "sol@minzio.com"
+  default from: "\"The Minzio Team\" <sol@minzio.com>"
   default url:  "http://www.minzio.com"
+  "\"MyCompany\" <info@mycompany.com>"
 
   def welcome_email(user)
     @user           = user

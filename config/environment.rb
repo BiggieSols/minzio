@@ -5,8 +5,8 @@ require File.expand_path('../application', __FILE__)
 Teamprofile::Application.initialize!
 
 
+# only send real emails in production; use Mandrill
 if Rails.env.production?
-  # only send real emails in production; use Mandrill
   ActionMailer::Base.smtp_settings = {
     :address              => "smtp.mandrillapp.com",
     :port                 => 25, # ports 587 and 2525 are also supported with STARTTLS
