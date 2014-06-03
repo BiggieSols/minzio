@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     user        = User.where(uid: auth_hash["uid"]).first_or_initialize
 
     # IMPORTANT: make this !user.account_active when done testing!!!!!
-    new_account = user.account_active
+    new_account = !user.account_active
 
     user.uid                  = auth_hash["uid"]
     user.provider             = auth_hash["provider"]
