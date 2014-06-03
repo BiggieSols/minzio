@@ -1,6 +1,6 @@
 class GroupMembersController < ApplicationController
   def create
-    puts params
+    # puts params
     user_id           = params[:user_id]
     group_id          = params[:group_id]
     message_text      = params[:message_text]
@@ -29,9 +29,9 @@ class GroupMembersController < ApplicationController
   end
 
   def destroy
-    puts "\n"*5
-    puts "params are: #{params}"
-    puts "\n"*5
+    # puts "\n"*5
+    # puts "params are: #{params}"
+    # puts "\n"*5
     user_id  = params[:user_id]
     group_id = params[:group_id]
     group = Group.find(group_id)

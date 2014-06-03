@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       # remove this later
       redirect_to "/#/groups"
     else
-      # puts "referring user is #{session[:referring_user].name}"
+      # # puts "referring user is #{session[:referring_user].name}"
       redirect_to "/#/how"
     end
   end
@@ -39,9 +39,9 @@ class SessionsController < ApplicationController
 
   def destroy
     log_out!
-    puts "\n"*5
-    puts "logging out"
-    puts "\n"*5
+    # puts "\n"*5
+    # puts "logging out"
+    # puts "\n"*5
     redirect_to root_url
   end
 end

@@ -45,11 +45,11 @@ class User < ActiveRecord::Base
     fiber = Fiber.new do 
       user.large_image_url = user.linkedin.picture_urls.all.first
       user.save
-      puts "\n\n\nsaved new user\n\n\n"
+      # # puts "\n\n\nsaved new user\n\n\n"
     end
     fiber.resume
 
-    puts "\n\n\ngot here\n\n\n"
+    # # puts "\n\n\ngot here\n\n\n"
     user
   end
 
@@ -76,9 +76,9 @@ class User < ActiveRecord::Base
     @valid_ids += self.groups.includes(:members).map(&:member_ids)
     @valid_ids += self.invited_user_ids
 
-    puts "\n"*10
-    puts "got here"
-    puts "\n"*10
+    # puts "\n"*10
+    # puts "got here"
+    # puts "\n"*10
     @valid_ids = @valid_ids.flatten.uniq
   end
 
@@ -88,12 +88,10 @@ class User < ActiveRecord::Base
     start = 0
     batch_size = 500
 
-    # linkedin_connects       = self.linkedin.connections["all"]
-
     loop do
-      puts "\n"*5
-      puts "processing batch"
-      puts "\n"*5
+      # puts "\n"*5
+      # puts "processing batch"
+      # puts "\n"*5
       linkedin_connects = self.linkedin.connections(start: start, count: batch_size)["all"]
       break if linkedin_connects.nil?
       build_batch(linkedin_connects)
@@ -158,13 +156,13 @@ class User < ActiveRecord::Base
 
     results_str = ""
     self.mbti_test_result.each do |result|
-      p "result is #{result.last.class}"
+      # p "result is #{result.last.class}"
       results_str += result.last > 0 ? result[0][0] : result[0][1]
     end
 
-    puts "\n"*5
-    puts results_str.inspect
-    puts "\n"*5
+    # # puts "\n"*5
+    # # puts results_str.inspect
+    # # puts "\n"*5
 
     self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
 

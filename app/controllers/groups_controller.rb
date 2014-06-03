@@ -16,7 +16,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    puts params
+    # puts params
     @group = Group.new
     @group = Group.new(name: params[:group][:name], admin_id: current_user.id)
     @group.members << current_user
@@ -33,9 +33,9 @@ class GroupsController < ApplicationController
   end
 
   def update
-    puts "\n"*10
-    puts params
-    puts "\n"*10
+    # puts "\n"*10
+    # puts params
+    # puts "\n"*10
 
     @group = Group.find(params[:id])
     admin_param = params[:group][:admin_id]
@@ -45,10 +45,10 @@ class GroupsController < ApplicationController
     valid_admin_id      = !admin_param || @group.member_ids.include?(params[:group][:admin_id].to_i)
     changed_admin_id    = @group.admin_id != admin_param
 
-    puts "\n"*10
-    puts "valid_admin_id: #{valid_admin_id}"
-    puts "current_user_valid: #{current_user_valid}"
-    puts "\n"*10
+    # puts "\n"*10
+    # puts "valid_admin_id: #{valid_admin_id}"
+    # puts "current_user_valid: #{current_user_valid}"
+    # puts "\n"*10
 
     # if @group.admin_id == current_user.id# && @group.name != params[:name] 
     if current_user_valid && valid_admin_id

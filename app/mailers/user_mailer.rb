@@ -9,9 +9,9 @@ class UserMailer < ActionMailer::Base
   end
 
   def group_invitation(params = {from_user: nil, to_user: nil, group: nil})
-    puts "\n"
-    puts params[:to_user]
-    puts "\n"
+    # puts "\n"
+    # puts params[:to_user]
+    # puts "\n"
     @from_user      = params[:from_user]
     @to_user        = params[:to_user]
     @group          = params[:group]
@@ -40,7 +40,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def invitee_profile_completion(params = {inviting_user: nil, invited_user: nil})
-    puts params
+    # puts params
     @inviting_user  = params[:inviting_user]
     @invited_user   = params[:invited_user]
     mail(to: @inviting_user.email, subject: "#{@invited_user.name} has new personality results on Minzio")
