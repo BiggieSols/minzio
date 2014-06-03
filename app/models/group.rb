@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
   before_validation :set_referral_hash, on: :create
 
   def set_referral_hash
-    self.referral_hash = SecureRandom.urlsafe_base64(8);
+    self.referral_hash = SecureRandom.urlsafe_base64(8)
   end
 
 end
