@@ -73,7 +73,13 @@ class User < ActiveRecord::Base
     @valid_ids = self.connections.map {|c| c["id"]}
 
     # load all connections in groups
-    @valid_ids += self.groups.includes(:members).map(&:member_ids).flatten.uniq
+    @valid_ids += self.groups.includes(:members).map(&:member_ids)
+    @valid_ids += self.invited_user_ids
+
+    puts "\n"*10
+    puts "got here"
+    puts "\n"*10
+    @valid_ids = @valid_ids.flatten.uniq
   end
 
   def build_shadow_accounts

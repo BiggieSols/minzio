@@ -34,8 +34,11 @@ module ApplicationHelper
     user_id  = session[:referring_user_id]
     group_id = session[:referred_group_id]
 
-    return if !current_user || !user_id
-    return if current_user.id == user_id #can't invite yourself
+    #must be logged in have valid session tokens
+    return if !current_user || !user_id 
+
+    #can't refer yourself
+    return if current_user.id == user_id 
 
     invite = Invitation.where(
                                 from_user_id: user_id, 
