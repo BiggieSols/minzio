@@ -11,9 +11,6 @@ class StaticPagesController < ApplicationController
 
     session[:referring_user_id] = User.find_by_referral_hash(user_referral_code).id     if user_referral_code
     session[:referred_group_id] = Group.find_by_referral_hash(group_referral_code).id   if group_referral_code
-
-    puts "\n"*10
-    puts params
-    puts "\n"*10
+    check_referral_codes
   end
 end
