@@ -11,28 +11,29 @@ class UsersController < ApplicationController
       render json: {}
     else
       # params[:id] = current_user.id if params[:id] == "current"
-      params[:id] = 1 if params[:id] == "dummy"
-      if(params[:id] == "current")
+      params[:id] = 1               if params[:id] == "dummy"
+      params[:id] = current_user.id if params[:id] == "current"
+      user_id     = params[:id].to_i
+      # puts "current user id is #{current_user.id}"
+      if user_id == current_user.id
         # puts "\n"*5
         # puts "fetching current user"
         # puts "\n"*5
         @user = User.includes(:personality_type, :sent_invitations, :groups => [:members]).find(current_user.id)
         render 'show.json.jbuilder'
-      elsif current_user.valid_connection_ids.include?(params[:id].to_i)
+      elsif current_user.valid_connection_ids.include?(user_id)
         # puts "\n"*5
         # puts "fetching other user"
         # puts "\n"*5
-
-        @user = User.includes(:personality_type).find(params[:id])
+        @user = User.includes(:personality_type).find(user_id)
         # at some point only pull down a limited set of results
         render 'show.json.jbuilder'
       else
         # puts "\n"*5
         # puts "user is not valid"
-        # puts params[:id]
+        # puts user_id
         # puts current_user.id
         # puts "\n"*5
-
         render json: {}
       end
     end

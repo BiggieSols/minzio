@@ -5,6 +5,15 @@
 
   <div class="row">
     <div class="col-xs-12">
+      <div class="referral-link-prompt" style="margin-bottom: 10px;">
+        <label  for="referral-link">Invite with URL  <span class="glyphicon glyphicon-question-sign" data-toggle="tooltip" data-placement="top" title="Share this link to invite anyone to the group"></span></label>
+        <br>
+        <input type="text" class="form-control" value="<%= referralUrl %>" id="referral-link">
+
+        <a href="mailto: ?body=<%= referralUrl %>" target="blank"><span class="glyphicon glyphicon-envelope url-send-option" data-toggle="tooltip" data-placement="top" title="Email the invite link"></span></a>
+      </div>
+    </div>
+    <div class="col-xs-12">
       <div id="add-connections">
         add new user to group here
         <!-- <input type="text" -->

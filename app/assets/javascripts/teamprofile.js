@@ -13,3 +13,10 @@ window.TeamProfile = {
 $(document).ready(function(){
   TeamProfile.initialize();
 });
+
+// dev only!
+window.resetCookies = function() {
+  $.cookie("newUser", null);
+  $.cookie("groupsPopoverShown", null);
+  TeamProfile.currentUser.set("num_sent_invitations", 0);
+};

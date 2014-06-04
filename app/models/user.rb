@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
     return @valid_ids if @valid_ids
     return [] if !self.connections
 
-    @valid_ids = []
+    @valid_ids = [self.id]
     # load all connection IDs
 
     @valid_ids = self.connections.map {|c| c["id"]}

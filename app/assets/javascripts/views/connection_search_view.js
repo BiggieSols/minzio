@@ -8,7 +8,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     "click      .reload-contacts"                             :"_reloadContacts",
     "click      .default-message-dropdown"                    :"_toggleMessageText",
     "focus      .select2-input"                               :"_removePopover",
-    "mouseover  .glyphicon-question-sign, .glyphicon-refresh" :"_showToolTip",
   },
 
   initialize: function() {
@@ -192,10 +191,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     if(TeamProfile.currentUser.get("num_sent_invitations") === 0) {
       $('#first-invite-confirm').modal("show");
     }
-  },
-
-  _showToolTip: function(event) {
-    $(event.currentTarget).tooltip('show');
   },
 
   _toggleMessageText: function(event) {

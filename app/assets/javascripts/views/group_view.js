@@ -2,7 +2,9 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   template: JST['groups/show'],
 
   events: {
-    "click .cannot-find-connect-faq":"toggleFAQ"
+    "click .cannot-find-connect-faq":"toggleFAQ",
+    "click #referral-link":"_selectReferralURL",
+    "mouseover  .glyphicon-question-sign, .glyphicon-refresh, .glyphicon-envelope" :"_showToolTip",
   },
 
   toggleFAQ: function() {
@@ -11,10 +13,19 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   },
 
   render: function() {
-    var renderedContent = this.template({group: this.model});
+    var referralUrl     = "http://www.minzio.com?u=" + TeamProfile.currentUser.get("referral_hash") + "%26g=" +  this.model.get("referral_hash");
+    console.log(referralUrl);
+    var renderedContent = this.template({
+      group: this.model,
+      referralUrl: referralUrl
+    });
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
     this._renderGroupMembers();
+
+    // load social plugin for facebook
+    // window.fbAsyncInit();
+
     return this;
   },
   
@@ -34,6 +45,14 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
 
   _removePopovers: function() {
     $('.popover').remove();
+  },
+
+  _selectReferralURL: function(event) {
+    $(event.currentTarget).select();
+  },
+
+  _showToolTip: function(event) {
+    $(event.currentTarget).tooltip('show');
   },
 
   remove: function() {

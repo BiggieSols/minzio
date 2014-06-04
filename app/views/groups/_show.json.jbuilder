@@ -1,4 +1,4 @@
-json.(group, :id, :name, :updated_at, :admin_id)
+json.(group, :id, :name, :updated_at, :referral_hash, :admin_id)
 json.members do
   json.array!(group.members) do |member|
     # json.name("sol");
