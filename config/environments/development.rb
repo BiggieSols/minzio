@@ -27,7 +27,7 @@ Teamprofile::Application.configure do
   #   :user_name            => ENV["MANDRILL_USERNAME"],
   #   :password             => ENV["MANDRILL_PASSWORD"], # SMTP password is any valid API key
   #   :authentication       => 'login', # Mandrill supports 'plain' or 'login'
-  #   :domain               => 'teamglide.com', # your domain to identify your server when connecting
+  #   :domain               => 'minzio.com', # your domain to identify your server when connecting
   # }
   # ActionMailer::Base.delivery_method ||= :smtp
 

@@ -26,7 +26,11 @@ class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
 
   def self.from_omniauth(auth_hash)
-    user = User.where(uid: auth_hash["uid"]).first_or_initialize
+    user        = User.where(uid: auth_hash["uid"]).first_or_initialize
+
+    # IMPORTANT: make this !user.account_active when done testing!!!!!
+    new_account = !user.account_active
+
     user.uid                  = auth_hash["uid"]
     user.provider             = auth_hash["provider"]
     user.access_token         = auth_hash["credentials"]["token"]
@@ -41,17 +45,18 @@ class User < ActiveRecord::Base
     user.account_active       = true
     user.save!
 
-    # don't think this is doing anything, but confirm later
-    fiber = Fiber.new do 
-      user.large_image_url = user.linkedin.picture_urls.all.first
-      user.save
-      # # puts "\n\n\nsaved new user\n\n\n"
-    end
-    fiber.resume
+    user.get_large_image_url
 
-    # # puts "\n\n\ngot here\n\n\n"
+    UserMailer.delay.welcome_email(user) if new_account
+
     user
   end
+
+  def get_large_image_url
+    self.large_image_url = self.linkedin.picture_urls.all.first
+    self.save
+  end
+  handle_asynchronously :get_large_image_url
 
   def num_sent_invitations
     self.sent_invitations.length

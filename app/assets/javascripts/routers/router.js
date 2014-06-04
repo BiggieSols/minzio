@@ -55,9 +55,25 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   home: function() {
+    var that = this;
     var homeView = new TeamProfile.Views.HomeView();
-    this._changeActiveNav($('#none'));
-    this._swapView(homeView);
+
+    if($.cookie("newUser")) {
+      TeamProfile.currentUser.fetch({
+        success: function() {
+          var personalityType = TeamProfile.currentUser.get("personality_type");
+          if(personalityType && personalityType.get("title")) {
+            Backbone.history.navigate("groups", {trigger: true});
+          } else {
+            that._changeActiveNav($('#none'));
+            that._swapView(homeView);
+          }
+        }
+      });
+    } else {
+      this._changeActiveNav($('#none'));
+      this._swapView(homeView);
+    }
   },
 
   groups: function() {

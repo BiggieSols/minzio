@@ -1,11 +1,11 @@
 class UserMailer < ActionMailer::Base
-  default from: "sol@minzio.com"
+  default from: "\"The Minzio Team\" <sol@minzio.com>"
   default url:  "http://www.minzio.com"
 
   def welcome_email(user)
     @user           = user
     @url            = 'http://www.minzio.com'
-    mail(to: user.email, subject: 'Thanks for joining Minzio. Now what?')
+    mail(to: @user.email, subject: 'Thanks for joining Minzio. Now what?')
   end
 
   def group_invitation(params = {from_user: nil, to_user: nil, group: nil})
