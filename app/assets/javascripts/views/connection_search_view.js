@@ -29,7 +29,7 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
       group: this.model
     });
     this.$el.html(renderedContent);
-    this._renderSelect2()._renderAddMemberPopover();
+    this._renderSelect2();//._renderAddMemberPopover();
     // console.log("rendering connection search view");
     return this;
   },

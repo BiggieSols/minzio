@@ -18,5 +18,6 @@ $(document).ready(function(){
 window.resetCookies = function() {
   $.cookie("newUser", null);
   $.cookie("groupsPopoverShown", null);
+  $.cookie("introShown", null);
   TeamProfile.currentUser.set("num_sent_invitations", 0);
 };

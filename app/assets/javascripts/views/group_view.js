@@ -15,7 +15,7 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   render: function() {
     var referralUrl        = "http://www.minzio.com?g=" + this.model.get("referral_hash") + "&u=" + TeamProfile.currentUser.get("referral_hash");
     var referralUrlEscaped = referralUrl.replace("&", "%26");
-    console.log(referralUrl);
+    // console.log(referralUrl);
     var renderedContent = this.template({
       group:              this.model,
       referralUrl:        referralUrl,
@@ -23,11 +23,11 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
-    this._renderGroupMembers();
+    this._renderGroupMembers()//._renderIntro();
 
     // load social plugin for facebook
     // window.fbAsyncInit();
-
+    
     return this;
   },
   

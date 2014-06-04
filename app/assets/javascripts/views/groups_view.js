@@ -56,6 +56,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
           that.collection.add(group, {at: 0});
           that._renderGroupsList();
           that._selectFirstGroup();
+          that._renderIntro();
         }
       });
     } else {
@@ -102,13 +103,23 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
           .popover('show');
 
       $('.custom-close').on("click", function(e) {
-        console.log("got ehre");
         $(e.currentTarget).closest(".popover").remove();
+        that._renderIntro();
       });
 
       $.cookie("groupsPopoverShown", 1);
     }, 500);
     return this;
+  },
+
+  _renderIntro: function() {
+    if((TeamProfile.currentUser.get("num_sent_invitations") === 0) && $.cookie("introShown") != 1) {
+      setTimeout(function() {
+        introJs().setOptions({ 'skipLabel': 'Exit'}).start();
+        $.cookie("introShown", 1);
+        return this;
+      }, 500);
+    }
   },
 
   _removePopover: function(event) {
