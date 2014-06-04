@@ -13,11 +13,13 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   },
 
   render: function() {
-    var referralUrl     = "http://www.minzio.com?u=" + TeamProfile.currentUser.get("referral_hash") + "%26g=" +  this.model.get("referral_hash");
+    var referralUrl        = "http://www.minzio.com?u=" + TeamProfile.currentUser.get("referral_hash") + "&g=" +  this.model.get("referral_hash");
+    var referralUrlEscaped = referralUrl.replace("&", "%26");
     console.log(referralUrl);
     var renderedContent = this.template({
-      group: this.model,
-      referralUrl: referralUrl
+      group:              this.model,
+      referralUrl:        referralUrl,
+      referralUrlEscaped: referralUrlEscaped
     });
     this.$el.html(renderedContent);
     this._renderConnectionSearch();

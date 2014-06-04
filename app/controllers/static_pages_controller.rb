@@ -6,6 +6,13 @@ class StaticPagesController < ApplicationController
   end
 
   def landing
+    session[:referring_user_id] = nil
+    session[:referred_group_id] = nil
+
+    puts "\n"*20
+    puts params
+    puts "\n"*20
+
     user_referral_code  = params[:u] #u = User Referral ID
     group_referral_code = params[:g] #g = Group Referral ID
 
@@ -14,6 +21,11 @@ class StaticPagesController < ApplicationController
       session[:referred_group_id] = Group.find_by_referral_hash(group_referral_code).id   if group_referral_code
     rescue
     end
+
+    # puts "\n"*10
+    # puts "referring user id is #{session[:referring_user_id].inspect}"
+    # puts "referred group id is #{session[:referred_group_id].inspect}"
+    # puts "\n"*10
     check_referral_codes
   end
 end
