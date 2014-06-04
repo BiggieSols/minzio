@@ -104,6 +104,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
       $('.custom-close').on("click", function(e) {
         $(e.currentTarget).closest(".popover").remove();
+        that._selectFirstGroup();
         that._renderIntro();
       });
 
