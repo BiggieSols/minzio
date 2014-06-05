@@ -1,6 +1,13 @@
-<%= @invited_user.name %> just finished the Minzio personality assessment! Visit your groups page to see the results: www.minzio.com/#/groups
+<%= @invited_user.name %> just finished the Minzio personality assessment! 
 
-Or visit <%= @invited_user.name %>'s profile page directly: www.minzio.com/#/users/<%= @invited_user.id %>
+<% if @shared_groups.length > 0 %>
+It looks like you have some groups in common: <%= @shared_groups.map {|g| "'#{g.name}'"}.join(", ") %>
+Visit your groups page to see the results: www.minzio.com/#/groups
+
+OR visit <%= @invited_user.name.split(" ").first %>'s page directly for all the details: www.minzio.com/#/users/<%= @invited_user.id %>
+<% else %>
+To see the results, visit <%= @invited_user.name.split(" ").first %>'s profile page: www.minzio.com/#/users/<%= @invited_user.id %>
+<% end %>
 
 Cheers,
 Sol from Minzio

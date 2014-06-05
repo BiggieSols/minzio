@@ -39,10 +39,11 @@ class UserMailer < ActionMailer::Base
     mail(to: @to_user.email, subject: "You are now the admin for '#{@group.name}' on Minzio")
   end
 
-  def invitee_profile_completion(params = {inviting_user: nil, invited_user: nil})
+  def invitee_profile_completion(params = {inviting_user: nil, invited_user: nil, shared_groups: nil})
     # puts params
     @inviting_user  = params[:inviting_user]
     @invited_user   = params[:invited_user]
+    @shared_groups  = params[:shared_groups]
     mail(to: @inviting_user.email, subject: "#{@invited_user.name} has new personality results on Minzio")
   end
 end

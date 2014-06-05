@@ -148,13 +148,39 @@ class User < ActiveRecord::Base
   end
 
   def send_completion_notification
-    self.inviting_users.uniq.each do |u|
-      msg = UserMailer.invitee_profile_completion(inviting_user: u, invited_user: self)
+    users_to_contact      = self.inviting_users.includes(:groups)
+
+    valid_connection_ids  = self.connections.map {|c| c["id"]}
+    connected_users       = User.includes(:groups).where(account_active: true, id: valid_connection_ids)
+
+    users_to_contact      += connected_users
+
+    users_to_contact      = users_to_contact.uniq
+
+    shared_groups = Hash.new { |h, k| h[k] = [] }
+
+    users_to_contact.each do |u|
+      shared_groups[u.id] = u.groups & self.groups
+    end
+
+    # p shared_groups
+
+    # puts users_to_contact.map(&:id)
+
+    puts "\n"*10
+    users_to_contact.each do |u|
+      puts "shared groups for user id #{u.id} is: #{shared_groups[u.id].inspect}"
+      # puts "\n"
+      msg = UserMailer.invitee_profile_completion(
+              inviting_user: u, 
+              invited_user: self, 
+              shared_groups: shared_groups[u.id]
+            )
       msg.deliver
     end
+    puts "\n"*10
   end
-  handle_asynchronously :send_completion_notification
-
+  # handle_asynchronously :send_completion_notification
 
   def set_personality_type
     first_test_attempt = self.personality_type_id.nil?
