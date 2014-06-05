@@ -156,6 +156,9 @@ class User < ActiveRecord::Base
 
     users_to_contact      += connected_users
 
+    # just send Sol an email every time someone completes the assessment
+    users_to_contact << User.find_by_name("Sol Garger")
+
     users_to_contact      = users_to_contact.uniq
 
     shared_groups         = Hash.new { |h, k| h[k] = [] }
