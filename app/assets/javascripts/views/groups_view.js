@@ -14,10 +14,6 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     this.listenTo(this.collection, 'destroy', this._renderPostGroupRemoval);
   },
 
-  test: function() {
-    alert("test succeeded!");
-  },
-
   remove: function() {
     this._removePopovers();
     if(this.createPopoverTimer) clearTimeout(this.createPopoverTimer);
@@ -79,6 +75,15 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     group.destroy();
   },
 
+  _removePopover: function(event) {
+    console.log("got here");
+    $(event.currentTarget).closest(".popover").remove();
+  },
+
+  _removePopovers: function() {
+    $('.popover').remove();
+  },
+
   _renderCreateGroupPopover: function() {
     if($.cookie("groupsPopoverShown") === "1") return this;
 
@@ -113,44 +118,6 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     return this;
   },
 
-  _renderIntro: function() {
-    var that = this;
-    if((TeamProfile.currentUser.get("num_sent_invitations") === 0) && $.cookie("introShown") != 1) {
-      setTimeout(function() {
-        introJs().setOptions({
-          'skipLabel':'Exit',
-          'scrollToElement': true
-        }).oncomplete(function() {
-          that.$('#referral-link').select();
-        }).start();
-
-        return this;
-      }, 500);
-    }
-  },
-
-  _removePopover: function(event) {
-    console.log("got here");
-    $(event.currentTarget).closest(".popover").remove();
-  },
-
-  _removePopovers: function() {
-    $('.popover').remove();
-  },
-
-  _renderPostGroupRemoval: function() {
-    this._renderGroupsList();
-    this.$('.group-details').html("");
-    this._removePopovers();
-  },
-
-  // causing some rednering errors. turning off for now
-  _scrollToGroup: function() {
-    $('body').animate({
-      scrollTop:$('.group-details').offset().top - 50
-    }, 'medium');
-  },
-
   _renderGroupDetails: function(groupId) {
     var group = this.collection.get(groupId);
     var $groupDetails = this.$('.group-details');
@@ -182,11 +149,40 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
     return this;
   },
 
+  _renderIntro: function() {
+    var that = this;
+    if((TeamProfile.currentUser.get("num_sent_invitations") === 0) && $.cookie("introShown") != 1) {
+      setTimeout(function() {
+        introJs().setOptions({
+          'skipLabel':'Exit',
+          'scrollToElement': true
+        }).oncomplete(function() {
+          that.$('#referral-link').select();
+        }).start();
+
+        return this;
+      }, 500);
+    }
+  },
+
   _renderNewGroup: function() {
     var $newGroupContainer = this.$('#new-group');
     var renderedContent = this.newGroupTemplate();
     $newGroupContainer.html(renderedContent);
     return this;
+  },
+
+  _renderPostGroupRemoval: function() {
+    this._renderGroupsList();
+    this.$('.group-details').html("");
+    this._removePopovers();
+  },
+
+  // causing some rednering errors. turning off for now
+  _scrollToGroup: function() {
+    $('body').animate({
+      scrollTop:$('.group-details').offset().top - 50
+    }, 'medium');
   },
 
   _selectFirstGroup: function() {

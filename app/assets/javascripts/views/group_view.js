@@ -2,14 +2,16 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   template: JST['groups/show'],
 
   events: {
-    "click .cannot-find-connect-faq":"toggleFAQ",
+    "click .cannot-find-connect-faq":"_toggleFAQ",
     "click #referral-link":"_selectReferralURL",
     "mouseover  .glyphicon-question-sign, .glyphicon-refresh, .glyphicon-envelope" :"_showToolTip",
   },
 
-  toggleFAQ: function() {
-    var $instructions = this.$('.enable-account-instructions');
-    $instructions.slideToggle();
+  remove: function() {
+    this._removePopovers();
+    this.groupMembersView.remove();
+    this.connectionSearchView.remove();
+    return Backbone.View.prototype.remove.call(this);
   },
 
   render: function() {
@@ -23,30 +25,30 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
-    this._renderGroupMembers()//._renderIntro();
+    this._renderGroupMembers();
 
     // load social plugin for facebook
     // window.fbAsyncInit();
     
     return this;
   },
-  
-  _renderGroupMembers: function() {
-    // if there is only one member in the group, prompt to add more
-    var $node = this.$('.group-members');
-    this.groupMembersView = new TeamProfile.Views.GroupMembersView({model: this.model});
-    $node.html(this.groupMembersView.render().$el);
-    return this;
-  },
 
+  _removePopovers: function() {
+    $('.popover').remove();
+  },
+  
   _renderConnectionSearch: function() {
     this.connectionSearchView = new TeamProfile.Views.ConnectionSearchView({model: this.model});
     this.$('#add-connections').html(this.connectionSearchView.render().$el);
     return this;
   },
 
-  _removePopovers: function() {
-    $('.popover').remove();
+  _renderGroupMembers: function() {
+    // if there is only one member in the group, prompt to add more
+    var $node = this.$('.group-members');
+    this.groupMembersView = new TeamProfile.Views.GroupMembersView({model: this.model});
+    $node.html(this.groupMembersView.render().$el);
+    return this;
   },
 
   _selectReferralURL: function(event) {
@@ -57,10 +59,8 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     $(event.currentTarget).tooltip('show');
   },
 
-  remove: function() {
-    this._removePopovers();
-    this.groupMembersView.remove();
-    this.connectionSearchView.remove();
-    return Backbone.View.prototype.remove.call(this);
+  _toggleFAQ: function() {
+    var $instructions = this.$('.enable-account-instructions');
+    $instructions.slideToggle();
   },
 });

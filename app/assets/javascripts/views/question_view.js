@@ -1,12 +1,20 @@
 TeamProfile.Views.QuestionView = Backbone.View.extend({
   template: JST["questions/show"],
 
+  // called by QuizView
   initialize: function() {
     this.answered = false;
   },
 
   events: {
-    "click .answer":"handleAnswer"
+    "click .answer":"_handleAnswer"
+  },
+
+  confirmAnswered: function() {
+    userSelection = this.$('.selected');
+    if(userSelection.length === 0) {
+      this.$('.answers').addClass("un-answered");
+    }
   },
 
   render: function() {
@@ -17,16 +25,9 @@ TeamProfile.Views.QuestionView = Backbone.View.extend({
     return this;
   },
 
-  handleAnswer: function() {
+  _handleAnswer: function() {
     this.answered = true;
     this.$('.answers').removeClass("un-answered");
-  },
-
-  confirmAnswered: function() {
-    userSelection = this.$('.selected');
-    if(userSelection.length === 0) {
-      this.$('.answers').addClass("un-answered");
-    }
   },
 
   _renderAnswers: function() {
@@ -42,9 +43,8 @@ TeamProfile.Views.QuestionView = Backbone.View.extend({
       answersDiv.append(answerView.render().$el);
       if(i < answers.models.length-1) {
         answersDiv.append('<hr class="divider">');
-      };
+      }
     }
-
     return this;
   },
 });

@@ -12,46 +12,8 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
     "mouseenter .destroy":"_showTooltip",
     "mouseenter .make-admin":"_showTooltip",
     "click .make-admin":"_confirmAdminTransfer",
-    "mouseenter .member-info, .personality-type-available":"toggleUnderline",
-    "mouseleave .member-info, .personality-type-available":"toggleUnderline"
-  },
-
-  toggleUnderline: function() {
-    this.$("a .member-info, a .personality-type-available").toggleClass("underlined");
-  },
-
-  _confirmAdminTransfer: function() {
-    $('#transfer-modal .modal-body').html("Are you sure you want to transfer all admin privileges to " + this.model.get("name") + "? You will no longer be the admin for this group!");
-    $('#transfer-modal').modal("show");
-
-    var throttledAdminTransfer = _.throttle(this._transferAdmin.bind(this), 1000);
-    // var that = this;
-    $(".transfer-admin-confirm").on("click", function() {
-      throttledAdminTransfer();
-    });
-  },
-
-  _showTooltip: function(event) {
-    // if(!this.toolTipActive) {
-      // this.toolTipActive = true;
-      $(event.currentTarget).tooltip("show");
-    // }
-  },
-
-  _transferAdmin: function() {
-    // console.log("got here");
-    $('#transfer-modal').modal("hide");
-    this.group.save({admin_id: this.model.get("id")});
-  },
-
-  _removeMember: function() {
-    var that = this;
-    var user_id = this.model.get("id");
-    var group_id = $('.group-member-container').eq(0).closest('.group-container').data("id");
-    var groupMember = new TeamProfile.Models.GroupMember({id: -1});
-    groupMember.destroy({data: {user_id: user_id, group_id: group_id}, processData: true});
-    this.$el.html(that.removalAlert({member: that.model}));
-    this.model.collection.remove(user_id);
+    "mouseenter .member-info, .personality-type-available":"_toggleUnderline",
+    "mouseleave .member-info, .personality-type-available":"_toggleUnderline"
   },
 
   render: function() {
@@ -70,5 +32,44 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
     return this;
+  },
+
+  _confirmAdminTransfer: function() {
+    $('#transfer-modal .modal-body').html("Are you sure you want to transfer all admin privileges to " + this.model.get("name") + "? You will no longer be the admin for this group!");
+    $('#transfer-modal').modal("show");
+
+    var throttledAdminTransfer = _.throttle(this._transferAdmin.bind(this), 1000);
+    // var that = this;
+    $(".transfer-admin-confirm").on("click", function() {
+      throttledAdminTransfer();
+    });
+  },
+
+  _removeMember: function() {
+    var that = this;
+    var user_id = this.model.get("id");
+    var group_id = $('.group-member-container').eq(0).closest('.group-container').data("id");
+    var groupMember = new TeamProfile.Models.GroupMember({id: -1});
+    groupMember.destroy({data: {user_id: user_id, group_id: group_id}, processData: true});
+    this.$el.html(that.removalAlert({member: that.model}));
+    this.model.collection.remove(user_id);
+  },
+
+  _showTooltip: function(event) {
+    // if(!this.toolTipActive) {
+      // this.toolTipActive = true;
+      $(event.currentTarget).tooltip("show");
+    // }
+  },
+
+  _toggleUnderline: function() {
+    this.$("a .member-info, a .personality-type-available").toggleClass("underlined");
+  },
+
+
+  _transferAdmin: function() {
+    // console.log("got here");
+    $('#transfer-modal').modal("hide");
+    this.group.save({admin_id: this.model.get("id")});
   },
 });

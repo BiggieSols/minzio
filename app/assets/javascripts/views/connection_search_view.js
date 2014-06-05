@@ -96,6 +96,16 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     });
   },
 
+  _linkedinMsgClose: function() {
+    this.$(".linkedin-msg-container").slideUp();
+    this._toggleExpandGlyph();
+  },
+
+  _linkedinMsgOpen: function() {
+    this.$(".linkedin-msg-container").slideDown();
+    this._toggleExpandGlyph();
+  },
+
   _reloadContacts: function() {
     this._renderSpinner();
     var that = this;
@@ -109,36 +119,6 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _removePopover: function(event) {
     this.$('.select2-search-field').popover("hide");
     this._showLinkedinMsg();
-  },
-
-  _renderSpinner: function() {
-    var spinner = this.spinnerTemplate();
-    this.$('.reload-contacts').html(spinner);
-    return this;
-  },
-
-  _showLinkedinMsg: function() {
-    if (this.$('.linkedin-msg-container').css("display") === "none" && this.usersAdded === false) {
-      // console.log("showing the message");
-      this.$(".connection-container").addClass("linkedin-info-open");
-      // this.$(".linkedin-msg-container").slideDown();
-      this._linkedinMsgOpen();
-    }
-  },
-
-  _linkedinMsgClose: function() {
-    this.$(".linkedin-msg-container").slideUp();
-    this._toggleExpandGlyph();
-  },
-
-  _linkedinMsgOpen: function() {
-    this.$(".linkedin-msg-container").slideDown();
-    this._toggleExpandGlyph();
-  },
-
-  _toggleExpandGlyph: function() {
-    this.$('.glyphicon-expand').toggleClass("invisible");
-    this.$('.glyphicon-collapse-down').toggleClass("invisible");
   },
 
   _renderAddMemberPopover: function() {
@@ -187,6 +167,21 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
     return this;
   },
 
+  _renderSpinner: function() {
+    var spinner = this.spinnerTemplate();
+    this.$('.reload-contacts').html(spinner);
+    return this;
+  },
+
+  _showLinkedinMsg: function() {
+    if (this.$('.linkedin-msg-container').css("display") === "none" && this.usersAdded === false) {
+      // console.log("showing the message");
+      this.$(".connection-container").addClass("linkedin-info-open");
+      // this.$(".linkedin-msg-container").slideDown();
+      this._linkedinMsgOpen();
+    }
+  },
+
   _showPostInviteModal: function() {
     if(TeamProfile.currentUser.get("num_sent_invitations") === 0) {
       $('#first-invite-confirm').modal("show");
@@ -196,5 +191,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   _toggleMessageText: function(event) {
     $(".linkedin-msg-container").slideToggle();
     this._toggleExpandGlyph();
-  }
+  },
+
+  _toggleExpandGlyph: function() {
+    this.$('.glyphicon-expand').toggleClass("invisible");
+    this.$('.glyphicon-collapse-down').toggleClass("invisible");
+  },
 });

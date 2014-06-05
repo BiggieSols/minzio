@@ -180,7 +180,7 @@ class User < ActiveRecord::Base
     end
     puts "\n"*10
   end
-  # handle_asynchronously :send_completion_notification
+  handle_asynchronously :send_completion_notification
 
   def set_personality_type
     first_test_attempt = self.personality_type_id.nil?
