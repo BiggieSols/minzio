@@ -151,13 +151,14 @@ class User < ActiveRecord::Base
     users_to_contact      = self.inviting_users.includes(:groups)
 
     valid_connection_ids  = self.connections.map {|c| c["id"]}
+
     connected_users       = User.includes(:groups).where(account_active: true, id: valid_connection_ids)
 
     users_to_contact      += connected_users
 
     users_to_contact      = users_to_contact.uniq
 
-    shared_groups = Hash.new { |h, k| h[k] = [] }
+    shared_groups         = Hash.new { |h, k| h[k] = [] }
 
     users_to_contact.each do |u|
       shared_groups[u.id] = u.groups & self.groups
@@ -169,6 +170,7 @@ class User < ActiveRecord::Base
 
     puts "\n"*10
     users_to_contact.each do |u|
+      next if u == self
       puts "shared groups for user id #{u.id} is: #{shared_groups[u.id].inspect}"
       # puts "\n"
       msg = UserMailer.invitee_profile_completion(
