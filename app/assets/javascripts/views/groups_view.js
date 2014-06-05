@@ -114,10 +114,16 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   _renderIntro: function() {
+    var that = this;
     if((TeamProfile.currentUser.get("num_sent_invitations") === 0) && $.cookie("introShown") != 1) {
       setTimeout(function() {
-        introJs().setOptions({ 'skipLabel': 'Exit'}).start();
-        $.cookie("introShown", 1);
+        introJs().setOptions({
+          'skipLabel':'Exit',
+          'scrollToElement': true
+        }).oncomplete(function() {
+          that.$('#referral-link').select();
+        }).start();
+
         return this;
       }, 500);
     }
@@ -205,7 +211,6 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
   },
 
   _selectLastGroup: function() {
-    console.log(TeamProfile.lastSelectedGroup);
     if(TeamProfile.lastSelectedGroup) {
       this.$('.group')
           .filter(function(i, val) {
