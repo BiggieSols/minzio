@@ -27,7 +27,7 @@ class UsersController < ApplicationController
         # puts "\n"*5
         @user = User.includes(:personality_type).find(user_id)
         # at some point only pull down a limited set of results
-        render 'show.json.jbuilder'
+        render 'show_lite.json.jbuilder'
       else
         # puts "\n"*5
         # puts "user is not valid"
