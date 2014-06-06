@@ -1,5 +1,9 @@
 <% var personalityType = member.get("personality_type").get("title") %>
-<div class="row group-member-container">
+<div class="row group-member-container" 
+  <% if(firstMember) { %>
+    data-step="1" data-intro="Click on any group member to see more details" data-position="top"
+  <% } %>
+  >
   <% if(personalityType) { %>
   <a href="<%= '/#/users/' + member.get("id") %>">
     <% } %>

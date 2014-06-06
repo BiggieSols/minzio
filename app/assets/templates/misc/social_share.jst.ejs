@@ -1,1 +1,15 @@
-SOCIAL SHARING THINGS GO HERE
+<div class="social-share-button">
+  <a href="https://twitter.com/share" class="twitter-share-button url-send-option" data-url="<%= urlEscaped %>" data-via="Minzio" data-text="My work personality profile on Minzio is <%= personalityType.get("title") %>, which means I'm special." data-count="none" data-hashtags="minzio">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+</div>
+
+<div class="social-share-button">
+  <script src="//platform.linkedin.com/in.js" type="text/javascript">
+  lang: en_US
+  </script>
+  <!-- <script type="IN/Share" data-url="http://www.minzio.com?u=hN9vZLyfZ_E&amp;g=lNnfqk1MgLI"></script> -->
+  <script type="IN/Share" data-url="<%= urlEscaped %>"></script>
+</div>
+<div class="social-share-button">
+  <div class="fb-share-button" data-href="<%= urlEscaped %>" data-type="button"></div>
+</div>

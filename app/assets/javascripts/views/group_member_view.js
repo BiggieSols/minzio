@@ -3,8 +3,9 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
   removalAlert: JST['groups/remove_member'],
 
   initialize: function(options) {
-    this.group = options.group;
-    this.model = options.model;
+    this.group       = options.group;
+    this.model       = options.model;
+    this.firstMember = options.firstMember;
   },
 
   events: {
@@ -25,10 +26,11 @@ TeamProfile.Views.GroupMemberView = Backbone.View.extend({
     if(isAdmin) deletePermitted = false;
 
     var renderedContent = this.template({
-      member: this.model,
-      deletePermitted: deletePermitted,
-      isAdmin: isAdmin,
-      isCurrentUser: isCurrentUser
+      member          : this.model,
+      deletePermitted : deletePermitted,
+      isAdmin         : isAdmin,
+      isCurrentUser   : isCurrentUser,
+      firstMember     : this.firstMember
     });
     this.$el.html(renderedContent);
     return this;

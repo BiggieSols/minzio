@@ -151,6 +151,7 @@ TeamProfile.Views.GroupsView = Backbone.View.extend({
 
   _renderIntro: function() {
     var that = this;
+
     if((TeamProfile.currentUser.get("num_sent_invitations") === 0) && $.cookie("introShown") != 1) {
       setTimeout(function() {
         introJs().setOptions({

@@ -16,9 +16,11 @@ TeamProfile.Views.GroupMembersView = Backbone.View.extend({
   
   render: function() {
     var that = this;
+    var firstMember = true;
     this.$el.html("");
     this.model.get("members").forEach(function(member) {
-      var groupMemberView = new TeamProfile.Views.GroupMemberView({model: member, group: that.model});
+      var groupMemberView = new TeamProfile.Views.GroupMemberView({model: member, group: that.model, firstMember: firstMember});
+      firstMember = false;
       that.groupMemberViews.push(groupMemberView);
       var renderedContent = groupMemberView.render().$el;
       that.$el.append(renderedContent);

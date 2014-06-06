@@ -101,6 +101,10 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         that._renderChart();
       }, 500);
     });
+
+    // load social plugin for facebook
+    window.fbAsyncInit();
+
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually

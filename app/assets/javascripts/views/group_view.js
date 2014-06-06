@@ -26,10 +26,6 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     this.$el.html(renderedContent);
     this._renderConnectionSearch();
     this._renderGroupMembers();
-
-    // load social plugin for facebook
-    // window.fbAsyncInit();
-    
     return this;
   },
 

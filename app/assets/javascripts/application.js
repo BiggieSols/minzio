@@ -22,6 +22,7 @@
 //= require jquery.lazyload.min
 //= require jquery.cookie
 //= require intro
+// = require fb_js_sdk
 //= require_tree ../templates
 //= require_tree ./models
 //= require_tree ./collections
