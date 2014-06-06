@@ -93,6 +93,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     });
     this.$el.html(renderedContent);
     this._renderTraitsTable();
+    this._renderSocialShare();
     var that = this;
 
     $(document).ready(function() {
@@ -220,6 +221,15 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         $('.popover').remove();
       });
     }
+    return this;
+  },
+
+  _renderSocialShare: function() {
+    var socialShareView = new TeamProfile.Views.SocialShareView({
+      user: this.model
+    });
+    var renderedContent = socialShareView.render().$el;
+    this.$('#social-share').html(renderedContent);
     return this;
   },
 
