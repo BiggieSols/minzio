@@ -118,8 +118,9 @@ class User < ActiveRecord::Base
 
     ActiveRecord::Base.transaction do 
       linkedin_connects.each do |connection|
-        uid = connection["id"]
-        user = existing_users_hash[uid]
+        uid                 = connection["id"]
+        user                = existing_users_hash[uid]
+        valid_user          = true
         if !user
         # user = User.where(uid: uid).first_or_initialize
           user              = User.new
@@ -130,9 +131,10 @@ class User < ActiveRecord::Base
           user.location     = clean { connection["location"]["name"] }
           user.image_url    = clean { connection["picture_url"] }
           user.uid          = clean { connection["id"] }
-          user.save if (user.uid && user.name && user.name != "private private")
+          valid_user        = user.uid && user.name && user.name != "private private"
+          user.save if valid_user
         end
-        self.connections << {name: user.name, image_url: user.image_url, id: user.id}
+        self.connections << {name: user.name, image_url: user.image_url, id: user.id} if valid_user
       end
       self.connections << {name: self.name, image_url: self.image_url, id: self.id}
       self.save
