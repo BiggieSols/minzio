@@ -229,11 +229,13 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _renderSocialShare: function() {
-    var socialShareView = new TeamProfile.Views.SocialShareView({
-      user: this.model
-    });
-    var renderedContent = socialShareView.render().$el;
-    this.$('#social-share').html(renderedContent);
+    if(TeamProfile.currentUser.id == this.model.id) {
+      var socialShareView = new TeamProfile.Views.SocialShareView({
+        user: this.model
+      });
+      var renderedContent = socialShareView.render().$el;
+      this.$('#social-share').html(renderedContent);
+    }
     return this;
   },
 
