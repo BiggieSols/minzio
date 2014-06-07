@@ -92,6 +92,16 @@
   margin: 0px !important;
   // margin-left: 0px;
   border: 1px solid white;
+
+  a {
+    font-size: 1.2em;
+  }
+
+  @media (max-width: 767px) {
+    a {
+      font-size: 0.9em;
+    }
+  }
 }
 
 .nav-pills > li > a {
