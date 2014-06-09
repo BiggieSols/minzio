@@ -3,7 +3,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     this.bind('route', this._pageView);
     this.$rootEl = options.$rootEl;
     TeamProfile.currentUser = new TeamProfile.Models.User({id: "current"});
-    // TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
+    TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
     TeamProfile.groups      = new TeamProfile.Collections.Groups();
 
     TeamProfile.currentUser.fetch();
