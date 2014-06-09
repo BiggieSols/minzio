@@ -7,7 +7,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     TeamProfile.groups      = new TeamProfile.Collections.Groups();
 
     TeamProfile.currentUser.fetch();
-    // TeamProfile.dummyUser.fetch();
+    TeamProfile.dummyUser.fetch();
   },
 
   routes: {
@@ -61,19 +61,29 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     if($.cookie("newUser")) {
       TeamProfile.currentUser.fetch({
         success: function() {
+          console.log("got here");
           var personalityType = TeamProfile.currentUser.get("personality_type");
           if(personalityType && personalityType.get("title")) {
             Backbone.history.navigate("groups", {trigger: true});
           } else {
-            that._changeActiveNav($('#none'));
-            that._swapView(homeView);
+            that._loadHome(homeView);
+            // that._changeActiveNav($('#none'));
+            // that._swapView(homeView);
           }
+        },
+        // eventually move to a separate function
+        error: function() {
+          that._loadHome(homeView);
         }
       });
     } else {
-      this._changeActiveNav($('#none'));
-      this._swapView(homeView);
+      this._loadHome(homeView);
     }
+  },
+
+  _loadHome: function(homeView) {
+    this._changeActiveNav($('#none'));
+    this._swapView(homeView);
   },
 
   groups: function() {
@@ -147,6 +157,10 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         } else {
           that._changeActiveNav($('#none'));
         }
+      },
+
+      error: function() {
+        Backbone.history.navigate("", {trigger: true});
       }
     });
   },

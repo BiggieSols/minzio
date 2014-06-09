@@ -8,7 +8,7 @@ class UsersController < ApplicationController
 
   def show
     if !current_user
-      render json: {}
+      head :bad_request
     else
       # params[:id] = current_user.id if params[:id] == "current"
       params[:id] = 1               if params[:id] == "dummy"
@@ -34,7 +34,8 @@ class UsersController < ApplicationController
         # puts user_id
         # puts current_user.id
         # puts "\n"*5
-        render json: {}
+        # render status: 500
+        head :bad_request
       end
     end
   end
