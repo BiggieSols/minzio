@@ -11,7 +11,8 @@ class UsersController < ApplicationController
       head :bad_request
     else
       # params[:id] = current_user.id if params[:id] == "current"
-      params[:id] = 1               if params[:id] == "dummy"
+      # params[:id] = current_user.id if params[:id] == "dummy"
+      
       params[:id] = current_user.id if params[:id] == "current"
       user_id     = params[:id].to_i
       # puts "current user id is #{current_user.id}"
