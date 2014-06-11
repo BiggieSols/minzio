@@ -10,10 +10,9 @@ class UsersController < ApplicationController
     if !current_user
       head :bad_request
     else
-      # params[:id] = current_user.id if params[:id] == "current"
       params[:id] = current_user.id if params[:id] == "dummy"
-      
       params[:id] = current_user.id if params[:id] == "current"
+      
       user_id     = params[:id].to_i
       # puts "current user id is #{current_user.id}"
       if user_id == current_user.id

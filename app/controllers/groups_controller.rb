@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   def index
     @groups = current_user.groups
                           .includes(
-                            :members =>[:personality_type]
+                            :members =>[:personality_type, :answers],
                           )
     
     render 'index.json.jbuilder'

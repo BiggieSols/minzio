@@ -94,9 +94,6 @@ class User < ActiveRecord::Base
     batch_size = 500
 
     loop do
-      # puts "\n"*5
-      # puts "processing batch"
-      # puts "\n"*5
       linkedin_connects = self.linkedin.connections(start: start, count: batch_size)["all"]
       break if linkedin_connects.nil?
       build_batch(linkedin_connects)
@@ -216,8 +213,8 @@ class User < ActiveRecord::Base
     results_hash = Hash.new {|h, k| h[k] = 0}
 
     self.answers.each do |answer|
-      answer_result = answer.result_calc
-      key = answer_result.keys.first
+      answer_result     = answer.result_calc
+      key               = answer_result.keys.first
       results_hash[key] += answer_result[key]
     end
 
