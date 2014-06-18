@@ -21,7 +21,8 @@ class User < ActiveRecord::Base
   has_many :group_memberships, class_name: "GroupMember"
   has_many :groups, through: :group_memberships
 
-  belongs_to :personality_type, foreign_key: :personality_type_id, class_name: "PersonalityType"
+  belongs_to :personality_type
+  has_one    :custom_personality
 
   attr_accessor :password, :password_confirmation
 
