@@ -3,6 +3,7 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
 
   initialize: function(options) {
     this.tipsCategory = options.tipsCategory;
+    this.tipViews = [];
   },
 
   render: function() {
@@ -29,5 +30,24 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
         break;
     }
     return selectedTips;
+  },
+
+  _renderTips: function(tips) {
+    var that, $node;
+    that = this;
+    $node = this.$('.table');
+    tips.forEach(function(tip) {
+      var tipView = new TeamProfile.Views.TipView({model: tip});
+      that.tipViews.push(tipView);
+      $node.append(tipView.render().$el);
+    });
+  },
+
+  remove: function() {
+    this.tipViews.forEach(function(view) {
+      view.remove();
+    });
+    
+    return Backbone.View.prototype.remove.call(this);
   },
 });
