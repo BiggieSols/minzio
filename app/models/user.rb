@@ -21,7 +21,10 @@ class User < ActiveRecord::Base
   has_many :group_memberships, class_name: "GroupMember"
   has_many :groups, through: :group_memberships
 
+  # this is the GENERAL personality type (INTJ, ENFP, etc.)
   belongs_to :personality_type
+
+  # this is the customized personality type that can be modified for a specific user
   has_one    :custom_personality
 
   attr_accessor :password, :password_confirmation
@@ -199,11 +202,15 @@ class User < ActiveRecord::Base
     # # puts "\n"*5
     # # puts results_str.inspect
     # # puts "\n"*5
+    personality_type = PersonalityType.find_by_title(results_str.upcase)
+    self.personality_type_id = personality_type.id
 
-    self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
+    self.custom_personality ||= CustomPersonality.new
+
+    self.custom_personality.add_defaults(personality_type)
+
 
     self.send_completion_notification if first_test_attempt
-
     self.save
   end
 
