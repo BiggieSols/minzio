@@ -3,25 +3,14 @@ json.(@user, :num_sent_invitations, :id, :updated_at, :name, :description, :head
 json.custom_personality do
   # json.as_manager(@user.custom_personality.as_manager_tips)
   json.as_manager do
-    json.array!(@manager_tips) do |tip|
-      json.(tip, :id, :relationship_type, :text, :score)
-      json.curr_user_vote(tip.vote_from_user(current_user.id))
-    end
+    json.partial!('tips/index', tips: @manager_tips)
   end
 
   json.as_colleague do
-    json.array!(@colleague_tips) do |tip|
-      json.(tip, :id, :relationship_type, :text, :score)
-      json.curr_user_vote(tip.vote_from_user(current_user.id))
-    end
+    json.partial!('tips/index', tips: @colleague_tips)
   end
 
   json.as_employee do
-    json.array!(@employee_tips) do |tip|
-      json.(tip, :id, :relationship_type, :text, :score)
-      json.curr_user_vote(tip.vote_from_user(current_user.id))
-    end
+    json.partial!('tips/index', tips: @employee_tips)
   end
-
-  # json.partial!('users/user_lite', user: @user)
 end

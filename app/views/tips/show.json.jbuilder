@@ -1,0 +1,1 @@
+json.partial!('tips/show', tip: @tip)
