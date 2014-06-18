@@ -78,6 +78,35 @@
 
 .tips-table {
   margin-top: 1%;
+  .tip-vote-container {
+    text-align: center;
+
+    .tip-score {
+      font-size: 1.2em;
+    }
+
+    .vote-direction:hover {
+      cursor:pointer;
+    }
+
+    .upvote {
+      color: #149c82
+    }
+
+    .downvote {
+      color: tomato;
+    }
+  }
+
+  .tip-text-container {
+    line-height:55px;
+
+    .tip-text {
+      display: inline-block;
+      vertical-align: middle;
+      line-height: normal;
+    }
+  }
 }
 
 .switch:hover {
