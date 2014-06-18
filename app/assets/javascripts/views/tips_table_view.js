@@ -30,17 +30,18 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
   },
 
   _tipsToDisplay: function() {
-    var selectedTips, personality_type = this.model.get("personality_type");
+    // var selectedTips, custom_personality = this.model.get("custom_personality");
+    var selectedTips, custom_personality = TeamProfile.currentUser.get("custom_personality");
 
     switch(this.tipsCategory) {
       case "colleague":
-        selectedTips = personality_type.get("as_colleague");
+        selectedTips = custom_personality.get("as_colleague");
         break;
       case "manager":
-        selectedTips = personality_type.get("as_manager");
+        selectedTips = custom_personality.get("as_manager");
         break;
       case "employee":
-        selectedTips = personality_type.get("as_employee");
+        selectedTips = custom_personality.get("as_employee");
         break;
     }
     return selectedTips;

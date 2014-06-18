@@ -1,5 +1,7 @@
 <table class="table">
-  <% tips.forEach(function(info) { %>
-    <tr><td>- <%= info %></td></tr>
+  <% tips.models.forEach(function(tip) { %>
+    <tr><td>
+      <span class="tip" data-id="<%= tip.id %>"><%= tip.get("score") %> - <%= tip.escape("text") %></span>
+    </td></tr>
   <% }) %>
 </table>

@@ -4,8 +4,8 @@ TeamProfile.Collections.Tips = Backbone.Collection.extend({
   comparator: function(a, b) {
     a = a.get("score");
     b = b.get("score");
-    return a > b ?  1
-         : a < b ? -1
+    return a > b ? -1
+         : a < b ?  1
          :          0;
 
   },
