@@ -19,7 +19,18 @@ class UsersController < ApplicationController
         # puts "\n"*5
         # puts "fetching current user"
         # puts "\n"*5
-        @user = User.includes(:personality_type, :sent_invitations, :groups => [:members]).find(current_user.id)
+        @user = User.includes(
+                              :personality_type, 
+                              :sent_invitations, 
+                              :groups => [:members], 
+                              :custom_personality => [:tips => [:tip_votes]]
+                              )
+                    .find(current_user.id)
+
+        @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
+        @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
+        @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
+
         render 'show.json.jbuilder'
       elsif current_user.valid_connection_ids.include?(user_id)
         # puts "\n"*5

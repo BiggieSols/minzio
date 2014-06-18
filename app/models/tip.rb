@@ -8,4 +8,12 @@ class Tip < ActiveRecord::Base
   def score
     self.tip_votes.map(&:vote_value).reduce(:+) || 0
   end
+
+  def vote_from_user(user_id)
+    # return nil
+    # vote = self.tip_votes.find_by_user_id(user_id)
+    vote = self.tip_votes.select {|tip_vote| tip_vote.user_id == user_id}.first
+    # puts "\ngot here\n"
+    vote.vote_value if vote
+  end
 end
