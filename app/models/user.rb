@@ -209,7 +209,6 @@ class User < ActiveRecord::Base
 
     self.custom_personality.add_defaults(personality_type)
 
-
     self.send_completion_notification if first_test_attempt
     self.save
   end
