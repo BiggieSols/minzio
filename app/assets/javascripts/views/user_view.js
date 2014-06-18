@@ -18,9 +18,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       this.dummyData = true;
     }
 
-    this.traitsTableView = new TeamProfile.Views.TraitsTableView({
+    this.tipsTableView = new TeamProfile.Views.TipsTableView({
       model: this.userResultsInfo,
-      traitsCategory: "colleague"
+      tipsCategory: "colleague"
     });
   },
 
@@ -49,8 +49,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       var newCategory = clickedItem.data("category");
       this.$('.working-with-personality .active').removeClass("active");
       clickedItem.addClass("active");
-      this.traitsTableView.traitsCategory = newCategory;
-      this.traitsTableView.render();
+      this.tipsTableView.tipsCategory = newCategory;
+      this.tipsTableView.render();
     }
   },
 
@@ -92,7 +92,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       userResultsInfo: this.userResultsInfo
     });
     this.$el.html(renderedContent);
-    this._renderTraitsTable();
+    this._renderTipsTable();
     this._renderSocialShare();
     var that = this;
 
@@ -239,8 +239,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
-  _renderTraitsTable: function() {
-    this.$('.traits-table').html(this.traitsTableView.render().$el);
+  _renderTipsTable: function() {
+    this.$('.tips-table').html(this.tipsTableView.render().$el);
     return this;
   },
 });
