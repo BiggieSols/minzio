@@ -199,9 +199,6 @@ class User < ActiveRecord::Base
       results_str += result.last > 0 ? result[0][0] : result[0][1]
     end
 
-    # # puts "\n"*5
-    # # puts results_str.inspect
-    # # puts "\n"*5
     personality_type = PersonalityType.find_by_title(results_str.upcase)
     self.personality_type_id = personality_type.id
 
