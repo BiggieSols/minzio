@@ -23,12 +23,10 @@ TeamProfile.Views.TipView = Backbone.View.extend({
     var curr_vote, $nodeToSelect;
     curr_vote = this.model.get("curr_user_vote");
     if(curr_vote == 1) {
-      $nodeToSelect = this.$('.up');
+      this.$('.up, .tip-score').addClass("upvote");
     } else if (curr_vote == -1) {
-      $nodeToSelect = this.$('.down');
+      this.$('.down, .tip-score').addClass("downvote");
     }
-
-    if($nodeToSelect) $nodeToSelect.addClass("active");
     return this;
   },
 
