@@ -93,11 +93,11 @@
       cursor:pointer;
     }
 
-    .upvote {
+    .up.active {
       color: #149c82
     }
 
-    .downvote {
+    .down.active {
       color: tomato;
     }
   }

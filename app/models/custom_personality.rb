@@ -3,11 +3,9 @@ class CustomPersonality < ActiveRecord::Base
 
   belongs_to :user
   has_many :tips
-  has_many :as_manager_tips,    class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_manager"  ] }
-  has_many :as_colleague_tips,  class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_colleague"] }
-  has_many :as_employee_tips,   class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_employee" ] }
-
-  # attr_accessible :title, :body
+  # has_many :as_manager_tips,    class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_manager"  ] }
+  # has_many :as_colleague_tips,  class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_colleague"] }
+  # has_many :as_employee_tips,   class_name: "Tip", conditions: proc { ["relationship_type = ?", "as_employee" ] }
 
   def add_defaults(personality_type)
     tips_hash                 = {}

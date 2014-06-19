@@ -7,10 +7,9 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
   },
 
   render: function() {
-    var renderedContent = this.template({
-      tips: this._tipsToDisplay()
-    });
+    var renderedContent = this.template();
     this.$el.html(renderedContent);
+    this._renderTips(this._tipsToDisplay());
     return this;
   },
 
