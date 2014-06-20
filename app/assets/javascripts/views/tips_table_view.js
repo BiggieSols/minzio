@@ -67,10 +67,9 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     if(!this.newTipView) {
       this.newTipView = new TeamProfile.Views.NewTipView({model: tip});
       this.$(".add-tip-row").after(this.newTipView.render().$el);
-      return this;
-    } else {
-      this.newTipView.focus();
-    }
+    } 
+    this.newTipView.focus();
+    return this;
   },
 
   remove: function() {
