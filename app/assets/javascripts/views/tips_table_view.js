@@ -3,6 +3,7 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
 
   initialize: function(options) {
     this.newTipView   = null;
+    this.tipsView     = null;
     this.tipsCategory = options.tipsCategory;
     this.tipViews     = [];
   },
@@ -20,7 +21,7 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     var renderedContent;
     renderedContent = this.template();
     this.$el.html(renderedContent);
-    this._renderTips(this._tipsToDisplay());
+    this._renderTipsView();
     return this;
   },
 
@@ -43,40 +44,28 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     return selectedTips;
   },
 
-  _renderTips: function(tips) {
-    var that, $node;
-    that = this;
-    $node = this.$('.table');
-    tips.forEach(function(tip) {
-      var tipView = new TeamProfile.Views.TipView({model: tip});
-      that.tipViews.push(tipView);
-      $node.append(tipView.render().$el);
-    });
+  _renderTipsView: function() {
+    var that, tips;
+    tips = this._tipsToDisplay();
+    this.tipsView = new TeamProfile.Views.TipsView({collection: tips});
+    this.$('.tips').html(this.tipsView.render().$el);
+    return this;
   },
 
   _renderNewTipForm: function() {
-    var tip;
-    tip = new TeamProfile.Models.Tip({
-      id: "new",
-      relationship_type: this.tipsCategory,
-      text: "",
-      score: 1,
-      curr_user_vote: 1
-    });
-
     if(!this.newTipView) {
-      this.newTipView = new TeamProfile.Views.NewTipView({model: tip});
+      this.newTipView = new TeamProfile.Views.NewTipView({
+        customPersonality:    this.model.get("custom_personality"),
+        tipsCategory:         this.tipsCategory
+      });
       this.$(".add-tip-row").after(this.newTipView.render().$el);
-    } 
+    }
     this.newTipView.focus();
     return this;
   },
 
   remove: function() {
-    this.tipViews.forEach(function(view) {
-      view.remove();
-    });
-    
+    this.tipsView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 });

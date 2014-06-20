@@ -6,12 +6,20 @@ TeamProfile.Views.NewTipView = Backbone.View.extend({
     "submit .new-tip-form":"_addTip"
   },
 
+  initialize: function(options) {
+    this.customPersonality    = options.customPersonality;
+    this.tipsCategory         = options.tipsCategory;
+    this._resetModel();
+    // this.listenTo(this.model, "sync", this._appendTip);
+  },
+
   render: function() {
     var renderedContent;
     renderedContent = this.template({
       tip: this.model
     });
     this.$el.html(renderedContent);
+
     return this;
   },
 
@@ -20,11 +28,31 @@ TeamProfile.Views.NewTipView = Backbone.View.extend({
   },
 
   _addTip: function(event) {
-    var tip, text;
+    var tip, text, that;
     event.preventDefault();
+    that = this;
     text = this.$(".tip-text input").val();
-    // :custom_personality_id, :relationship_type
-    // tip = new TeamProfile.Models.Tip({text: text});
-    // tip.save();
+    console.log("custom personality id is " + this.customPersonality.id);
+    this.model.set("text", text);
+    this.$('.tip-text input').val("");
+    this.model.save({}, {
+      success: function() {
+        that._appendTip();
+      }
+    });
   },
+
+  _appendTip: function() {
+    relationshipType = "as_"+this.tipsCategory;
+    this.customPersonality.get(relationshipType).add(this.model, {at: 0, trigger: true});
+    console.log("appending to collection!");
+    this._resetModel();
+  },
+
+  _resetModel: function() {
+    this.model = new TeamProfile.Models.Tip({
+      custom_personality_id:  this.customPersonality.id,
+      relationship_type:    this.tipsCategory
+    });
+  }
 });

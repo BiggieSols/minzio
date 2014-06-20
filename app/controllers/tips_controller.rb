@@ -5,7 +5,18 @@ class TipsController < ApplicationController
   end
 
   def create
-    tip = Tip.new(text: params[:text])
+
+    # converting "manager" to "as_manager" for database
+    params[:tip][:relationship_type] = "as_" + params[:tip][:relationship_type]
+    params[:tip][:author_user_id] = current_user.id
+
+    # puts "\n"*10
+    # puts params
+    # puts "\n"*10
+    
+    @tip = Tip.new(params[:tip])
+    @tip.save
+    render 'show.json.jbuilder'
   end
 
   def destroy

@@ -17,4 +17,6 @@ json.custom_personality do
   json.as_employee do
     json.partial!('tips/index', tips: employee_tips)
   end
+
+  json.id(user.custom_personality.id)
 end
