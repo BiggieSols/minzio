@@ -5,6 +5,7 @@ class TipsController < ApplicationController
   end
 
   def create
+    tip = Tip.new(text: params[:text])
   end
 
   def destroy

@@ -76,8 +76,17 @@
   font-size: 1.2em;
 }
 
+.add-tip-container {
+  font-size: 1.3em;
+  padding-left: 8px;
+}
+
 .tips-table {
   margin-top: 1%;
+  .tip {
+    padding-top: 10px;
+    padding-bottom: 10;
+  }
   .tip-vote-container {
     text-align: center;
 
@@ -103,7 +112,7 @@
   }
 
   .tip-text-container {
-    line-height:55px;
+    line-height:69px;
 
     .tip-text {
       display: inline-block;

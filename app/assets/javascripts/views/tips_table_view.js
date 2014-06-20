@@ -2,12 +2,23 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
   template: JST['users/tips_table'],
 
   initialize: function(options) {
+    this.newTipView   = null;
     this.tipsCategory = options.tipsCategory;
-    this.tipViews = [];
+    this.tipViews     = [];
+  },
+
+  events: {
+    "click .add-tip-container": "_renderNewTipForm",
   },
 
   render: function() {
-    var renderedContent = this.template();
+    // need to refactor the categories into a separate view and use event triggers to automate this...
+    if(this.newTipView) {
+      this.newTipView.remove();
+      this.newTipView = null;
+    }
+    var renderedContent;
+    renderedContent = this.template();
     this.$el.html(renderedContent);
     this._renderTips(this._tipsToDisplay());
     return this;
@@ -15,17 +26,18 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
 
   _tipsToDisplay: function() {
     // var selectedTips, custom_personality = this.model.get("custom_personality");
-    var selectedTips, custom_personality = this.model.get("custom_personality");
+    var selectedTips, customPersonality;
+    customPersonality = this.model.get("custom_personality");
 
     switch(this.tipsCategory) {
       case "colleague":
-        selectedTips = custom_personality.get("as_colleague");
+        selectedTips = customPersonality.get("as_colleague");
         break;
       case "manager":
-        selectedTips = custom_personality.get("as_manager");
+        selectedTips = customPersonality.get("as_manager");
         break;
       case "employee":
-        selectedTips = custom_personality.get("as_employee");
+        selectedTips = customPersonality.get("as_employee");
         break;
     }
     return selectedTips;
@@ -40,6 +52,25 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
       that.tipViews.push(tipView);
       $node.append(tipView.render().$el);
     });
+  },
+
+  _renderNewTipForm: function() {
+    var tip;
+    tip = new TeamProfile.Models.Tip({
+      id: "new",
+      relationship_type: this.tipsCategory,
+      text: "",
+      score: 1,
+      curr_user_vote: 1
+    });
+
+    if(!this.newTipView) {
+      this.newTipView = new TeamProfile.Views.NewTipView({model: tip});
+      this.$(".add-tip-row").after(this.newTipView.render().$el);
+      return this;
+    } else {
+      this.newTipView.focus();
+    }
   },
 
   remove: function() {

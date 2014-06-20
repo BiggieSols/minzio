@@ -17,9 +17,10 @@ class CustomPersonality < ActiveRecord::Base
     # self.remove_old_tips
     
     self.remove_old_tips if self.tips.length > 0
+    current_tips = self.tips.pluck(:text)
     tips_hash.each do |relation, tips_arr|
       tips_arr.each do |tip|
-        self.tips.build(relationship_type: relation, text: tip)
+        self.tips.build(relationship_type: relation, text: tip) if !current_tips.include? tip
       end
     end
     self.save

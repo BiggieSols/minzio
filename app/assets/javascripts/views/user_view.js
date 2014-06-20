@@ -28,6 +28,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   remove: function() {
     if(this.disabledDivTimeout) clearTimeout(this.disabledDivTimeout);
     if(this.groupPromptTimeout) clearTimeout(this.groupPromptTimeout);
+    this.tipsTableView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 
