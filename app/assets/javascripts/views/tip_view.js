@@ -3,11 +3,20 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   template: JST['tips/show'],
 
   initialize: function() {
+    this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
     this.listenTo(this.model, "sync", this.render);
   },
 
   events: {
     "click .vote-direction"   : "vote",
+    "click .edit-button"      : "_renderEditForm",
+  },
+
+  _renderEditForm: function() {
+    this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
+    this.$('.tip-text-container').html(this.editTipView.render().$el);
+    this.editTipView.focus();
+    return this;
   },
 
   render: function() {

@@ -16,10 +16,20 @@ class TipsController < ApplicationController
     
     @tip = Tip.new(params[:tip])
     @tip.save
-    TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
+    # TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
+    render 'show.json.jbuilder'
+  end
+
+  def update
+    @tip = Tip.find(params[:id])
+    @tip.update_attributes(text: params[:text])
+    @tip.tip_votes.destroy_all
     render 'show.json.jbuilder'
   end
 
   def destroy
+    @tip = Tip.find(params[:id])
+    @tip.destroy
+    render 'show.json.jbuilder'
   end
 end

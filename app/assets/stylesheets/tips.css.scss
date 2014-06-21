@@ -48,9 +48,18 @@
     line-height:69px;
 
     .tip-text {
+      width: 100%;
       display: inline-block;
       vertical-align: middle;
       line-height: normal;
     }
   }
+}
+
+.edit-text {
+  padding-left: 0;
+}
+
+.tip-edit-submit {
+  padding-left: 0;
 }
