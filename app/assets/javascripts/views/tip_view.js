@@ -1,6 +1,6 @@
 TeamProfile.Views.TipView = Backbone.View.extend({
-  tagName: "tr",
-  template: JST['users/tip'],
+  // tagName: "tr",
+  template: JST['tips/show'],
 
   initialize: function() {
     this.listenTo(this.model, "sync", this.render);

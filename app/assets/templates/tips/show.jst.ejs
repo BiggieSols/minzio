@@ -1,14 +1,15 @@
-<td class="tip" data-id="<%= tip.id %>">
-  <div class="row">
+<div class="row">
+  <div class="tip" data-id="<%= tip.id %>">
     <div class="tip-vote-container col-xs-2 col-sm-1">
       <span class="vote-direction glyphicon glyphicon-chevron-up up"  data-direction="up"></span><br>
       <span class="tip-score"><%= tip.get("score") %></span><br>
       <span class="vote-direction glyphicon glyphicon-chevron-down down" data-direction="down"></span>
     </div>
-    <div class="col-xs-10 col-sm-11 tip-text-container">
+    <div class="col-xs-9 col-sm-10 tip-text-container">
       <span class="tip-text">
         <%= tip.escape("text") %>
       </span>
     </div>
+    <span class="vote-direction glyphicon glyphicon-chevron-down tip-edit-trigger"></span>
   </div>
-</td>
+</div>

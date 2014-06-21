@@ -76,53 +76,6 @@
   font-size: 1.2em;
 }
 
-.add-tip-container {
-  font-size: 1.2em;
-  padding-left: 0;
-  margin-left: -3px;
-}
-
-.tips-table {
-  margin-top: 1%;
-  .tip {
-    padding-top: 10px;
-    padding-bottom: 10;
-  }
-  .tip-vote-container {
-    text-align: center;
-
-    .tip-score {
-      font-size: 1.2em;
-    }
-
-    .vote-direction {
-      font-size: 1.3em;
-    }
-
-    .vote-direction:hover {
-      cursor:pointer;
-    }
-
-    .upvote, {
-      color: #149c82
-    }
-
-    .downvote {
-      color: tomato;
-    }
-  }
-
-  .tip-text-container {
-    line-height:69px;
-
-    .tip-text {
-      display: inline-block;
-      vertical-align: middle;
-      line-height: normal;
-    }
-  }
-}
-
 .switch:hover {
   cursor: pointer;
 }
