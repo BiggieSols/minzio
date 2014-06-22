@@ -1,6 +1,10 @@
 TeamProfile.Views.TipsView = Backbone.View.extend({
   template: JST['tips/index'],
 
+  events: {
+    "click .delete-tip-confirm":"_removeTip",
+  },
+
   initialize: function(options) {
     this.tipViews = [];
     this.listenTo(this.collection, "add", this.render);
@@ -12,6 +16,16 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
     this.$el.html(renderedContent);
     this._renderTips();
     return this;
+  },
+
+  _removeTip: function(event) {
+    var tip, tipId;
+    tipId = $(event.currentTarget).data("id");
+    tip = this.collection.get(tipId);
+    tip.destroy();
+    this.collection.remove(tipId);
+    this.$("#delete-tip").modal("hide");
+
   },
 
   _renderTips: function() {

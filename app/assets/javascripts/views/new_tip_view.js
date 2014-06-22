@@ -28,15 +28,22 @@ TeamProfile.Views.NewTipView = Backbone.View.extend({
   },
 
   _addTip: function(event) {
-    var tip, text, that;
+    var tip, text, that, editableTips;
     event.preventDefault();
     that = this;
     text = this.$(".tip-text input").val();
     console.log("custom personality id is " + this.customPersonality.id);
     this.model.set("text", text);
     this.$('.tip-text input').val("");
+
+
     this.model.save({}, {
       success: function() {
+      // add to tip IDs the user can edit. this is more efficient than reloading the current user
+        editableTips = TeamProfile.currentUser.get("editable_tip_ids");
+        editableTips[that.model.id] = true;
+        TeamProfile.currentUser.set("editable_tip_ids", editableTips);
+
         that._appendTip();
       }
     });

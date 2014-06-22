@@ -3,13 +3,28 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   template: JST['tips/show'],
 
   initialize: function() {
+    this.canEdit     = TeamProfile.currentUser.get("editable_tip_ids")[this.model.id];
     this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
     this.listenTo(this.model, "sync", this.render);
+    this.listenTo(this.model, "destroy", this.remove);
   },
 
   events: {
-    "click .vote-direction"   : "vote",
-    "click .edit-button"      : "_renderEditForm",
+    "click .vote-direction"     : "vote",
+    "click .edit-button"        : "_renderEditForm",
+    "click .trigger-tip-delete" : "_setDeleteModalTipId",
+    "mouseenter .cannot-edit"   : "_showTooltip",
+
+  },
+
+  _setDeleteModalTipId: function() {
+    $('.delete-tip-confirm').data("id", this.model.id);
+  },
+
+  _delete: function() {
+    console.log("attempting to delete this tip");
+    this.model.destroy();
+    $('#delete-tip').modal("hide");
   },
 
   _renderEditForm: function() {
@@ -37,6 +52,10 @@ TeamProfile.Views.TipView = Backbone.View.extend({
       this.$('.down, .tip-score').addClass("downvote");
     }
     return this;
+  },
+
+  _showTooltip: function(event) {
+    $(event.currentTarget).tooltip("show");
   },
 
   vote: function(event) {

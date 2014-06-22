@@ -110,3 +110,10 @@ body {
   margin-right: 8px;
   // padding: 3px;
 }
+
+@media (max-width: 767px) {
+  .btn, .btn-warning {
+    font-size: 1.0em;
+    padding: 0;
+  }
+}

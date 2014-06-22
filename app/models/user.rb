@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
   has_many :group_memberships, class_name: "GroupMember"
   has_many :groups, through: :group_memberships
 
+  has_many :authored_tips, foreign_key: :author_user_id, class_name: "Tip"
+
   # this is the GENERAL personality type (INTJ, ENFP, etc.)
   belongs_to :personality_type
 
@@ -56,6 +58,16 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_by_credentials(params={email: nil, password: nil})
+    user = User.find_by_email(params[:email]);
+    return user if user && user.is_password?(params[:password])
+    nil
+  end
+
+  def editable_tip_ids
+    (self.authored_tip_ids + self.custom_personality.tip_ids).uniq
+  end
+
   def get_large_image_url
     self.large_image_url = self.linkedin.picture_urls.all.first
     self.save
@@ -66,11 +78,6 @@ class User < ActiveRecord::Base
     self.sent_invitations.length
   end
 
-  def self.find_by_credentials(params={email: nil, password: nil})
-    user = User.find_by_email(params[:email]);
-    return user if user && user.is_password?(params[:password])
-    nil
-  end
 
   def valid_connection_ids
     return @valid_ids if @valid_ids

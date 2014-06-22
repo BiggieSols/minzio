@@ -2,7 +2,7 @@ TeamProfile.Views.EditTipView = Backbone.View.extend({
   template: JST['tips/edit'],
 
   events: {
-    "submit .new-tip-form":"_addTip",
+    "submit .edit-tip-form":"_updateTip",
     "keydown .edit-text-input":"escape",
   },
 
@@ -34,5 +34,12 @@ TeamProfile.Views.EditTipView = Backbone.View.extend({
       this.remove();
       this.model.trigger("sync");
     }
-  }
+  },
+
+  _updateTip: function(e) {
+    var text;
+    e.preventDefault();
+    text = this.$('.edit-text-input').val();
+    this.model.save({"text": text});
+  },
 });

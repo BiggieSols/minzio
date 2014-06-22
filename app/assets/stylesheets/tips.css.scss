@@ -16,7 +16,14 @@
     padding-bottom: 10;
 
     .tip-edit-trigger {
+      color: #555;
       font-size: 0.5em;
+      padding: 15px;
+      margin: -15px;
+    }
+
+    .tip-edit-trigger.cannot-edit {
+      color: #aaa;
     }
   }
   .tip-vote-container {
@@ -48,10 +55,12 @@
     line-height:69px;
 
     .tip-text {
-      width: 100%;
       display: inline-block;
       vertical-align: middle;
       line-height: normal;
+    }
+    .full-width {
+      width: 100%;
     }
   }
 }
@@ -62,4 +71,19 @@
 
 .tip-edit-submit {
   padding-left: 0;
+  padding-right: 0;
+}
+
+.tip-edit-warning {
+  font-size: 0.8em;
+  // font-weight: bold;
+  color: red;
+  height: 30px;
+  margin-top: -30px;
+}
+
+@media (max-width: 767px) {
+  .add-tip-anchor {
+    font-size: 0.9em;
+  }
 }
