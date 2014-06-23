@@ -104,14 +104,15 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       }, 500);
     });
 
-    // load social plugin for facebook
-    window.fbAsyncInit();
+    // load social plugin for facebook. CURRENTLY NOT WORKING
+    // $(window.fbAsyncInit());
+    
 
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
     this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
-    this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
+    // this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
     
     return this;
   },
@@ -204,8 +205,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderGroupPopover: function() {
     var that = this;
-    if($.cookie("newUser") == 1) {
-      $.cookie("newUser", 0);
+    // if($.cookie("newUser") == 1) {
       // var title = "set up your groups!";
       var title = '<span class="popover-title">Set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
       var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
@@ -226,21 +226,21 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       $('.popover, #groups-nav').on("click", function(e) {
         $('.popover').remove();
       });
-    }
+    // }
     return this;
   },
 
   _renderIntro: function() {
     var that = this;
 
-    if($.cookie("newUser") == 1) {
+    if($.cookie("newUser") === "1" || $.cookie("newUser") === "null") {
+      $.cookie("newUser", 0);
       setTimeout(function() {
         introJs().setOptions({
           'skipLabel':'Exit',
           'scrollToElement': true
-        }).oncomplete(function() {
-          that.$('#referral-link').select();
         }).start();
+        that._renderGroupPopover();
 
         return this;
       }, 1000);

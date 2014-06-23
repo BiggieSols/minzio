@@ -49,11 +49,14 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
     user.account_active       = true
+
+
+    user.custom_personality   = CustomPersonality.new if new_account
+    UserMailer.delay.welcome_email(user)              if new_account
+
     user.save!
-
+    
     user.get_large_image_url
-
-    UserMailer.delay.welcome_email(user) if new_account
 
     user
   end

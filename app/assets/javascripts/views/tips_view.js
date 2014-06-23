@@ -22,7 +22,7 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
     var tipView;
     tipView = this.tipViews[0];
     tipView.$(".tip-vote-container").attr("data-step", 5)
-                                    .attr("data-intro", "Any of your LinkedIn connections can upvote/downvote tips on working with you (you can upvote / downvote your own tips as well)");
+                                    .attr("data-intro", "Do you agree with this comment? If so, click 'up' to upvote. If not, downvote!");
 
     tipView.$(".tip-edit-trigger-container").attr("data-step", 6)
                                             .attr("data-position", "left")
