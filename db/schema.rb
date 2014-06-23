@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140617230529) do
+ActiveRecord::Schema.define(:version => 20140623164105) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -132,12 +132,14 @@ ActiveRecord::Schema.define(:version => 20140617230529) do
     t.string   "relationship_type"
     t.integer  "author_user_id"
     t.text     "text"
-    t.datetime "created_at",            :null => false
-    t.datetime "updated_at",            :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "hidden",                :default => false
   end
 
   add_index "tips", ["author_user_id"], :name => "index_tips_on_author_user_id"
   add_index "tips", ["custom_personality_id"], :name => "index_tips_on_custom_personality_id"
+  add_index "tips", ["hidden"], :name => "index_tips_on_hidden"
   add_index "tips", ["relationship_type"], :name => "index_tips_on_relationship_type"
 
   create_table "user_answers", :force => true do |t|

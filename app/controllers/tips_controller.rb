@@ -29,7 +29,8 @@ class TipsController < ApplicationController
 
   def destroy
     @tip = Tip.find(params[:id])
-    @tip.destroy
+    @tip.hidden = true
+    @tip.save
     render 'show.json.jbuilder'
   end
 end

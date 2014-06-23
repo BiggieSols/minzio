@@ -1,4 +1,6 @@
 class Tip < ActiveRecord::Base
+  default_scope where(:hidden => false)
+  
   attr_accessible :author_user_id, :custom_personality_id, :relationship_type, :text
 
   belongs_to :custom_personality
