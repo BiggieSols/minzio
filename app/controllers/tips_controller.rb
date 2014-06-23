@@ -16,7 +16,7 @@ class TipsController < ApplicationController
     
     @tip = Tip.new(params[:tip])
     @tip.save
-    # TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
+    TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
     render 'show.json.jbuilder'
   end
 

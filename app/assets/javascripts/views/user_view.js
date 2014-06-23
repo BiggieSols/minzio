@@ -229,6 +229,23 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
+  _renderIntro: function() {
+    var that = this;
+
+    // if($.cookie("newUser") == 1) {
+      setTimeout(function() {
+        introJs().setOptions({
+          'skipLabel':'Exit',
+          'scrollToElement': true
+        }).oncomplete(function() {
+          that.$('#referral-link').select();
+        }).start();
+
+        return this;
+      }, 500);
+    // }
+  },
+
   _renderSocialShare: function() {
     if(TeamProfile.currentUser.id == this.model.id) {
       var socialShareView = new TeamProfile.Views.SocialShareView({

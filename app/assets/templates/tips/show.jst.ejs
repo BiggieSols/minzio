@@ -10,7 +10,8 @@
         <%= tip.escape("text") %>
       </span>
     </div>
-    <% if(this.canEdit) {%>
+    <span class="tip-edit-trigger-container">
+      <% if(this.canEdit) {%>
       <span class="dropdown">
         <a data-toggle="dropdown">
           <span class="glyphicon glyphicon-chevron-down tip-edit-trigger dropdown-toggle"></span>
@@ -20,10 +21,11 @@
           <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" class="trigger-tip-delete" data-target="#delete-tip">Delete</a></li>
         </ul>
       </span>
-    <% } else { %>
-        <a data-toggle="dropdown">
-          <span class="glyphicon glyphicon-chevron-down tip-edit-trigger dropdown-toggle cannot-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the author or profile owner can edit/delete!"></span>
-        </a>
-    <% } %>
+      <% } else { %>
+      <a data-toggle="dropdown">
+        <span class="glyphicon glyphicon-chevron-down tip-edit-trigger dropdown-toggle cannot-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the author or profile owner can edit/delete!"></span>
+      </a>
+      <% } %>
+    </span>
   </div>
 </div>

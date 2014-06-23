@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-cs-12 col-sm-12 col-md-4 col-md-offset-1">
       <div class="content-container">
-        <div class="row content-area"> 
+        <div class="row content-area" data-intro="Here's your basic info. It comes from LinkedIn." data-step="1"> 
           <div class="col-xs-5 col-sm-4 col-md-4">
             <div class="user-top">
               <img src="<%= user.get("large_image_url") %>" class="user-image">
@@ -38,16 +38,18 @@
     </div>
     <div class="content-container">
       <div class="col-xs-12 col-sm-12 col-md-6 content-area personality-column">
-        <div class="personality-type">
-          <%= userResultsInfo.get("personality_type").escape("title") %>
+        <div data-intro="Details about your personality type. Be sure to share with your colleagues if it's accurate!" data-step="2">
+          <div class="personality-type">
+            <%= userResultsInfo.get("personality_type").escape("title") %>
+          </div>
+          <div class="long-personality-type">
+            <%= userResultsInfo.get("personality_type").escape("small_info") %>
+          </div>
+          <div class="personality-info lead">
+            <%= userResultsInfo.get("personality_type").get("large_info") %>
+          </div>
         </div>
-        <div class="long-personality-type">
-          <%= userResultsInfo.get("personality_type").escape("small_info") %>
-        </div>
-        <div class="personality-info lead">
-          <%= userResultsInfo.get("personality_type").get("large_info") %>
-        </div>
-        <div class="working-with-personality">
+        <div class="working-with-personality" data-intro="Tips on how to work with you, specifically. Split up by work relationship type (manager, colleague, employee)" data-step="3" data-position="top">
           <ul class="nav nav-pills">
             <li class="active switch" data-category="colleague"><a>As<br>Colleague</a></li>
             <li class="switch" data-category="manager"><a>As<br>Manager</a></li>

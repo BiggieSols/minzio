@@ -9,6 +9,7 @@ class Tip < ActiveRecord::Base
   has_many :tip_votes, dependent: :destroy
 
   def score
+    
     self.tip_votes.map(&:vote_value).reduce(:+) || 0
   end
 

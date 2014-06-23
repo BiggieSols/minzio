@@ -5,7 +5,6 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     this.newTipView   = null;
     this.tipsView     = null;
     this.tipsCategory = options.tipsCategory;
-    this.tipViews     = [];
   },
 
   events: {

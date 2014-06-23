@@ -113,7 +113,22 @@ class User < ActiveRecord::Base
 
     self.connections = self.connections.uniq
     self.save
+    self.ensure_profile_available
   end
+
+  def ensure_profile_available
+    ActiveRecord::Base.transaction do
+      connected_users = User.where(id: self.valid_connection_ids, account_active: true)
+      connection_info = self.connections.find { |c| c["name"] == self.name }
+      connected_users.each do |user|
+        if !user.connections.include?(connection_info)
+          user.connections << connection_info
+          user.save
+        end
+      end
+    end
+  end
+  # handle_asynchronously :ensure_profile_available
 
   def build_batch(linkedin_connects)
     linkedin_connects_uids  = linkedin_connects.map {|c| c["id"]}
