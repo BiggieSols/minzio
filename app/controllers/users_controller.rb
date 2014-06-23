@@ -19,15 +19,28 @@ class UsersController < ApplicationController
         # puts "\n"*5
         # puts "fetching current user"
         # puts "\n"*5
-        @user = User.includes(:personality_type, :sent_invitations, :groups => [:members]).find(current_user.id)
+        @user = User.includes(
+                              :personality_type, 
+                              :sent_invitations, 
+                              :groups => [:members], 
+                              :custom_personality => [:tips => [:tip_votes]]
+                              ).find(current_user.id)
+
+        @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
+        @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
+        @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
+
         render 'show.json.jbuilder'
       elsif current_user.valid_connection_ids.include?(user_id)
         # puts "\n"*5
         # puts "fetching other user"
         # puts "\n"*5
-        @user = User.includes(:personality_type).find(user_id)
+        @user = User.includes(
+                              :personality_type, 
+                              :custom_personality => [:tips => [:tip_votes]]
+                              ).find(user_id)
         # at some point only pull down a limited set of results
-        render 'show_lite.json.jbuilder'
+        render 'show_other.json.jbuilder'
       else
         # puts "\n"*5
         # puts "user is not valid"

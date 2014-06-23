@@ -18,9 +18,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       this.dummyData = true;
     }
 
-    this.traitsTableView = new TeamProfile.Views.TraitsTableView({
+    this.tipsTableView = new TeamProfile.Views.TipsTableView({
       model: this.userResultsInfo,
-      traitsCategory: "colleague"
+      tipsCategory: "colleague"
     });
   },
 
@@ -28,6 +28,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   remove: function() {
     if(this.disabledDivTimeout) clearTimeout(this.disabledDivTimeout);
     if(this.groupPromptTimeout) clearTimeout(this.groupPromptTimeout);
+    this.tipsTableView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 
@@ -49,8 +50,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       var newCategory = clickedItem.data("category");
       this.$('.working-with-personality .active').removeClass("active");
       clickedItem.addClass("active");
-      this.traitsTableView.traitsCategory = newCategory;
-      this.traitsTableView.render();
+      this.tipsTableView.tipsCategory = newCategory;
+      this.tipsTableView.render();
     }
   },
 
@@ -92,8 +93,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       userResultsInfo: this.userResultsInfo
     });
     this.$el.html(renderedContent);
-    this._renderTraitsTable();
+    this._renderTipsTable();
     this._renderSocialShare();
+    this._renderIntro();
     var that = this;
 
     $(document).ready(function() {
@@ -102,14 +104,15 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       }, 500);
     });
 
-    // load social plugin for facebook
-    window.fbAsyncInit();
+    // load social plugin for facebook. CURRENTLY NOT WORKING
+    // $(window.fbAsyncInit());
+    
 
         // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
     this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
-    this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
+    // this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
     
     return this;
   },
@@ -202,10 +205,9 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderGroupPopover: function() {
     var that = this;
-    if($.cookie("newUser") == 1) {
-      $.cookie("newUser", 0);
+    // if($.cookie("newUser") == 1) {
       // var title = "set up your groups!";
-      var title = "Set up your groups!"; //'<span class="popover-title">set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
+      var title = '<span class="popover-title">Set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
       var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
       var $container = $('#groups-nav');
       $container.data("container", "body")
@@ -224,8 +226,25 @@ TeamProfile.Views.UserView = Backbone.View.extend({
       $('.popover, #groups-nav').on("click", function(e) {
         $('.popover').remove();
       });
-    }
+    // }
     return this;
+  },
+
+  _renderIntro: function() {
+    var that = this;
+
+    if($.cookie("newUser") === "1" || $.cookie("newUser") === "null") {
+      $.cookie("newUser", 0);
+      setTimeout(function() {
+        introJs().setOptions({
+          'skipLabel':'Exit',
+          'scrollToElement': true
+        }).start();
+        that._renderGroupPopover();
+
+        return this;
+      }, 1000);
+    }
   },
 
   _renderSocialShare: function() {
@@ -239,8 +258,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     return this;
   },
 
-  _renderTraitsTable: function() {
-    this.$('.traits-table').html(this.traitsTableView.render().$el);
+  _renderTipsTable: function() {
+    this.$('.tips-table').html(this.tipsTableView.render().$el);
     return this;
   },
 });

@@ -21,7 +21,13 @@ class User < ActiveRecord::Base
   has_many :group_memberships, class_name: "GroupMember"
   has_many :groups, through: :group_memberships
 
-  belongs_to :personality_type, foreign_key: :personality_type_id, class_name: "PersonalityType"
+  has_many :authored_tips, foreign_key: :author_user_id, class_name: "Tip"
+
+  # this is the GENERAL personality type (INTJ, ENFP, etc.)
+  belongs_to :personality_type
+
+  # this is the customized personality type that can be modified for a specific user
+  has_one    :custom_personality
 
   attr_accessor :password, :password_confirmation
 
@@ -43,13 +49,26 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
     user.account_active       = true
-    user.save!
 
+
+    user.custom_personality   = CustomPersonality.new if new_account
+    UserMailer.delay.welcome_email(user)              if new_account
+
+    user.save!
+    
     user.get_large_image_url
 
-    UserMailer.delay.welcome_email(user) if new_account
-
     user
+  end
+
+  def self.find_by_credentials(params={email: nil, password: nil})
+    user = User.find_by_email(params[:email]);
+    return user if user && user.is_password?(params[:password])
+    nil
+  end
+
+  def editable_tip_ids
+    (self.authored_tip_ids + self.custom_personality.tip_ids).uniq
   end
 
   def get_large_image_url
@@ -62,11 +81,6 @@ class User < ActiveRecord::Base
     self.sent_invitations.length
   end
 
-  def self.find_by_credentials(params={email: nil, password: nil})
-    user = User.find_by_email(params[:email]);
-    return user if user && user.is_password?(params[:password])
-    nil
-  end
 
   def valid_connection_ids
     return @valid_ids if @valid_ids
@@ -210,14 +224,14 @@ class User < ActiveRecord::Base
       results_str += result.last > 0 ? result[0][0] : result[0][1]
     end
 
-    # # puts "\n"*5
-    # # puts results_str.inspect
-    # # puts "\n"*5
+    personality_type = PersonalityType.find_by_title(results_str.upcase)
+    self.personality_type_id = personality_type.id
 
-    self.personality_type_id = PersonalityType.find_by_title(results_str.upcase).id
+    self.custom_personality ||= CustomPersonality.new
+
+    self.custom_personality.add_defaults(personality_type)
 
     self.send_completion_notification if first_test_attempt
-
     self.save
   end
 

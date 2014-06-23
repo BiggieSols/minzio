@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140602000412) do
+ActiveRecord::Schema.define(:version => 20140623164105) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20140602000412) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "custom_personalities", :force => true do |t|
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "custom_personalities", ["user_id"], :name => "index_custom_personalities_on_user_id"
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0, :null => false
@@ -107,6 +115,32 @@ ActiveRecord::Schema.define(:version => 20140602000412) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "tip_votes", :force => true do |t|
+    t.integer  "tip_id"
+    t.integer  "user_id"
+    t.integer  "vote_value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tip_votes", ["tip_id"], :name => "index_tip_votes_on_tip_id"
+  add_index "tip_votes", ["user_id"], :name => "index_tip_votes_on_user_id"
+
+  create_table "tips", :force => true do |t|
+    t.integer  "custom_personality_id"
+    t.string   "relationship_type"
+    t.integer  "author_user_id"
+    t.text     "text"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+    t.boolean  "hidden",                :default => false
+  end
+
+  add_index "tips", ["author_user_id"], :name => "index_tips_on_author_user_id"
+  add_index "tips", ["custom_personality_id"], :name => "index_tips_on_custom_personality_id"
+  add_index "tips", ["hidden"], :name => "index_tips_on_hidden"
+  add_index "tips", ["relationship_type"], :name => "index_tips_on_relationship_type"
 
   create_table "user_answers", :force => true do |t|
     t.integer  "user_id"

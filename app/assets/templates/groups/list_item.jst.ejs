@@ -8,17 +8,17 @@
     <a class="modify-group-button" data-toggle="dropdown">
       <span class="glyphicon glyphicon-pencil dropdown-toggle"></span>
     </a>
-      <ul class="dropdown-menu dropdown-menu-right" role="menu">
-        <li role="presentation" class="edit-button"><a role="menuitem" tabindex="-1">Edit</a></li>
-        <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myModal">Delete</a></li>
-      </ul>
-    </div>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li role="presentation" class="edit-button"><a role="menuitem" tabindex="-1">Edit</a></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#myModal">Delete</a></li>
+    </ul>
+  </div>
 
   <% } else { %>
-    <div class="group-edit">
-      <span class="glyphicon glyphicon-pencil non-admin" data-toggle="tooltip" data-placement="left" title="" data-original-title="Only group admin can edit or delete"></span>
-    </div>
+  <div class="group-edit">
+    <span class="glyphicon glyphicon-pencil non-admin" data-toggle="tooltip" data-placement="left" title="" data-original-title="Only group admin can edit or delete"></span>
+  </div>
   <% } %>
 
-  </div>
+</div>
 </div>

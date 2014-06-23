@@ -1,0 +1,31 @@
+<div class="row">
+  <div class="tip" data-id="<%= tip.id %>">
+    <div class="tip-vote-container col-xs-2 col-sm-1">
+      <span class="vote-direction glyphicon glyphicon-chevron-up up"  data-direction="up" data-toggle="tooltip" data-placement="right" title="" data-original-title="anonymously upvote"></span><br>
+      <span class="tip-score"><%= tip.get("score") %></span><br>
+      <span class="vote-direction glyphicon glyphicon-chevron-down down" data-direction="down" data-toggle="tooltip" data-placement="right" title="" data-original-title="anonymously downvote"></span>
+    </div>
+    <div class="col-xs-9 col-sm-10 tip-text-container">
+      <span class="tip-text">
+        <%= tip.escape("text") %>
+      </span>
+    </div>
+    <span class="tip-edit-trigger-container">
+      <% if(this.canEdit) {%>
+      <span class="dropdown">
+        <a data-toggle="dropdown">
+          <span class="glyphicon glyphicon-chevron-down tip-edit-trigger dropdown-toggle"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+          <li role="presentation" class="edit-button"><a role="menuitem" tabindex="-1">Edit</a></li>
+          <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" class="trigger-tip-delete" data-target="#delete-tip">Delete</a></li>
+        </ul>
+      </span>
+      <% } else { %>
+      <a data-toggle="dropdown">
+        <span class="glyphicon glyphicon-chevron-down tip-edit-trigger dropdown-toggle cannot-edit" data-toggle="tooltip" data-placement="top" title="" data-original-title="only the author or profile owner can edit/delete!"></span>
+      </a>
+      <% } %>
+    </span>
+  </div>
+</div>

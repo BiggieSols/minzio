@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  custom_personality_id: 1
+  relationship_type: MyString
+  author_user_id: 1
+  text: MyText
+
+two:
+  custom_personality_id: 1
+  relationship_type: MyString
+  author_user_id: 1
+  text: MyText
