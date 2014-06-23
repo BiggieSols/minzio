@@ -95,6 +95,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.$el.html(renderedContent);
     this._renderTipsTable();
     this._renderSocialShare();
+    this._renderIntro();
     var that = this;
 
     $(document).ready(function() {
@@ -206,7 +207,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     if($.cookie("newUser") == 1) {
       $.cookie("newUser", 0);
       // var title = "set up your groups!";
-      var title = "Set up your groups!"; //'<span class="popover-title">set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
+      var title = '<span class="popover-title">Set up your groups!</span>' + '<button type="button" class="close custom-close" data-dismiss="popover">&times;</button>';
       var content = "When you're ready, compare results with your co-workers on the <b>Groups</b> tab";
       var $container = $('#groups-nav');
       $container.data("container", "body")
@@ -232,7 +233,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   _renderIntro: function() {
     var that = this;
 
-    // if($.cookie("newUser") == 1) {
+    if($.cookie("newUser") == 1) {
       setTimeout(function() {
         introJs().setOptions({
           'skipLabel':'Exit',
@@ -242,8 +243,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         }).start();
 
         return this;
-      }, 500);
-    // }
+      }, 1000);
+    }
   },
 
   _renderSocialShare: function() {
