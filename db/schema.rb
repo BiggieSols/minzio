@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140623164105) do
+ActiveRecord::Schema.define(:version => 20140624001153) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20140623164105) do
 
   add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"
   add_index "users", ["referral_hash"], :name => "index_users_on_referral_hash"
+  add_index "users", ["session_token"], :name => "index_users_on_session_token"
   add_index "users", ["uid"], :name => "index_users_on_uid"
 
 end
