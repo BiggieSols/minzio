@@ -6,8 +6,8 @@ TeamProfile.Views.TipView = Backbone.View.extend({
     this.firstTip    = options.firstTip;
     this.canEdit     = TeamProfile.currentUser.get("editable_tip_ids")[this.model.id];
     this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
-    // this.listenTo(this.model, "sync", this.render);
-    // this.listenTo(this.model, "destroy", this.remove);
+    this.listenTo(this.model, "sync", this.render);
+    this.listenTo(this.model, "destroy", this.remove);
   },
 
   events: {
