@@ -30,4 +30,26 @@ class Tip < ActiveRecord::Base
     return nil if self.anonymous
     User.find(self.anonymized_author_id).name
   end
+
+  def send_creation_notification
+    self.send_email_notification(create: true)
+  end
+
+  def send_deletion_notification
+    self.send_email_notification(delete: true)
+  end
+
+  def send_email_notification(params = {create: false, delete: false})
+    from_user = self.author
+    to_user   = self.custom_personality.user
+
+    # Do not send notifications when a user modifies own content
+    return if from_user.id == to_user.id 
+    
+    options   = {from_user: from_user, to_user: to_user, tip: self}
+
+    UserMailer.delay.tip_added(options) if params[:create]
+    UserMailer.delay.tip_deleted(options) if params[:delete]
+  end
 end
+

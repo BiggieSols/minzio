@@ -1,0 +1,15 @@
+Hi there,
+
+<%= @from_user_name %> deleted a tip about working with you as a <%= @tip.relationship_type.split("_").last %>: 
+
+"<%= @tip.text %>"
+
+<% if !@tip.anonymous %>
+Want to add a tip for <%= @from_user_name %>? Do it here: www.minzio.com/#/users/<%= @from_user.id %>
+<% end %>
+
+Cheers,
+Sol from Minzio
+
+
+unsubscribe: *|UNSUB:http://www.minzio.com/unsub|*

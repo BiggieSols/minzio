@@ -17,6 +17,8 @@ class TipsController < ApplicationController
     @tip = Tip.new(params[:tip])
     @tip.save
     TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
+    @tip.send_creation_notification
+
     render 'show.json.jbuilder'
   end
 
@@ -31,6 +33,7 @@ class TipsController < ApplicationController
     @tip = Tip.find(params[:id])
     @tip.hidden = true
     @tip.save
+    @tip.send_deletion_notification
     render 'show.json.jbuilder'
   end
 end

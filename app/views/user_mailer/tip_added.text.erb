@@ -1,0 +1,17 @@
+Hi there,
+
+<%= @from_user_name %> added a tip about working with you as a <%= @tip.relationship_type.split("_").last %>: 
+
+"<%= @tip.text %>"
+
+Do you agree or disagree? Upvote or downvote this tip on your profile: www.minzio.com/#/users/<%= @to_user.id %>
+
+<% if !@tip.anonymous %>
+Want to add a tip for <%= @from_user_name %>? Do it here: www.minzio.com/#/users/<%= @from_user.id %>
+<% end %>
+
+Cheers,
+Sol from Minzio
+
+
+unsubscribe: *|UNSUB:http://www.minzio.com/unsub|*
