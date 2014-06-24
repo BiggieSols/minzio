@@ -6,8 +6,8 @@ TeamProfile.Views.TipView = Backbone.View.extend({
     this.firstTip    = options.firstTip;
     this.canEdit     = TeamProfile.currentUser.get("editable_tip_ids")[this.model.id];
     this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
-    this.listenTo(this.model, "sync", this.render);
-    this.listenTo(this.model, "destroy", this.remove);
+    // this.listenTo(this.model, "sync", this.render);
+    // this.listenTo(this.model, "destroy", this.remove);
   },
 
   events: {
@@ -60,7 +60,7 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   },
 
   vote: function(event) {
-    var target, voteDirection, voteValue, tipVote;
+    var target, voteDirection, voteValue, tipVote, currUserVote, currTipScore, scoreToAdd;
 
     target = $(event.currentTarget);
     voteDirection = target.data("direction");
@@ -71,11 +71,20 @@ TeamProfile.Views.TipView = Backbone.View.extend({
       vote_value: voteValue
     });
 
+    currUserVote = this.model.get("curr_user_vote");
+    currTipScore = this.model.get("score");
+
     if(this.model.get("curr_user_vote") == voteValue) {
       this.destroyVote(tipVote);
+      this.model.set("score", currTipScore -= voteValue);
+      this.model.set("curr_user_vote", 0);
     } else {
+      scoreToAdd = currUserVote ? 2*voteValue : voteValue;
+      this.model.set("score", currTipScore + scoreToAdd);
+      this.model.set("curr_user_vote", voteValue);
       this.createVote(tipVote);
     }
+    this.render();
   },
 
   createVote: function(tipVote) {
