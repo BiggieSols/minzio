@@ -16,7 +16,7 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
     renderedContent = this.template();
     this.$el.html(renderedContent);
 
-    if(!TeamProfile.currentUser) {
+    if(!TeamProfile.currentUser.get("editable_tip_ids")) {
       TeamProfile.currentUser.fetch({
         success: function() {
           that._renderTips();
