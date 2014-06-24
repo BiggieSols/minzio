@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140624001153) do
+ActiveRecord::Schema.define(:version => 20140624171851) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -135,8 +135,10 @@ ActiveRecord::Schema.define(:version => 20140624001153) do
     t.datetime "created_at",                               :null => false
     t.datetime "updated_at",                               :null => false
     t.boolean  "hidden",                :default => false
+    t.boolean  "anonymous",             :default => true
   end
 
+  add_index "tips", ["anonymous"], :name => "index_tips_on_anonymous"
   add_index "tips", ["author_user_id"], :name => "index_tips_on_author_user_id"
   add_index "tips", ["custom_personality_id"], :name => "index_tips_on_custom_personality_id"
   add_index "tips", ["hidden"], :name => "index_tips_on_hidden"

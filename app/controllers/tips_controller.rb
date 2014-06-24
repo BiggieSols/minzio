@@ -10,9 +10,9 @@ class TipsController < ApplicationController
     params[:tip][:relationship_type] = "as_" + params[:tip][:relationship_type]
     params[:tip][:author_user_id] = current_user.id
 
-    # puts "\n"*10
-    # puts params
-    # puts "\n"*10
+    puts "\n"*10
+    puts params
+    puts "\n"*10
     
     @tip = Tip.new(params[:tip])
     @tip.save

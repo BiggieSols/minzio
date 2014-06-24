@@ -11,6 +11,28 @@
 
 .tips-table {
   margin-top: 1%;
+
+  hr {
+    margin: 0;
+    padding: 0;
+  }
+
+
+  .new-tip-table {
+    margin-bottom: 0;
+  }
+
+  .tip-container:hover {
+    .tip-edit-trigger, .tip-authored-by {
+      visibility:visible;
+    }
+  }
+
+  .tip-authored-by {
+    visibility: hidden;
+    font-size: 0.7em;
+  }
+
   .tip {
     padding-top: 10px;
     padding-bottom: 10;
@@ -20,6 +42,7 @@
       font-size: 0.5em;
       padding: 15px;
       margin: -15px;
+      visibility: hidden;
     }
 
     .tip-edit-trigger.cannot-edit {

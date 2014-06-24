@@ -23,7 +23,7 @@ class UsersController < ApplicationController
                               :personality_type, 
                               :sent_invitations, 
                               :groups => [:members], 
-                              :custom_personality => [:tips => [:tip_votes]]
+                              :custom_personality => [:tips => [:tip_votes, :author]]
                               ).find(current_user.id)
 
         @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
         # puts "\n"*5
         @user = User.includes(
                               :personality_type, 
-                              :custom_personality => [:tips => [:tip_votes]]
+                              :custom_personality => [:tips => [:tip_votes, :author]]
                               ).find(user_id)
         # at some point only pull down a limited set of results
         render 'show_other.json.jbuilder'

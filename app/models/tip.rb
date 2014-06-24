@@ -1,7 +1,7 @@
 class Tip < ActiveRecord::Base
   default_scope where(:hidden => false)
   
-  attr_accessible :author_user_id, :custom_personality_id, :relationship_type, :text
+  attr_accessible :author_user_id, :custom_personality_id, :relationship_type, :text, :anonymous
 
   belongs_to :custom_personality
   belongs_to :author, foreign_key: :author_user_id, class_name: "User"
@@ -19,5 +19,15 @@ class Tip < ActiveRecord::Base
     vote = self.tip_votes.select {|tip_vote| tip_vote.user_id == user_id}.first
     # puts "\ngot here\n"
     vote.vote_value if vote
+  end
+
+  def anonymized_author_id
+    return nil if self.anonymous
+    author_user_id
+  end
+
+  def anonymized_author_name
+    return nil if self.anonymous
+    User.find(self.anonymized_author_id).name
   end
 end
