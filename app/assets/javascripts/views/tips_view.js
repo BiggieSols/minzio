@@ -11,10 +11,22 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
   },
 
   render: function() {
-    var renderedContent;
+    var renderedContent, that;
+    that = this;
     renderedContent = this.template();
     this.$el.html(renderedContent);
-    this._renderTips();
+
+    if(!TeamProfile.currentUser) {
+      TeamProfile.currentUser.fetch({
+        success: function() {
+          that._renderTips();
+        }
+      });
+    } else {
+      this._renderTips();
+    }
+
+    // this._renderTips();
     return this;
   },
 
