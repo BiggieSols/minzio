@@ -56,10 +56,10 @@ TeamProfile.Views.ResultsChartView = Backbone.View.extend({
     that = this;
     options = options || {};
     // var width = options.width || this.$el.parent().width()*0.7;
-    width = this.$el.parent().width();// || options.width;
-    console.log("width is " + width);
+    // width = this.$el.parent().width() * 1;// || options.width;
+    // console.log("width is " + width);
 
-    this.$el.highcharts({
+    this.$("#results-chart").highcharts({
       chart: {
         type: 'bar',
         // width: width

@@ -1,9 +1,9 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
   template: JST['users/show'],
 
-  events: {
-    "click .switch":"_changeCategory",
-  },
+  // events: {
+  //   "click .switch":"_changeCategory",
+  // },
 
   initialize: function() {
     this.chartView            = null;
@@ -31,6 +31,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     if(this.groupPromptTimeout) clearTimeout(this.groupPromptTimeout);
     this.tipsTableView.remove();
     this.chartView.remove();
+    this.personalityTypeView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 
@@ -93,7 +94,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderChartView: function() {
     this.chartView = new TeamProfile.Views.ResultsChartView({model: this.model});
-    this.$('#results-chart').html(this.chartView.render().$el);
+    this.$('.user-results-chart').html(this.chartView.render().$el);
     return this;
   },
 
@@ -173,7 +174,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _renderTipsTable: function() {
-    this.$('.tips-table').html(this.tipsTableView.render().$el);
+    this.$('.working-with-personality').html(this.tipsTableView.render().$el);
     return this;
   },
 });

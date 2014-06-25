@@ -9,6 +9,7 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
 
   events: {
     "click .add-tip-container": "_renderNewTipForm",
+    "click .switch":"_changeCategory",
   },
 
   render: function() {
@@ -20,8 +21,21 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     var renderedContent;
     renderedContent = this.template();
     this.$el.html(renderedContent);
-    this._renderTipsView();
+    this._renderTipsView()._renderActiveSwitch();
     return this;
+  },
+
+  _changeCategory: function(event) {
+    var clickedItem, newCategory;
+    // var newCategory;
+    clickedItem = $(event.currentTarget);
+    if(!clickedItem.hasClass("active")) {
+      newCategory = clickedItem.data("category");
+      // this.$('.active').removeClass("active");
+      // clickedItem.addClass("active");
+      this.tipsCategory = newCategory;
+      this.render();
+    }
   },
 
   _tipsToDisplay: function() {
@@ -41,6 +55,10 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
         break;
     }
     return selectedTips;
+  },
+
+  _renderActiveSwitch: function() {
+    this.$("[data-category = " + this.tipsCategory + "]").addClass("active");
   },
 
   _renderTipsView: function() {
