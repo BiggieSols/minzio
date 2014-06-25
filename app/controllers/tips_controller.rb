@@ -35,7 +35,7 @@ class TipsController < ApplicationController
     @tip = Tip.find(params[:id])
     @tip.hidden = true
     @tip.save
-    @tip.send_deletion_notification
+    @tip.send_deletion_notification(deleting_user: current_user)
     render 'show.json.jbuilder'
   end
 end

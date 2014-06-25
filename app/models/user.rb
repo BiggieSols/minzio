@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
 
-    user.custom_personality   = CustomPersonality.new if new_account
+    user.custom_personality   ||= CustomPersonality.new
 
     user.save!
     UserMailer.delay.welcome_email(user) if new_account

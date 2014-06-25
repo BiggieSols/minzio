@@ -35,7 +35,8 @@ class Tip < ActiveRecord::Base
     self.send_email_notification(create: true)
   end
 
-  def send_deletion_notification
+  def send_deletion_notification(options = {deleting_user: nil})
+    return if options[:deleting_user].id == self.custom_personality.user.id
     self.send_email_notification(delete: true)
   end
 
@@ -47,7 +48,7 @@ class Tip < ActiveRecord::Base
     return if from_user.id == to_user.id
     return if !to_user.account_active
     
-    options   = {from_user: from_user, to_user: to_user, tip: self}
+    options = {from_user: from_user, to_user: to_user, tip: self}
 
     UserMailer.delay.tip_added(options) if params[:create]
     UserMailer.delay.tip_deleted(options) if params[:delete]
