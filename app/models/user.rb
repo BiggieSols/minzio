@@ -158,6 +158,8 @@ class User < ActiveRecord::Base
           user.image_url    = clean { connection["picture_url"] }
           user.uid          = clean { connection["id"] }
           valid_user        = user.uid && user.name && user.name != "private private"
+
+          user.custom_personality.build
           user.save if valid_user
         end
         self.connections << {name: user.name, image_url: user.image_url, id: user.id} if valid_user

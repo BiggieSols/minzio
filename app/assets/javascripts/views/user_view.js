@@ -6,22 +6,23 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   initialize: function() {
+    this.chartView = null;
     this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
     this.rightCategories = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
 
     // check to see if personality test is complete
     if(this.model.get("personality_type").get("title")) {
-      this.userResultsInfo = this.model;
-      this.dummyData = false;
+      this.testComplete = false;
     } else {
       this.userResultsInfo = TeamProfile.dummyUser;
-      this.dummyData = true;
+      this.testComplete = true;
     }
 
     this.tipsTableView = new TeamProfile.Views.TipsTableView({
-      model: this.userResultsInfo,
+      model: this.model,
       tipsCategory: "colleague"
     });
+
   },
 
 
@@ -29,14 +30,15 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     if(this.disabledDivTimeout) clearTimeout(this.disabledDivTimeout);
     if(this.groupPromptTimeout) clearTimeout(this.groupPromptTimeout);
     this.tipsTableView.remove();
+    this.chartView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 
   render: function() {
-    if(this.userResultsInfo.get("name")) {
+    if(this.model.get("name")) {
       return this._renderCallback();
     } else {
-      this.userResultsInfo.fetch({
+      this.model.fetch({
         success: function() {
           return this._renderCallback();
         }
@@ -55,137 +57,34 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     }
   },
 
-  _formattedResults: function(options) {
-    var result = this.userResultsInfo.get("mbti_test_result");
-    var series = [];
-    // for(var key in result){
-    //   var val = result[key];
-    //   var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
-    //   if(options.series === "secondary") {
-    //     modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
-    //   }
-    //   series.push(modifiedVal);
-    // }
-
-    result.forEach(function(result) {
-      var val = result[1];
-      var modifiedVal = (val > 0) ? (0.5 + val * 0.1) : (-0.5 + val * 0.1);
-      if(options.series === "secondary") {
-        modifiedVal = (modifiedVal > 0) ? (modifiedVal - 1) : (1 + modifiedVal);
-      }
-      series.push(modifiedVal);
-    });
-    return series;
-  },
-
-  _pointCategory: function(point) {
-    if(point.y < 0) {
-      return point.category;
-    } else {
-      var idx = this.leftCategories.indexOf(point.category);
-      return this.rightCategories[idx];
-    }
-  },
-
   _renderCallback: function() {
-    var renderedContent = this.template({
+    var renderedContent;
+
+    renderedContent = this.template({
       user: this.model,
-      userResultsInfo: this.userResultsInfo
     });
     this.$el.html(renderedContent);
     this._renderTipsTable();
     this._renderSocialShare();
     this._renderIntro();
-    var that = this;
-
-    $(document).ready(function() {
-      setTimeout(function() {
-        that._renderChart();
-      }, 500);
-    });
+    this._renderChartView();
 
     // load social plugin for facebook. CURRENTLY NOT WORKING
     // $(window.fbAsyncInit());
     
 
-        // ._renderDisabledDivs();
 
     // ok this is a really stupid solution. see if there's a better way to handle this, eventually
+    var that = this;
     this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
     // this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
     
     return this;
   },
 
-  _renderChart: function(options) {
-    var chart, that;
-    that = this;
-    options = options || {};
-    var width = options.width || $('#results-chart').width()*0.7;
-
-    this.$('#results-chart').highcharts({
-      chart: {
-        type: 'bar',
-        width: options.width
-      },
-      title: {
-        text: ''//Personality Profile Breakdown'
-      },
-      // subtitle: {
-      //   text: 'sub-title goes here'
-      // },
-      xAxis: [{
-        categories: this.leftCategories,
-        reversed: true,
-        labels: {
-          step: 1
-        }
-        }, { // mirror axis on right side
-          opposite: true,
-          reversed: true,
-          categories: this.rightCategories,
-          linkedTo: 0,
-          labels: {
-            step: 1
-          }
-        }],
-        yAxis: {
-          title: {
-            text: null
-          },
-          labels: {
-            formatter: function(){
-              return Math.abs(this.value)*100 + '%';
-            }
-          },
-          min: -1,
-          max: 1
-        },
-
-      plotOptions: {
-        series: {
-          stacking: 'normal'
-        }
-      },
-
-      tooltip: {
-        formatter: function(){
-          return "<b>" + Highcharts.numberFormat(Math.abs(this.point.y)*100, 0) + "% " + that._pointCategory(this.point) + "</b>";
-          // return "<b>" + this.point.series.customInfo + "</b>"
-        }
-      },
-
-      series: [{
-        color: "#34495e",
-        customInfo: "here goes the info",
-        data: this._formattedResults({series: "primary"}),
-        showInLegend: false
-      }, {
-        color: "#1abc9c",
-        data: this._formattedResults({series: "secondary"}),
-        showInLegend: false
-      }]
-    });
+  _renderChartView: function() {
+    this.chartView = new TeamProfile.Views.ResultsChartView({model: this.model});
+    this.$('#results-chart').html(this.chartView.render().$el);
     return this;
   },
 
