@@ -10,7 +10,7 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
   remove: function() {
     this._removePopovers();
     this.groupMembersView.remove();
-    this.connectionSearchView.remove();
+    this.addViaLinkedInView.remove();
     return Backbone.View.prototype.remove.call(this);
   },
 
@@ -24,7 +24,7 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
       referralUrlEscaped: referralUrlEscaped
     });
     this.$el.html(renderedContent);
-    this._renderConnectionSearch();
+    this._renderAddViaLinkedIn();
     this._renderGroupMembers();
     return this;
   },
@@ -33,9 +33,9 @@ TeamProfile.Views.GroupView = Backbone.View.extend({
     $('.popover').remove();
   },
   
-  _renderConnectionSearch: function() {
-    this.connectionSearchView = new TeamProfile.Views.ConnectionSearchView({model: this.model});
-    this.$('#add-connections').html(this.connectionSearchView.render().$el);
+  _renderAddViaLinkedIn: function() {
+    this.addViaLinkedInView = new TeamProfile.Views.AddViaLinkedInView({model: this.model});
+    this.$('#add-connections').html(this.addViaLinkedInView.render().$el);
     return this;
   },
 
