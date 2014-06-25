@@ -44,7 +44,8 @@ class Tip < ActiveRecord::Base
     to_user   = self.custom_personality.user
 
     # Do not send notifications when a user modifies own content
-    return if from_user.id == to_user.id 
+    return if from_user.id == to_user.id
+    return if !to_user.account_active
     
     options   = {from_user: from_user, to_user: to_user, tip: self}
 

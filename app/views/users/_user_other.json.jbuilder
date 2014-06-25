@@ -2,7 +2,7 @@ manager_tips   = user.custom_personality.tips.select { |tip| tip.relationship_ty
 colleague_tips = user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
 employee_tips  = user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
 
-json.(user, :id, :updated_at, :name, :description, :headline, :image_url, :large_image_url, :location, :industry, :pub_profile, :mbti_test_result, :personality_type)
+json.(user, :id, :updated_at, :name, :description, :headline, :image_url, :large_image_url, :location, :industry, :pub_profile, :mbti_test_result, :personality_type_id, :personality_type)
 
 json.custom_personality do
   # json.as_manager(@user.custom_personality.as_manager_tips)

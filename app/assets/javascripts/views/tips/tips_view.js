@@ -31,6 +31,7 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
   },
 
   _addIntroDataAttrs: function() {
+    if(!this.tipViews[0]) return;
     var tipView;
     tipView = this.tipViews[0];
     tipView.$(".tip-vote-container").attr("data-step", 5)

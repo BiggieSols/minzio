@@ -145,12 +145,19 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   // optimize later to pull down all friends 
   // and check if friend's info is already available
   user: function(id) {
-    var that = this;
-    var user = new TeamProfile.Models.User({id: id});
+    var that, user, testComplete;
+    that = this;
+    user = new TeamProfile.Models.User({id: id});
     user.fetch({
       success: function() {
         // var userView = new TeamProfile.Views.UserView({model: user});
-        userView = new TeamProfile.Views.UserView({model: user});
+        testComplete = !!user.get("personality_type_id");
+        if(testComplete) {
+          userView = new TeamProfile.Views.UserView({model: user});
+        } else {
+          userView = new TeamProfile.Views.InactiveUserView({model: user});
+        }
+        
         that._swapView(userView);
         if(id == TeamProfile.currentUser.get("id")) {
           that._changeActiveNav($('#profile-nav'));

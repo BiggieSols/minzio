@@ -1,37 +1,32 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
-  template: JST['users/show'],
+  template:               JST['users/show'],
+  inactive_acct_template: JST['users/show_inactive'],
 
   // events: {
   //   "click .switch":"_changeCategory",
   // },
 
   initialize: function() {
-    this.chartView            = null;
     this.basicInfoView        = null;
+    this.chartView            = null;
     this.personalityTypeView  = null;
-    this.leftCategories       = ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
-    this.rightCategories      = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
+    this.socialShareView      = null;
+    this.tipsTableView        = null;
 
     // check to see if personality test is complete
-    if(this.model.get("personality_type").get("title")) {
-      this.testComplete       = false;
-    } else {
-      this.userResultsInfo    = TeamProfile.dummyUser;
-      this.testComplete       = true;
-    }
-
-    this.tipsTableView        = new TeamProfile.Views.TipsTableView({
-      model: this.model,
-      tipsCategory: "colleague"
-    });
+    this.testComplete         = !!this.model.get("personality_type_id");
   },
 
   remove: function() {
     if(this.disabledDivTimeout) clearTimeout(this.disabledDivTimeout);
     if(this.groupPromptTimeout) clearTimeout(this.groupPromptTimeout);
-    this.tipsTableView.remove();
+
+    this.basicInfoView.remove();
     this.chartView.remove();
     this.personalityTypeView.remove();
+    this.tipsTableView.remove();
+    this.socialShareView.remove();
+
     return Backbone.View.prototype.remove.call(this);
   },
 
@@ -47,46 +42,35 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     }
   },
 
-  _changeCategory: function(event) {
-    var clickedItem, newCategory;
-    clickedItem = $(event.currentTarget);
-    if(!clickedItem.hasClass("active")) {
-      newCategory = clickedItem.data("category");
-      this.$('.working-with-personality .active').removeClass("active");
-      clickedItem.addClass("active");
-      this.tipsTableView.tipsCategory = newCategory;
-      this.tipsTableView.render();
-    }
-  },
-
   _renderCallback: function() {
-    var renderedContent;
+    var renderedContent, template;
+
+    template = this.testComplete ? this.template : this.inactive_acct_template;
 
     renderedContent = this.template({
       user: this.model,
     });
+
     this.$el.html(renderedContent);
-    this._renderTipsTable();
-    this._renderSocialShare();
-    this._renderIntro();
-    this._renderChartView();
-    this._renderBasicInfoView();
-    this._renderPersonalityTypeView();
+
+    this._renderBasicInfo()
+        ._renderTipsTable();
+
+    if(this.testComplete) {
+      this._renderSocialShare()
+          ._renderChartView()
+          ._renderPersonalityTypeView()
+          ._renderIntro();
+    }
+        
 
     // load social plugin for facebook. CURRENTLY NOT WORKING
     // $(window.fbAsyncInit());
-    
-
-
-    // ok this is a really stupid solution. see if there's a better way to handle this, eventually
-    var that = this;
-    this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
-    // this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
-    
+        
     return this;
   },
 
-  _renderBasicInfoView: function() {
+  _renderBasicInfo: function() {
     this.basicInfoView = new TeamProfile.Views.UserBasicInfoView({model: this.model});
     this.$('.user-basic-info').html(this.basicInfoView.render().$el);
     return this;
@@ -164,16 +148,21 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderSocialShare: function() {
     if(TeamProfile.currentUser.id == this.model.id) {
-      var socialShareView = new TeamProfile.Views.SocialShareView({
+      this.socialShareView = new TeamProfile.Views.SocialShareView({
         user: this.model
       });
-      var renderedContent = socialShareView.render().$el;
+      var renderedContent = this.socialShareView.render().$el;
       this.$('#social-share').html(renderedContent);
     }
     return this;
   },
 
   _renderTipsTable: function() {
+    this.tipsTableView = new TeamProfile.Views.TipsTableView({
+      model: this.model,
+      tipsCategory: "colleague"
+    });
+
     this.$('.working-with-personality').html(this.tipsTableView.render().$el);
     return this;
   },
