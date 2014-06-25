@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
     # IMPORTANT: make this !user.account_active when done testing!!!!!
     new_account = !user.account_active
 
+    user.account_active       = true
     user.uid                  = auth_hash["uid"]
     user.provider             = auth_hash["provider"]
     user.access_token         = auth_hash["credentials"]["token"]
@@ -48,13 +49,11 @@ class User < ActiveRecord::Base
     user.industry             = auth_hash["info"]["industry"]
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
-    user.account_active       = true
-
 
     user.custom_personality   = CustomPersonality.new if new_account
-    UserMailer.delay.welcome_email(user)              if new_account
 
     user.save!
+    UserMailer.delay.welcome_email(user) if new_account
     
     user.get_large_image_url
 
