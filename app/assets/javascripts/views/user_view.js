@@ -1,20 +1,12 @@
 TeamProfile.Views.UserView = Backbone.View.extend({
   template:               JST['users/show'],
-  inactive_acct_template: JST['users/show_inactive'],
-
-  // events: {
-  //   "click .switch":"_changeCategory",
-  // },
 
   initialize: function() {
-    this.basicInfoView        = null;
-    this.chartView            = null;
-    this.personalityTypeView  = null;
-    this.socialShareView      = null;
-    this.tipsTableView        = null;
-
-    // check to see if personality test is complete
-    this.testComplete         = !!this.model.get("personality_type_id");
+    this.basicInfoView        = new Backbone.View();
+    this.chartView            = new Backbone.View();
+    this.personalityTypeView  = new Backbone.View();
+    this.socialShareView      = new Backbone.View();
+    this.tipsTableView        = new Backbone.View();
   },
 
   remove: function() {
@@ -45,7 +37,6 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   _renderCallback: function() {
     var renderedContent, template;
 
-    template = this.testComplete ? this.template : this.inactive_acct_template;
 
     renderedContent = this.template({
       user: this.model,
@@ -54,15 +45,11 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.$el.html(renderedContent);
 
     this._renderBasicInfo()
-        ._renderTipsTable();
-
-    if(this.testComplete) {
-      this._renderSocialShare()
-          ._renderChartView()
-          ._renderPersonalityTypeView()
-          ._renderIntro();
-    }
-        
+        ._renderTipsTable()
+        ._renderChartView()
+        ._renderPersonalityTypeView()
+        ._renderSocialShare()
+        ._renderIntro();
 
     // load social plugin for facebook. CURRENTLY NOT WORKING
     // $(window.fbAsyncInit());
@@ -79,20 +66,6 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   _renderChartView: function() {
     this.chartView = new TeamProfile.Views.ResultsChartView({model: this.model});
     this.$('.user-results-chart').html(this.chartView.render().$el);
-    return this;
-  },
-
-  _renderDisabledDivs: function() {
-    if(this.dummyData === true) {
-      this.$('#results-chart').prepend("<div class='disabled'></div>");
-      this.$('.personality-column').prepend("<div class='disabled'><div class='no-info'>Sorry, " + this.model.get("name") + " hasn't completed the personality profile!</div></div>");
-      this.$('.disabled').each(function(idx, val) {
-        $(val).animate({
-          width: $(val).parent().width(),
-          height: $(val).parent().height()
-        }, 500);
-      });
-    }
     return this;
   },
 
