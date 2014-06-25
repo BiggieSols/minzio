@@ -1,0 +1,9 @@
+<div class="personality-type">
+  <%= this.model.get("personality_type").escape("title") %>
+</div>
+<div class="long-personality-type">
+  <%= this.model.get("personality_type").escape("small_info") %>
+</div>
+<div class="personality-info lead">
+  <%= this.model.get("personality_type").get("large_info") %>
+</div>

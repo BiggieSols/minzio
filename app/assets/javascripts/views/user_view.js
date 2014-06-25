@@ -6,25 +6,25 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   initialize: function() {
-    this.chartView = null;
-    this.leftCategories =  ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
-    this.rightCategories = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
+    this.chartView            = null;
+    this.basicInfoView        = null;
+    this.personalityTypeView  = null;
+    this.leftCategories       = ['Introverted', 'Intuitive', 'Feeling', 'Perceiving'];
+    this.rightCategories      = ['Extraverted', 'Sensing', 'Thinking', 'Judging'];
 
     // check to see if personality test is complete
     if(this.model.get("personality_type").get("title")) {
-      this.testComplete = false;
+      this.testComplete       = false;
     } else {
-      this.userResultsInfo = TeamProfile.dummyUser;
-      this.testComplete = true;
+      this.userResultsInfo    = TeamProfile.dummyUser;
+      this.testComplete       = true;
     }
 
-    this.tipsTableView = new TeamProfile.Views.TipsTableView({
+    this.tipsTableView        = new TeamProfile.Views.TipsTableView({
       model: this.model,
       tipsCategory: "colleague"
     });
-
   },
-
 
   remove: function() {
     if(this.disabledDivTimeout) clearTimeout(this.disabledDivTimeout);
@@ -47,9 +47,10 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _changeCategory: function(event) {
-    var clickedItem = $(event.currentTarget);
+    var clickedItem, newCategory;
+    clickedItem = $(event.currentTarget);
     if(!clickedItem.hasClass("active")) {
-      var newCategory = clickedItem.data("category");
+      newCategory = clickedItem.data("category");
       this.$('.working-with-personality .active').removeClass("active");
       clickedItem.addClass("active");
       this.tipsTableView.tipsCategory = newCategory;
@@ -68,6 +69,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this._renderSocialShare();
     this._renderIntro();
     this._renderChartView();
+    this._renderBasicInfoView();
+    this._renderPersonalityTypeView();
 
     // load social plugin for facebook. CURRENTLY NOT WORKING
     // $(window.fbAsyncInit());
@@ -79,6 +82,12 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.disabledDivTimeout = setTimeout(function() {that._renderDisabledDivs();}, 1000);
     // this.groupPromptTimeout = setTimeout(function() {that._renderGroupPopover();}, 8000);
     
+    return this;
+  },
+
+  _renderBasicInfoView: function() {
+    this.basicInfoView = new TeamProfile.Views.UserBasicInfoView({model: this.model});
+    this.$('.user-basic-info').html(this.basicInfoView.render().$el);
     return this;
   },
 
@@ -144,6 +153,12 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         return this;
       }, 1000);
     }
+  },
+
+  _renderPersonalityTypeView: function() {
+    this.personalityTypeView = new TeamProfile.Views.PersonalityTypeView({model: this.model});
+    this.$('.user-personality-type').html(this.personalityTypeView.render().$el);
+    return this;
   },
 
   _renderSocialShare: function() {
