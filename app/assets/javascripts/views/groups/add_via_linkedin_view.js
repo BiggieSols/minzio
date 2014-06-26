@@ -59,7 +59,7 @@ TeamProfile.Views.AddViaLinkedInView = Backbone.View.extend({
   },
 
   _renderConnectionSearchField: function() {
-    this.connectionSearchView = new TeamProfile.Views.ConnectionSearchView({model: this.model});
+    this.connectionSearchView = new TeamProfile.Views.AddMemberConnectionSearchView({model: this.model});
     this.$('.connection-search-container').html(this.connectionSearchView.render().$el);
     return this;
   },

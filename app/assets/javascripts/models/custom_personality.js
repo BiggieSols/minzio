@@ -1,6 +1,5 @@
 TeamProfile.Models.CustomPersonality = Backbone.Model.extend({
   parse: function(response) {
-    console.log("parsing custom personality!");
     // if(response.personality_type) {
     response.as_manager   = new TeamProfile.Collections.Tips(response.as_manager,   { parse: true });
     response.as_colleague = new TeamProfile.Collections.Tips(response.as_colleague, { parse: true });

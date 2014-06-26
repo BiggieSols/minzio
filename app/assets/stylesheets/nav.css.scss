@@ -39,6 +39,18 @@ a:hover {
   height: 60px;
 }
 
+#user-search-nav {
+  // line-height: 50px;
+  margin-right: 20px;
+  margin-left: 20px;
+  font-weight: 300;
+
+  #connection-search {
+    margin-top: 13px;
+    // margin-bottom: -4px;
+  }
+}
+
 // .navbar-header .navbar-brand:hover {
 //   color: #1abc9c;
 // }
