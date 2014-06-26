@@ -6,7 +6,12 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     // TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
     TeamProfile.groups      = new TeamProfile.Collections.Groups();
 
-    TeamProfile.currentUser.fetch();
+    TeamProfile.currentUser.fetch({
+      success: function() {
+        var topNavSearchView = new TeamProfile.Views.TopNavUserSearchView();
+        $('#user-search-nav').html(topNavSearchView.render().$el);
+      }
+    });
     // TeamProfile.dummyUser.fetch();
   },
 
