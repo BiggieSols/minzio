@@ -1,6 +1,7 @@
 TeamProfile.Views.NewTipView = Backbone.View.extend({
   tagName: "tr",
   template: JST['tips/new'],
+  notConnectedTemplate: JST['tips/new_not_connected'],
 
   events: {
     "submit .new-tip-form":"_addTip",
@@ -10,14 +11,23 @@ TeamProfile.Views.NewTipView = Backbone.View.extend({
   initialize: function(options) {
     this.customPersonality    = options.customPersonality;
     this.tipsCategory         = options.tipsCategory;
+    this.user                 = options.user;
     this._resetModel();
     // this.listenTo(this.model, "sync", this._appendTip);
   },
 
   render: function() {
-    var renderedContent;
-    renderedContent = this.template({
-      tip: this.model
+    var renderedContent, canAddTip, template;
+    // console.log("user is id " + this.user.id);
+    // console.log("valid id: " + _.include(TeamProfile.currentUser.get("valid_connection_ids"), this.user.id));
+
+    canAddTip = _.include(TeamProfile.currentUser.get("valid_connection_ids"), this.user.id);
+
+    template = canAddTip ? this.template : this.notConnectedTemplate;
+
+    renderedContent = template({
+      tip: this.model,
+      user: this.user
     });
     this.$el.html(renderedContent);
 

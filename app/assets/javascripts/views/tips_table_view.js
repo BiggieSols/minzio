@@ -64,7 +64,10 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
   _renderTipsView: function() {
     var that, tips;
     tips = this._tipsToDisplay();
-    this.tipsView = new TeamProfile.Views.TipsView({collection: tips});
+    this.tipsView = new TeamProfile.Views.TipsView({
+      collection: tips,
+      user:       this.model
+    });
     this.$('.tips').html(this.tipsView.render().$el);
     return this;
   },
@@ -73,7 +76,8 @@ TeamProfile.Views.TipsTableView = Backbone.View.extend({
     if(!this.newTipView) {
       this.newTipView = new TeamProfile.Views.NewTipView({
         customPersonality:    this.model.get("custom_personality"),
-        tipsCategory:         this.tipsCategory
+        tipsCategory:         this.tipsCategory,
+        user:                 this.model,
       });
       this.$(".add-tip-row").after(this.newTipView.render().$el);
     }

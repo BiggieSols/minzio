@@ -4,6 +4,7 @@ TeamProfile.Views.TipView = Backbone.View.extend({
 
   initialize: function(options) {
     this.firstTip    = options.firstTip;
+    this.user        = options.user;
     this.canEdit     = TeamProfile.currentUser.get("editable_tip_ids")[this.model.id];
     this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
     this.listenTo(this.model, "sync", this.render);
@@ -11,7 +12,7 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   },
 
   events: {
-    "click .vote-direction"     : "vote",
+    "click .up,.down"     : "vote",
     "click .edit-button"        : "_renderEditForm",
     "click .trigger-tip-delete" : "_setDeleteModalTipId",
     "mouseenter .cannot-edit, .vote-direction"   : "_showTooltip",
@@ -29,16 +30,21 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   },
 
   _renderEditForm: function() {
-    this.editTipView = new TeamProfile.Views.EditTipView({model: this.model});
+    this.editTipView = new TeamProfile.Views.EditTipView({
+      model: this.model,
+    });
     this.$('.tip-text-container').html(this.editTipView.render().$el);
     this.editTipView.focus();
     return this;
   },
 
   render: function() {
-    var renderedContent;
+    var renderedContent, canVote;
+    canVote = _.include(TeamProfile.currentUser.get("valid_connection_ids"), this.user.id);
     renderedContent = this.template({
-      tip: this.model
+      tip:  this.model,
+      user: this.user,
+      canVote: canVote,
     });
     this.$el.html(renderedContent);
     return this._renderColors();

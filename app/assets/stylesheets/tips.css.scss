@@ -29,7 +29,7 @@
   }
 
   .tip-authored-by {
-    visibility: hidden;
+    visibility: visible;
     font-size: 0.7em;
   }
 
@@ -42,7 +42,7 @@
       font-size: 0.5em;
       padding: 15px;
       margin: -15px;
-      visibility: hidden;
+      visibility: visible;
     }
 
     .tip-edit-trigger.cannot-edit {
@@ -60,6 +60,10 @@
 
     .vote-direction {
       font-size: 1.3em;
+    }
+
+    .vote-direction.disabled {
+      color: #bbb;
     }
 
     .vote-direction:hover {

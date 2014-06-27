@@ -2,9 +2,16 @@
   <div class="row">
     <div class="tip" data-id="<%= tip.id %>">
       <div class="tip-vote-container col-xs-2 col-sm-1">
+        <% if(canVote) { %>
         <span class="vote-direction glyphicon glyphicon-chevron-up up"  data-direction="up" data-toggle="tooltip" data-placement="right" title="" data-original-title="agree"></span><br>
         <span class="tip-score"><%= tip.get("score") %></span><br>
         <span class="vote-direction glyphicon glyphicon-chevron-down down" data-direction="down" data-toggle="tooltip" data-placement="right" title="" data-original-title="disagree"></span>
+
+        <% } else { %>
+          <span class="vote-direction glyphicon glyphicon-chevron-up up disabled"  data-direction="up" data-toggle="tooltip" data-placement="right" title="" data-original-title="connect on LinkedIn to vote"></span><br>
+          <span class="tip-score"><%= tip.get("score") %></span><br>
+          <span class="vote-direction glyphicon glyphicon-chevron-down down disabled" data-direction="down" data-toggle="tooltip" data-placement="right" title="" data-original-title="connect on LinkedIn to vote"></span>
+        <% } %>
       </div>
       <div class="col-xs-9 col-sm-10 tip-text-container">
         <span class="tip-text">

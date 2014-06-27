@@ -6,6 +6,7 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
   },
 
   initialize: function(options) {
+    this.user = options.user;
     this.tipViews = [];
     this.listenTo(this.collection, "add", this.render);
   },
@@ -59,8 +60,9 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
 
     tips.forEach(function(tip) {
       var tipView = new TeamProfile.Views.TipView({
-        model: tip,
-        firstTip: firstTip
+        model:    tip,
+        firstTip: firstTip,
+        user:     that.user
       });
       firstTip = false;
       that.tipViews.push(tipView);

@@ -1,11 +1,12 @@
 class TipsController < ApplicationController
+  include TipsHelper
+
   def show
     @tip = Tip.find(params[:id])
     render 'show.json.jbuilder'
   end
 
   def create
-
     # converting "manager" to "as_manager" for database
     params[:tip][:relationship_type] = "as_" + params[:tip][:relationship_type]
     params[:tip][:author_user_id] = current_user.id
@@ -15,9 +16,12 @@ class TipsController < ApplicationController
     puts "\n"*10
     
     @tip = Tip.new(params[:tip])
-    @tip.save
-    TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
-    @tip.send_creation_notification
+    
+    if valid_tip_modify_request?
+      @tip.save
+      TipVote.create(vote_value: 1, tip_id: @tip.id, user_id: current_user.id)
+      @tip.send_creation_notification
+    end
 
     render 'show.json.jbuilder'
   end
@@ -25,7 +29,7 @@ class TipsController < ApplicationController
   def update
     @tip = Tip.find(params[:id])
 
-    if [@tip.author_id, @tip.custom_personality.user_id].include? current_user.id
+    if valid_tip_modify_request?
       @tip.update_attributes(text: params[:text])
       @tip.tip_votes.destroy_all
     end
@@ -36,9 +40,12 @@ class TipsController < ApplicationController
 
   def destroy
     @tip = Tip.find(params[:id])
-    @tip.hidden = true
-    @tip.save
-    @tip.send_deletion_notification(deleting_user: current_user)
+
+    if valid_tip_modify_request?
+      @tip.hidden = true
+      @tip.save
+      @tip.send_deletion_notification(deleting_user: current_user)
+    end
     render 'show.json.jbuilder'
   end
 end
