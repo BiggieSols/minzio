@@ -69,8 +69,11 @@ TeamProfile.Views.NewTipView = Backbone.View.extend({
   },
 
   _appendTip: function() {
-    relationshipType = "as_"+this.tipsCategory;
-    this.customPersonality.get(relationshipType).add(this.model, {at: 0, trigger: true});
+    relationshipType = "as_" + this.tipsCategory;
+    this.customPersonality.get(relationshipType).add(this.model, {
+      at: 0,
+      trigger: true
+    });
     console.log("appending to collection!");
     this._resetModel();
   },

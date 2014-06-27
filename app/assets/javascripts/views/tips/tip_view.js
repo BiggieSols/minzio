@@ -12,10 +12,10 @@ TeamProfile.Views.TipView = Backbone.View.extend({
   },
 
   events: {
-    "click .up,.down"     : "vote",
-    "click .edit-button"        : "_renderEditForm",
-    "click .trigger-tip-delete" : "_setDeleteModalTipId",
-    "mouseenter .cannot-edit, .vote-direction"   : "_showTooltip",
+    "click .up,.down"                             : "vote",
+    "click .edit-button"                          : "_renderEditForm",
+    "click .trigger-tip-delete"                   : "_setDeleteModalTipId",
+    "mouseenter .cannot-edit, .vote-direction"    : "_showTooltip",
 
   },
 
@@ -69,6 +69,9 @@ TeamProfile.Views.TipView = Backbone.View.extend({
     var target, voteDirection, voteValue, tipVote, currUserVote, currTipScore, scoreToAdd;
 
     target = $(event.currentTarget);
+    
+    if (target.hasClass("disabled")) return;
+
     voteDirection = target.data("direction");
     voteValue = voteDirection == "up" ? 1 : -1;
 

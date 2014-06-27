@@ -21,4 +21,10 @@ class TipVotesController < ApplicationController
     tip_vote.destroy
     render json: tip_vote
   end
+
+  private
+
+  def valid_request?
+    
+  end
 end
