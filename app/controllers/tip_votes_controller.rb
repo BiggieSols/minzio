@@ -21,15 +21,4 @@ class TipVotesController < ApplicationController
     tip_vote.destroy if valid_destroy_request?(tip_vote)
     render json: tip_vote
   end
-
-  private
-
-  def valid_create_request?(tip_vote)
-    profile_user_id = tip_vote.tip.custom_personality.user_id
-    current_user.valid_connection_ids.include? profile_user_id
-  end
-
-  def valid_destroy_request?(tip_vote)
-    tip_vote.user_id == current_user.id
-  end
 end

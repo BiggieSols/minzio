@@ -30,7 +30,11 @@ class UsersController < ApplicationController
         @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
         @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
 
-        render 'show.json.jbuilder'
+        respond_to do |format|
+          format.html
+          format.json { render 'show.json.jbuilder' }
+        end
+
       # elsif current_user.valid_connection_ids.include?(user_id)
       elsif User.find(user_id)
         # puts "\n"*5
