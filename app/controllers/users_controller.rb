@@ -9,7 +9,19 @@ class UsersController < ApplicationController
 
   def show
     if !current_user
-      head :bad_request
+      @user = User.includes(
+                      :personality_type, 
+                      :sent_invitations, 
+                      :groups => [:members], 
+                      :custom_personality => [:tips => [:tip_votes, :author]]
+                      ).find(params[:id])
+
+      # TODO: do not repeat this.
+      @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
+      @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
+      @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
+      
+      render 'show_public.html.erb'
     else
       params[:id] = current_user.id if params[:id] == "dummy"
       params[:id] = current_user.id if params[:id] == "current"

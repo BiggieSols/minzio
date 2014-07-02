@@ -33,7 +33,7 @@ module ApplicationHelper
     puts "\n"*30
 
     # redirect_to empty_url unless logged_in?
-    render json: {}, status: 400 unless logged_in?
+    render json: {}, status: 403 unless logged_in?
   end
 
   def check_referral_codes
