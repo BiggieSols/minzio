@@ -3,7 +3,8 @@ class UsersController < ApplicationController
 
   # remove this in production
   def index
-    render json: {}
+    render json: {user: current_user}
+    # redirect_to empty_url(anchor: 'groups')
   end
 
   def show

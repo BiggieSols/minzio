@@ -2,7 +2,7 @@ class StaticPagesController < ApplicationController
   skip_before_filter :require_login
   
   def empty
-    render :status => 500
+    # render :status => 500
   end
 
   def landing
@@ -44,9 +44,6 @@ class StaticPagesController < ApplicationController
     # render 'landing'
   end
 
-  def contact
-  end
-
   def home
     render 'landing'
   end
@@ -56,6 +53,9 @@ class StaticPagesController < ApplicationController
   end
 
   def privacy
+  end
+
+  def support
   end
 
   def terms

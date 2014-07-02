@@ -27,7 +27,13 @@ module ApplicationHelper
   end
 
   def require_login
-    redirect_to empty_url unless logged_in?
+    puts "\n"*30
+    p current_user
+    puts "logged in? #{logged_in?}"
+    puts "\n"*30
+
+    # redirect_to empty_url unless logged_in?
+    render json: {}, status: 400 unless logged_in?
   end
 
   def check_referral_codes

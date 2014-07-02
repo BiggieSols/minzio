@@ -12,7 +12,7 @@ Teamprofile::Application.routes.draw do
 
   get 'empty',    to: 'static_pages#empty'
 
-  get 'contact',  to: 'static_pages#contact'
+  get 'support',  to: 'static_pages#support'
   get 'home',     to: 'static_pages#home'
   get 'how',      to: 'static_pages#how'
   get 'privacy',  to: 'static_pages#privacy'
