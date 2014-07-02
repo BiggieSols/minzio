@@ -5,7 +5,7 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
-  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+  <!-- <link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'> -->
   <meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0"/>
   
   <meta name="msvalidate.01" content="4BB84097EF445C57C0E10E89EDA6E8E1" />
@@ -49,7 +49,7 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="/#/">
+            <a class="navbar-brand" href="/">
               <% # image_tag 'mind_sparrow_logo.png', class: "brand" %>
               <!-- Minzio -->
               <img src="minzio_white.png" class="brand">
@@ -63,18 +63,18 @@
               </li>
 
               <li id="profile-nav">
-                <a href="<%= "/#/users/#{current_user.id}" %>" class="top-nav-link top-nav-img-link">
+                <a href="<%= "#/users/#{current_user.id}" %>" class="top-nav-link top-nav-img-link">
                   <img src="<%= current_user.image_url %>" class="nav-img ">  <%= current_user.name.split.first %>
                 </a>
               </li>
 
 
               <li id="groups-nav">
-                <%= link_to "Groups", "/#/groups", class: "top-nav-link" %>
+                <%= link_to "Groups", "#/groups", class: "top-nav-link" %>
               </li>
 
               <li id="test-nav">
-                <%= link_to "Personality Test", "/#/assessment", class: "top-nav-link" %>
+                <%= link_to "Personality Test", "#/assessment", class: "top-nav-link" %>
               </li>
 
               <li>
@@ -104,19 +104,19 @@
   <div class="footer">
     <div class="footer-content">
       <span class="footer-item">
-        <a href="/#/how">how it works</a>
+        <a href="#/how">how it works</a>
       </span>
 <!--       <span class="footer-item">
-        <a href="/#/contact">contact</a>
+        <a href="#/contact">contact</a>
       </span>
  -->      <span class="footer-item">
-        <a href="/#/terms">terms of service</a>
+        <a href="#/terms">terms of service</a>
       </span>
       <span class="footer-item">
-        <a href="/#/privacy">privacy</a>
+        <a href="#/privacy">privacy</a>
       </span>
       <span class="footer-item">
-        <a href="/#/support">support</a>
+        <a href="#/support">support</a>
       </span>
 
       <span class="footer-item">

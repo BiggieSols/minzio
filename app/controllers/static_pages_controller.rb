@@ -27,5 +27,37 @@ class StaticPagesController < ApplicationController
     # puts "referred group id is #{session[:referred_group_id].inspect}"
     # puts "\n"*10
     check_referral_codes
+
+    if !current_user 
+      # redirect_to '/home'
+      render 'landing'
+    elsif current_user.personality_type_id
+      # redirect_to "/#/groups"
+      render 'groups'#, anchor: "groups"
+      # render 'landing'
+    elsif !current_user.personality_type_id
+      # redirect_to "/#/how"
+      # render 'how'
+      redirect_to '/how'
+      # render 'landing'
+    end
+    # render 'landing'
+  end
+
+  def contact
+  end
+
+  def home
+    render 'landing'
+  end
+
+  def how
+    # render 'landing'
+  end
+
+  def privacy
+  end
+
+  def terms
   end
 end

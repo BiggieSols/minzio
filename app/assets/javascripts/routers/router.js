@@ -1,6 +1,6 @@
 TeamProfile.Routers.Router = Backbone.Router.extend({
   initialize: function(options){
-    this.bind('route', this._pageView);
+    // this.bind('route', this._pageView);
     this.$rootEl = options.$rootEl;
     TeamProfile.currentUser = new TeamProfile.Models.User({id: "current"});
     // TeamProfile.dummyUser   = new TeamProfile.Models.User({id: "dummy"});
@@ -16,7 +16,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   routes: {
-    ""           : "home",
+    // ""           : "home",
     "how"        : "how",
     "contact"    : "contact",
     "terms"      : "terms",
@@ -67,8 +67,8 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
       TeamProfile.currentUser.fetch({
         success: function() {
           console.log("got here");
-          var personalityType = TeamProfile.currentUser.get("personality_type");
-          if(personalityType && personalityType.get("title")) {
+          var personalityType = TeamProfile.currentUser.get("personality_type_id");
+          if(personalityType) {
             Backbone.history.navigate("groups", {trigger: true});
           } else {
             that._loadHome(homeView);
@@ -88,7 +88,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   _loadHome: function(homeView) {
     this._changeActiveNav($('#none'));
-    this._swapView(homeView);
+    // this._swapView(homeView);
   },
 
   groups: function() {

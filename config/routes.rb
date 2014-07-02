@@ -10,7 +10,14 @@ Teamprofile::Application.routes.draw do
 
   resource :session
 
-  get 'empty', to: 'static_pages#empty'
+  get 'empty',    to: 'static_pages#empty'
+
+  get 'contact',  to: 'static_pages#contact'
+  get 'home',     to: 'static_pages#home'
+  get 'how',      to: 'static_pages#how'
+  get 'privacy',  to: 'static_pages#privacy'
+  get 'terms',    to: 'static_pages#terms'
+
   match 'auth/:provider/callback' => 'sessions#create_from_linkedin'
   match 'signout', to: 'sessions#destroy', as: 'signout'
   root to: "static_pages#landing"
