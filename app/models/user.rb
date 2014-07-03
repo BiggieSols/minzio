@@ -50,6 +50,9 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
 
+    split_headline = user.headline.split(" at ")
+    user.company = split_headline.last if split_headline.length > 1
+
     user.custom_personality   ||= CustomPersonality.new
 
     user.save!

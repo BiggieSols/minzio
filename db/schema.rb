@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140624171851) do
+ActiveRecord::Schema.define(:version => 20140703000356) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -188,8 +188,10 @@ ActiveRecord::Schema.define(:version => 20140624171851) do
     t.text     "connections"
     t.boolean  "account_active",      :default => false
     t.string   "referral_hash"
+    t.string   "company"
   end
 
+  add_index "users", ["company"], :name => "index_users_on_company"
   add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"
   add_index "users", ["referral_hash"], :name => "index_users_on_referral_hash"
   add_index "users", ["session_token"], :name => "index_users_on_session_token"
