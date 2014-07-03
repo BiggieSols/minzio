@@ -139,7 +139,14 @@
 }
 
 .user-public {
-  .working-with-name {
+  h1, h2, h3, h4, h5 {
+    font-size: 100%;
+    padding: 0;
+    margin: 0 0 10px 0;
+    // margin-bottom: 5px;
+    font-weight: normal;
+  }
+  .pub-profile-section-header {
     font-size: 1.4em;
   }
 
@@ -151,7 +158,6 @@
   .colleague-type {
     font-size: 1.2em;
     font-weight: bold;
-
   }
 
   .join-message {

@@ -17,10 +17,10 @@ class UsersController < ApplicationController
                       ).find(params[:id])
 
       # TODO: do not repeat this.
-      @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
-      @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
-      @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
-      
+      @manager_tips   = @user.custom_personality.tips.shuffle.select { |tip| tip.relationship_type == "as_manager"   }
+      @colleague_tips = @user.custom_personality.tips.shuffle.select { |tip| tip.relationship_type == "as_colleague" }
+      @employee_tips  = @user.custom_personality.tips.shuffle.select { |tip| tip.relationship_type == "as_employee"  }
+
       render 'show_public.html.erb'
     else
       params[:id] = current_user.id if params[:id] == "dummy"

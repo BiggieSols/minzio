@@ -1,9 +1,6 @@
-<!-- <div class="row">
-  <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-    user is <%= @user.name %>
-  </div>
-</div>
--->
+<% @title = "#{@user.name} | Minzio. Myers Briggs Personality profile" %> 
+<% @description = "View #{@user.name}'s personality profile on Minzio. Minzio provides a myers briggs personality assessment test, tips for working with Jennifer Byrne and other professionals of any personality type" %>
+
 <div id="content"><div>
   <div class="user user-public">
     <div class="row">
@@ -11,7 +8,7 @@
         <div class="user-basic-info">
           <div>
             <div class="content-container">
-              <div class="row content-area" data-intro="Here's your basic info. It comes from LinkedIn." data-step="1"> 
+              <div class="row content-area"> 
                 <div class="col-xs-5 col-sm-4 col-md-4">
                   <div class="user-top">
 
@@ -21,18 +18,27 @@
 
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-8">
-                  <div class="profile-item user-name">
-                    <%= @user.name %>
-                  </div>
-                  <div class="profile-item">
-                    <%= @user.headline %>
-                  </div>
-                  <div class="profile-item">
-                    <%= @user.industry %>
-                  </div>
-                  <div class="profile-item">
-                    <%= @user.location %>
-                  </div>
+                  <h1>
+                    <div class="profile-item user-name">
+                      <%= @user.name %>
+                    </div>
+                  </h1>
+
+                  <h2>
+                    <div class="profile-item">
+                      <%= @user.headline %>
+                    </div>
+                  </h2>
+                  <h4>
+                    <div class="profile-item">
+                      <%= @user.industry %>
+                    </div>
+                  </h4>
+                  <h4>
+                    <div class="profile-item">
+                      <%= @user.location %>
+                    </div>
+                  </h4>
                   <div class="profile-item">
                     <a href="<%= @user.pub_profile %>" target="blank">LinkedIn profile</a>
                   </div>
@@ -63,13 +69,14 @@
           </div>
         </div>
         <br>
+
         <div class="row">
           <div class="content-container">
             <div class="content-area personality-column">
               <div class="working-with-personality">
                 <div>
-                  <div class="working-with-name">
-                    Working with <%= @user.name %>
+                  <div class="pub-profile-section-header">
+                    <h2>Working with <%= @user.name %></h2>
                   </div>
                   <br>
                   <div class="colleague-type">
@@ -112,11 +119,30 @@
                     <% end %>
                   </table>
                 </div>
-                  <!-- </table> -->
-                </div>
-
+                <!-- </table> -->
               </div>
+
             </div>
           </div>
         </div>
+        <% if @user.personality_type_id %>
+        <div class="content-container">
+          <div class="row content-area">
+            <div class="col-xs-12">
+              <div class="personality-type">
+                <%= @user.personality_type.title %>
+              </div>
+              <div class="long-personality-type">
+                <%= @user.personality_type.small_info %>
+              </div>
+              <div class="personality-info lead">
+                <%= @user.personality_type.large_info.html_safe %>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <br>
+        <% end %>
       </div>
+    </div>
