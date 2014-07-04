@@ -24,7 +24,8 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
     "support"    : "support",
     "users/:id"  : "user",
     "assessment" : "quiz",
-    "groups"     : "groups"
+    "groups/:id" : "group",
+    "groups"     : "groups",
   },
 
   how: function() {
@@ -89,6 +90,19 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   _loadHome: function(homeView) {
     this._changeActiveNav($('#none'));
     // this._swapView(homeView);
+  },
+
+  group: function(id) {
+    var group, groupView, that;
+    that = this;
+    group = TeamProfile.groups.get(id) || new TeamProfile.Models.Group({id: id});
+    group.fetch({
+      success: function() {
+        groupView = new TeamProfile.Views.GroupView({model: group});
+        that._swapView(groupView);
+        that._changeActiveNav($('#none'));
+      }
+    });
   },
 
   groups: function() {

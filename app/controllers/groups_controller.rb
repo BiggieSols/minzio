@@ -15,7 +15,10 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    render 'show.json.jbuilder'
+    respond_to do |format|
+      format.html { redirect_to empty_url(anchor: "groups/#{params[:id]}")}
+      format.json { render 'show.json.jbuilder' }
+    end
   end
 
   def create
