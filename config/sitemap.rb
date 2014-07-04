@@ -3,8 +3,16 @@ SitemapGenerator::Sitemap.default_host = "http://www.minzio.com"
 
 SitemapGenerator::Sitemap.create do
 
-  User.find_each do |user|
-    add user_path(user), lastmod: user.updated_at
+  # User.find_each do |user|
+  #   add user_path(user), lastmod: user.updated_at
+  # end
+
+  User.where(account_active: true).each do |user|
+    add user_path(user), lastmod: user.updated_at, priority: 0.6
+  end
+
+  User.where(account_active: false).each do |user|
+    add user_path(user), lastmod: user.updated_at, priority: 0.3
   end
 
   JobTitle.find_each do |job_title|
@@ -17,8 +25,6 @@ SitemapGenerator::Sitemap.create do
 
   add companies_path, :priority => 0.7, :changefreq => 'daily'
   add job_titles_path, :priority => 0.7, :changefreq => 'daily'
-
-
 
   # Put links creation logic here.
   #
