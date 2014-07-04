@@ -1,0 +1,7 @@
+<ul>
+<% @jobs.each do |job| %>
+  <li>
+    <a href="/job_titles/<%= job.id %>" %><%= job.name %> employees on Minzio</a>
+  </li>
+<% end %>
+</ul>

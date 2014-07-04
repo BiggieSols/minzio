@@ -1,5 +1,6 @@
 Teamprofile::Application.routes.draw do
   resources :companies, only: [:index, :show]
+  resources :job_titles, only: [:index, :show]
   resources :groups
   resources :group_members, only: [:create, :destroy]
   resources :personality_types, only: [:show, :index]
