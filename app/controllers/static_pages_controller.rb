@@ -9,10 +9,6 @@ class StaticPagesController < ApplicationController
     session[:referring_user_id] = nil
     session[:referred_group_id] = nil
 
-    puts "\n"*20
-    puts params
-    puts "\n"*20
-
     user_referral_code  = params[:u] #u = User Referral ID
     group_referral_code = params[:g] #g = Group Referral ID
 

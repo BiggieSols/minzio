@@ -5,7 +5,7 @@
   <% } %>
   >
   <% if(personalityType) { %>
-  <a href="<%= '/#/users/' + member.get("id") %>">
+  <a href="<%= '#users/' + member.get("id") %>">
     <% } %>
 
     <div class="group-member" data-id="<%= member.get("id") %>">
@@ -36,7 +36,7 @@
       </a>
       <br>
         <div class="group-admin make-admin" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="transfer all admin privileges to <%= member.escape("name").split(" ")[0] %>"><span class="glyphicon glyphicon-transfer"></span> transfer admin</div>
-      <a href="<%= '/#/users/' + member.get("id") %>">
+      <a href="<%= '#users/' + member.get("id") %>">
       <% } %>
 
       </div>

@@ -12,7 +12,7 @@ Teamprofile::Application.routes.draw do
 
   resource :session
 
-  get 'empty',    to: 'static_pages#empty'
+  get '_',    to: 'static_pages#empty', as: 'empty'
 
   get 'support',  to: 'static_pages#support'
   get 'home',     to: 'static_pages#home'

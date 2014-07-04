@@ -6,8 +6,11 @@ class GroupsController < ApplicationController
                           .includes(
                             :members =>[:personality_type, :answers],
                           )
-    
-    render 'index.json.jbuilder'
+    respond_to do |format|
+      format.html { redirect_to empty_url(anchor: "groups") }
+      format.json { render 'index.json.jbuilder' }
+    end
+
   end
 
   def show

@@ -1,3 +1,5 @@
+# to run: rake sitemap:refresh
+
 # Set the host name for URL creation
 SitemapGenerator::Sitemap.default_host = "http://www.minzio.com"
 

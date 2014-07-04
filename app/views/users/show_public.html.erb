@@ -144,5 +144,22 @@
         </div>
         <br>
         <% end %>
+        <div>
+          <% if @user.company_id %>
+          <div>
+            <a href="/companies/<%= @user.company_id %>">
+              <%= @user.company.name %> employees
+            </a>
+          </div>
+          <% end %>
+
+          <% if @user.job_title_id %>
+          <div>
+            <a href="/job_titles/<%= @user.job_title_id %>">
+              <%= @user.job_title.name %> professionals
+            </a>
+          </div>
+          <% end %>
+        </div>
       </div>
     </div>
