@@ -10,7 +10,7 @@ class JobTitlesController < ApplicationController
   end
 
   def show
-    job = JobTitle.find(params[:id])
-    @users = job.users
+    @job_title = JobTitle.find(params[:id])
+    @users = @job_title.users
   end
 end

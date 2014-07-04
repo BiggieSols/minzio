@@ -10,7 +10,7 @@ class CompaniesController < ApplicationController
   end
 
   def show
-    company = Company.find(params[:id])
-    @users = company.users
+    @company = Company.find(params[:id])
+    @users = @company.users
   end
 end

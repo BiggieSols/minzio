@@ -1,7 +1,10 @@
+<% @title = "Professionals on Minzio. Browse myers briggs personality profiles and test results" %> 
+<% @description = "Employee personality profiles on Minzio. Minzio provides a myers briggs test and tips for working with all personality types" %>
+
 <ul>
 <% @jobs.each do |job| %>
   <li>
-    <a href="/job_titles/<%= job.id %>" %><%= job.name %> employees on Minzio</a>
+    <a href="/job_titles/<%= job.id %>" %><%= job.name %> professionals on Minzio</a>
   </li>
 <% end %>
 </ul>

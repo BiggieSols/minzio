@@ -6,6 +6,20 @@ SitemapGenerator::Sitemap.create do
   User.find_each do |user|
     add user_path(user), lastmod: user.updated_at
   end
+
+  JobTitle.find_each do |job_title|
+    add job_title_path(job_title), lastmod: job_title.updated_at
+  end
+
+  Company.find_each do |company|
+    add company_path(company), lastmod: company.updated_at
+  end
+
+  add companies_path, :priority => 0.7, :changefreq => 'daily'
+  add job_titles_path, :priority => 0.7, :changefreq => 'daily'
+
+
+
   # Put links creation logic here.
   #
   # The root path '/' and sitemap index file are added automatically for you.
