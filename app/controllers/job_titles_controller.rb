@@ -5,7 +5,7 @@ class JobTitlesController < ApplicationController
     jobs_query = User.select("job_title_id, count(*)")
                      .group("job_title_id")
                      .order("count(*) desc")
-                     .limit(100)
+                     .limit(500)
     @jobs = JobTitle.find(jobs_query.map(&:job_title_id))
   end
 

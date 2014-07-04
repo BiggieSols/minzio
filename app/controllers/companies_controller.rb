@@ -5,7 +5,7 @@ class CompaniesController < ApplicationController
     companies_query = User.select("company_id, count(*)")
                     .group("company_id")
                     .order("count(*) desc")
-                    .limit(100)
+                    .limit(500)
     @companies = Company.find(companies_query.map(&:company_id))
   end
 

@@ -1,10 +1,16 @@
 <% @title = "#{@company.name} employees on Minzio. myers briggs personality test and profile" %> 
 <% @description = "View #{@company.name} employee profile on Minzio. Minzio provides a myers briggs personality assessment test and profile, and tips for working with professionals at #{@company.name}" %>
 
-<ul>
-  <% @users.each do |user| %>
-  <li>
-    <a href='<%= "/users/#{user.id}" %>'>Working with <%= user.name %></a>
-  </li>
-  <% end %>
-</ul>
+
+<div class="col-xs-12">
+  <a href="/companies">back to companies</a>
+  <h1>Working with <%= @company.name %> employees</h1>
+
+  <ul>
+    <% @users.each do |user| %>
+    <li>
+      <a href='<%= "/users/#{user.id}" %>'>Working with <%= user.name %></a>
+    </li>
+    <% end %>
+  </ul>
+</div>
