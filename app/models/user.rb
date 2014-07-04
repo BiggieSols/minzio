@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
     self.company   = Company.find_by_name(company) || Company.new(name: company) if company
     self.save
   end
-  # handle_asynchronously :set_job_title_and_company
+  handle_asynchronously :set_job_title_and_company
 
   def self.find_by_credentials(params={email: nil, password: nil})
     user = User.find_by_email(params[:email]);
