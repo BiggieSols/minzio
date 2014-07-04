@@ -53,6 +53,7 @@ gem 'jbuilder'
 gem 'unicorn'
 
 gem 'nokogiri'
+gem 'sitemap_generator'
 
 # Deploy with Capistrano
 # gem 'capistrano'
