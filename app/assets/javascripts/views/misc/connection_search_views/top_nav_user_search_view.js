@@ -9,6 +9,8 @@ TeamProfile.Views.TopNavUserSearchView = TeamProfile.Views.ConnectionSearchView.
     // var that, groupMembership;
     // that                    = this;
     console.log(params);
+
+    window.history.pushState({}, "", "/");
     Backbone.history.navigate("users/" + params.user_id, {trigger: true});
 
     // this._renderSpinner();

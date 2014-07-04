@@ -39,9 +39,9 @@ class UsersController < ApplicationController
                               :custom_personality => [:tips => [:tip_votes, :author]]
                               ).find(current_user.id)
 
-        @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
-        @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
-        @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
+        # @manager_tips   = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_manager"   }
+        # @colleague_tips = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_colleague" }
+        # @employee_tips  = @user.custom_personality.tips.select { |tip| tip.relationship_type == "as_employee"  }
 
         respond_to do |format|
           format.html { redirect_to empty_url(anchor: "users/#{params[:id]}") }
