@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140703000356) do
+ActiveRecord::Schema.define(:version => 20140704033004) do
 
   create_table "answers", :force => true do |t|
     t.text     "body"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(:version => 20140703000356) do
   end
 
   add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+
+  create_table "companies", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "companies", ["name"], :name => "index_companies_on_name"
 
   create_table "custom_personalities", :force => true do |t|
     t.integer  "user_id"
@@ -84,6 +92,14 @@ ActiveRecord::Schema.define(:version => 20140703000356) do
   add_index "invitations", ["group_id"], :name => "index_invitations_on_group_id"
   add_index "invitations", ["message_sent"], :name => "index_invitations_on_message_sent"
   add_index "invitations", ["to_user_id"], :name => "index_invitations_on_to_user_id"
+
+  create_table "job_titles", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "job_titles", ["name"], :name => "index_job_titles_on_name"
 
   create_table "personality_types", :force => true do |t|
     t.string   "name"
@@ -189,9 +205,13 @@ ActiveRecord::Schema.define(:version => 20140703000356) do
     t.boolean  "account_active",      :default => false
     t.string   "referral_hash"
     t.string   "company"
+    t.integer  "job_title_id"
+    t.integer  "company_id"
   end
 
   add_index "users", ["company"], :name => "index_users_on_company"
+  add_index "users", ["company_id"], :name => "index_users_on_company_id"
+  add_index "users", ["job_title_id"], :name => "index_users_on_job_title_id"
   add_index "users", ["personality_type_id"], :name => "index_users_on_personality_type_id"
   add_index "users", ["referral_hash"], :name => "index_users_on_referral_hash"
   add_index "users", ["session_token"], :name => "index_users_on_session_token"

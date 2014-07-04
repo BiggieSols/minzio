@@ -47,8 +47,10 @@ TeamProfile.Views.ConnectionSearchView = Backbone.View.extend({
   },
 
   _generateSelect2Data: function() {
-    var data = [];
-    TeamProfile.currentUser.get("connections").models.forEach(function(user) {
+    var data, connections;
+    data = [];
+    connections = TeamProfile.currentUser.get("connections").models || [];
+    connections.forEach(function(user) {
       data.push({
         id: user.id,
         text: user.escape("name"),

@@ -8,6 +8,7 @@ TeamProfile.Views.TipsView = Backbone.View.extend({
   initialize: function(options) {
     this.user = options.user;
     this.tipViews = [];
+    this.listenTo(TeamProfile.currentUser, "sync", this.render);
     this.listenTo(this.collection, "add", this.render);
   },
 

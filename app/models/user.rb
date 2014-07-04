@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
   # this is the GENERAL personality type (INTJ, ENFP, etc.)
   belongs_to :personality_type
 
+  belongs_to :company
+  belongs_to :job_title
+
   # this is the customized personality type that can be modified for a specific user
   has_one    :custom_personality
 
@@ -50,18 +53,28 @@ class User < ActiveRecord::Base
     user.image_url            = auth_hash["info"]["image"]
     user.pub_profile          = auth_hash["info"]["urls"]["public_profile"]
 
-    split_headline = user.headline.split(" at ")
-    user.company = split_headline.last if split_headline.length > 1
-
     user.custom_personality   ||= CustomPersonality.new
 
     user.save!
     UserMailer.delay.welcome_email(user) if new_account
+
     
     user.get_large_image_url
+    user.set_job_title_and_company
 
     user
   end
+
+  def set_job_title_and_company
+    split_headline = self.headline.split(" at ")
+    job_title      = split_headline.first
+    company        = split_headline.last if split_headline.length > 1
+
+    self.job_title = JobTitle.find_by_name(job_title) || JobTitle.new(name: job_title)
+    self.company   = Company.find_by_name(company) || Company.new(name: company) if company
+    self.save
+  end
+  # handle_asynchronously :set_job_title_and_company
 
   def self.find_by_credentials(params={email: nil, password: nil})
     user = User.find_by_email(params[:email]);
@@ -162,7 +175,10 @@ class User < ActiveRecord::Base
           valid_user        = user.uid && user.name && user.name != "private private"
 
           user.custom_personality = CustomPersonality.new
-          user.save if valid_user
+          if valid_user
+            user.save
+            user.set_job_title_and_company
+          end
         end
         self.connections << {name: user.name, image_url: user.image_url, id: user.id} if valid_user
       end

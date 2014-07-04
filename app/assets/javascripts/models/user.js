@@ -15,9 +15,9 @@ TeamProfile.Models.User = Backbone.Model.extend({
       response.editable_tip_ids = authoredTips;
     }
 
-    if(response.connections) {
+    // if(response.connections) {
       response.connections = new TeamProfile.Collections.Users(response.connections);
-    }
+    // }
     return response;
   }
 });

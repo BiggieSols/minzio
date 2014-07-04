@@ -7,6 +7,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.personalityTypeView  = new Backbone.View();
     this.socialShareView      = new Backbone.View();
     this.tipsTableView        = new Backbone.View();
+    TeamProfile.currentUser.fetch();
   },
 
   remove: function() {

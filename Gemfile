@@ -55,6 +55,8 @@ gem 'unicorn'
 gem 'nokogiri'
 gem 'sitemap_generator'
 
+# gem 'kaminari'
+
 # Deploy with Capistrano
 # gem 'capistrano'
 

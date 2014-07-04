@@ -2,6 +2,7 @@ TeamProfile.Views.TopNavUserSearchView = TeamProfile.Views.ConnectionSearchView.
   initialize: function() {
     this.placeholder = "Search Minzio...";
     this.width = "270px";
+    this.listenTo(this.model, "sync", this.render);
   },
 
   _formAction: function(params) {

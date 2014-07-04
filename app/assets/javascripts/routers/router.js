@@ -8,7 +8,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
     TeamProfile.currentUser.fetch({
       success: function() {
-        var topNavSearchView = new TeamProfile.Views.TopNavUserSearchView();
+        topNavSearchView = new TeamProfile.Views.TopNavUserSearchView({model: TeamProfile.currentUser});
         $('#user-search-nav').html(topNavSearchView.render().$el);
       }
     });
