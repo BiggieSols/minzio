@@ -1,13 +1,13 @@
 <%= @invited_user.name %> just finished the Minzio personality assessment! 
 
 <% if @shared_groups.length > 0 %>
-visit <%= @invited_user.name.split(" ").first %>'s profile for all the details: www.minzio.com/#/users/<%= @invited_user.id %>
+visit <%= @invited_user.name.split(" ").first %>'s profile for all the details: www.minzio.com/users/<%= @invited_user.id %>
 
 It looks like you have some groups in common with <%= @invited_user.name.split(" ").first %>: <%= @shared_groups.map {|g| "'#{g.name}'"}.join(", ") %>
-Visit your groups page to see info for all the group members: www.minzio.com/#/groups
+Visit your groups page to see info for all the group members: www.minzio.com/groups
 
 <% else %>
-To see the results, visit <%= @invited_user.name.split(" ").first %>'s profile page: www.minzio.com/#/users/<%= @invited_user.id %>
+To see the results, visit <%= @invited_user.name.split(" ").first %>'s profile page: www.minzio.com/users/<%= @invited_user.id %>
 <% end %>
 
 Cheers,

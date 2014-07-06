@@ -7,6 +7,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     this.personalityTypeView  = new Backbone.View();
     this.socialShareView      = new Backbone.View();
     this.tipsTableView        = new Backbone.View();
+    this.userGroupsView       = new Backbone.View();
     TeamProfile.currentUser.fetch();
   },
 
@@ -138,6 +139,12 @@ TeamProfile.Views.UserView = Backbone.View.extend({
     });
 
     this.$('.working-with-personality').html(this.tipsTableView.render().$el);
+    return this;
+  },
+
+  _renderUserGroups: function() {
+    this.userGroupsView = new TeamProfile.Views.UserGroupsView({mode: this.model});
+    this.$('.user-groups-').html(userGroupsView.render().$el);
     return this;
   },
 });
