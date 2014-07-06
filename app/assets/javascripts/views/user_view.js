@@ -50,6 +50,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
         ._renderTipsTable()
         ._renderChartView()
         ._renderPersonalityTypeView()
+        ._renderUserGroups()
         ._renderSocialShare()
         ._renderIntro();
 
@@ -143,8 +144,8 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _renderUserGroups: function() {
-    this.userGroupsView = new TeamProfile.Views.UserGroupsView({mode: this.model});
-    this.$('.user-groups-').html(userGroupsView.render().$el);
+    this.userGroupsView = new TeamProfile.Views.UserGroupsView({model: this.model});
+    this.$('.user-groups').html(this.userGroupsView.render().$el);
     return this;
   },
 });

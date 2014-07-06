@@ -1,9 +1,14 @@
 <div class="content-container">
   <div class="content-area">
-    <ul>
+    <div class="user-groups-container">
+      <h4>Groups</h4>
       <% this.model.get("groups").forEach(function(group) { %>
-        <li>a group goes here</li>
+      <a href="#groups/<%= group.id %>" target="blank">
+        <div>
+          <%= group.name %>
+        </div>
+      </a>
       <% }) %>
-    </ul>
+    </div>
   </div>
 </div>
