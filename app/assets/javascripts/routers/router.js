@@ -93,13 +93,13 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   group: function(id) {
-    var group, groupView, that;
+    var group, singleGroupView, that;
     that = this;
     group = TeamProfile.groups.get(id) || new TeamProfile.Models.Group({id: id});
     group.fetch({
       success: function() {
-        groupView = new TeamProfile.Views.GroupView({model: group});
-        that._swapView(groupView);
+        singleGroupView = new TeamProfile.Views.SingleGroupView({model: group});
+        that._swapView(singleGroupView);
         that._changeActiveNav($('#none'));
       }
     });
@@ -212,9 +212,9 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   _swapView: function(view) {
-    console.log(Backbone.history.getHash());
-    var hash = Backbone.history.getHash();
-    window.history.pushState({}, "", hash);//) + Backbone.history.getHash());
+    // console.log(Backbone.history.getHash());
+    // var hash = Backbone.history.getHash();
+    // window.history.pushState({}, "", hash);//) + Backbone.history.getHash());
 
     if($('.collapse').css("display") === "block" && $('.navbar-toggle').css("display") === "block") {
       $('.collapse').collapse("hide");

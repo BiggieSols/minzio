@@ -1,6 +1,10 @@
 <div class="group-container" data-id="<%= this.model.id %>">
   <div class="group-title">
-    <h2 class="group-title-text"><%= group.escape("name") %></h2>
+    <a href="#groups/<%= this.model.id %>">
+      <h2 class="group-title-text">
+        <%= group.escape("name") %>
+      </h2>
+    </a>
   </div>
 
   <div class="row">
@@ -24,7 +28,7 @@
       <div class="enable-account-instructions">
         Some LinkedIn accounts have turned off sharing with 3rd party applications. To fix this, your LinkedIn connection needs to:
         <ol>
-          <li>go to: <a>https://www.linkedin.com/settings/?trk=nav_account_sub_nav_settings</a></li>
+          <li>go to: <a href="https://www.linkedin.com/settings/?trk=nav_account_sub_nav_settings" target="blank">https://www.linkedin.com/settings/?trk=nav_account_sub_nav_settings</a></li>
           <li>select "Groups, Companies &amp Applcations"</li>
           <li>click "Turn on/off data sharing with 3rd party applications"</li>
           <li>Once your connection has allowed sharing with 3rd party applications, you can click the <span class="glyphicon glyphicon-refresh"></span> button above to refresh your LinkedIn contacts list</li>
