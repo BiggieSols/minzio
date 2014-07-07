@@ -9,7 +9,7 @@ TeamProfile.Views.SocialShareView = Backbone.View.extend({
   render: function() {
     var title, summary;
     title = this.user.get("name") + " is " + this._parsePersonality() + ". See your personality.";
-    summary = "Minzio's proprietary personality assessment provides recommendations for working with your colleagues.";
+    summary = "Minzio's proprietary technology gives you personalized tips to work better with your colleagues.";
 
     var referralUrl        = "http://www.minzio.com?u=" + TeamProfile.currentUser.get("referral_hash");
     var referralUrlEscaped = referralUrl.replace("&", "%26");
@@ -24,6 +24,20 @@ TeamProfile.Views.SocialShareView = Backbone.View.extend({
       url             : referralUrl,
     });
     this.$el.html(renderedContent);
+    setTimeout(this._renderButtons, 0.5);
+
+    // trigger button rendering
+    // stButtons.locateElements();
+
+    return this;//._renderButtons();
+  },
+
+  _renderButtons: function() {
+    console.log("st buttons below");
+    console.log(window.stButtons.locateElements);
+    $(document).ready(function() {
+      stButtons.locateElements();
+    });
     return this;
   },
 

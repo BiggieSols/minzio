@@ -123,6 +123,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
   },
 
   _renderSocialShare: function() {
+    console.log("rendering social share view");
     // if(TeamProfile.currentUser.id == this.model.id) {
       this.socialShareView = new TeamProfile.Views.SocialShareView({
         user: this.model

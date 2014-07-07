@@ -212,9 +212,10 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   _swapView: function(view) {
-    // console.log(Backbone.history.getHash());
-    // var hash = Backbone.history.getHash();
-    // window.history.pushState({}, "", hash);//) + Backbone.history.getHash());
+    console.log(Backbone.history.getHash());
+    var hash = Backbone.history.getHash();
+    window.history.pushState({}, "", "/");//) + Backbone.history.getHash());
+    window.history.pushState({}, "", hash);//) + Backbone.history.getHash());
 
     if($('.collapse').css("display") === "block" && $('.navbar-toggle').css("display") === "block") {
       $('.collapse').collapse("hide");
