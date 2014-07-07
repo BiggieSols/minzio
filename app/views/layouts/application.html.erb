@@ -18,13 +18,12 @@
   <meta name="application-name" content="Minzio" />
 
   <!-- for Facebook -->
-  <meta property="og:title" content="Minzio: Personality Profiles for the Workplace"/>
+  <!-- <meta property="og:title" content="Minzio: Personality Profiles for the Workplace"/> -->
   <meta property="og:url" content="http://www.minzio.com"/>
   <meta property="og:site_name" content="Minzio"/>
   <meta property="og:type" content="website"/>
   <meta property="og:description" content="free Jungian personality assessment for the workplace. Minzio's career test is based on decades of research, and is fully integrated with LinkedIn for easy sharing with colleagues"/>
   <meta property="og:image" content="sea_green_robot_only.png"/>
-  <!-- <meta property="og:image" content="http://placekitten.com/300/300"/> -->
 <!-- the og:image:type property isn’t strictly necessary.  put the extension of your facebook image here -->
   <meta property="og:image:type" content="image/png"/>
 
@@ -35,6 +34,10 @@
   <meta name="twitter:description" content="your product description" />
   <meta name="twitter:image" content="your image url" />
  -->
+ <script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "8a0c1e8a-2e40-49ef-a543-b780be92c7c4", doNotHash: true, doNotCopy: false, hashAddressBar: false});</script>
+
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" id="top-nav">
@@ -62,18 +65,18 @@
               </li>
 
               <li id="profile-nav">
-                <a href="<%= "#/users/#{current_user.id}" %>" class="top-nav-link top-nav-img-link">
+                <a href="<%= "#users/#{current_user.id}" %>" class="top-nav-link top-nav-img-link">
                   <img src="<%= current_user.image_url %>" class="nav-img ">  <%= current_user.name.split.first %>
                 </a>
               </li>
 
 
               <li id="groups-nav">
-                <%= link_to "Groups", "#/groups", class: "top-nav-link" %>
+                <%= link_to "Groups", "#groups", class: "top-nav-link" %>
               </li>
 
               <li id="test-nav">
-                <%= link_to "Personality Test", "#/assessment", class: "top-nav-link" %>
+                <%= link_to "Personality Test", "#assessment", class: "top-nav-link" %>
               </li>
 
               <li>

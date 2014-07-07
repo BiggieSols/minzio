@@ -7,14 +7,50 @@ TeamProfile.Views.SocialShareView = Backbone.View.extend({
   },
 
   render: function() {
+    var title, summary;
+    title = this.user.get("name") + " is " + this._parsePersonality() + ". See your personality.";
+    summary = "Minzio's proprietary personality assessment provides recommendations for working with your colleagues.";
+
+    var referralUrl        = "http://www.minzio.com?u=" + TeamProfile.currentUser.get("referral_hash");
+    var referralUrlEscaped = referralUrl.replace("&", "%26");
+
     var renderedContent = this.template({
       user            : this.user,
       group           : this.group,
       urlEscaped      : this._referral_url_escaped(),
-      personalityType : TeamProfile.currentUser.get("personality_type")
+      personalityType : TeamProfile.currentUser.get("personality_type"),
+      title           : title,
+      summary         : summary,
+      url             : referralUrl,
     });
     this.$el.html(renderedContent);
     return this;
+  },
+
+  _parsePersonality: function() {
+    var title_hash, personalityType, long_personality;
+    long_personality = [];
+    title_hash = {
+      "I": "introverted",
+      "E": "extroverted",
+      "S": "sensing",
+      "N": "intuitive",
+      "T": "thinking",
+      "F": "feeling",
+      "J": "and judging",
+      "P": "and perceiving"
+    };
+    personalityType = this.user.get("personality_type")
+                               .get("title")
+                               .split("");
+
+    // only show 3 characteristics for space reasons
+    // personalityType = _.without(personalityType, "S", "N")
+
+    personalityType.forEach(function(char) {
+      long_personality.push(title_hash[char]);
+    });
+    return long_personality.join(", ");
   },
 
   _referral_url: function() {
