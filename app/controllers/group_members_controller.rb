@@ -13,25 +13,23 @@ class GroupMembersController < ApplicationController
 
     ActiveRecord::Base.transaction do
       User.find(user_id).touch
-      group_member = GroupMember.create(user_id: user_id, group_id: group_id)
+      # already_exists  = !!GroupMember.find_by_user_id_and_group_id(user_id, group_id)
+      group_member    = GroupMember.first_or_create(user_id: user_id, group_id: group_id)
 
-      invite = Invitation.create( 
-                                  from_user_id: current_user.id, 
-                                  to_user_id: user_id, 
-                                  group_id: params[:group_id], 
-                                  message: message_text, 
-                                  subject: message_subject,
-                                  source: "LinkedIn"
-                                )
+      invite          = Invitation.create( 
+                                          from_user_id: current_user.id, 
+                                          to_user_id: user_id, 
+                                          group_id: params[:group_id], 
+                                          message: message_text, 
+                                          subject: message_subject,
+                                          source: "LinkedIn"
+                                         )
       invite.handle_message
       render json: group_member
     end
   end
 
   def destroy
-    # puts "\n"*5
-    # puts "params are: #{params}"
-    # puts "\n"*5
     user_id  = params[:user_id]
     group_id = params[:group_id]
     group = Group.find(group_id)

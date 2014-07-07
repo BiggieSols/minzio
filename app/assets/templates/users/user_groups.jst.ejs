@@ -2,7 +2,7 @@
   <div class="content-area">
     <div class="user-groups-container">
       <h4>Groups</h4>
-      <% this.model.get("groups").forEach(function(group) { %>
+      <% _.uniq(this.model.get("groups")).forEach(function(group) { %>
       <a href="#groups/<%= group.id %>">
         <div>
           <%= group.name %>
