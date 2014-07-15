@@ -15,6 +15,8 @@ TeamProfile.Views.AddMemberConnectionSearchView = TeamProfile.Views.ConnectionSe
 
     groupMembership         = new TeamProfile.Models.GroupMember(params);
 
+    console.log(params);
+
     groupMembership.save({}, {
       success: function() {
         // console.log("group membership saved!");

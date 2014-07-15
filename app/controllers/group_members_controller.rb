@@ -14,7 +14,7 @@ class GroupMembersController < ApplicationController
     ActiveRecord::Base.transaction do
       User.find(user_id).touch
       # already_exists  = !!GroupMember.find_by_user_id_and_group_id(user_id, group_id)
-      group_member    = GroupMember.first_or_create(user_id: user_id, group_id: group_id)
+      group_member    = GroupMember.where(user_id: user_id, group_id: group_id).first_or_create
 
       invite          = Invitation.create( 
                                           from_user_id: current_user.id, 
