@@ -33,8 +33,8 @@ TeamProfile.Views.SocialShareView = Backbone.View.extend({
   },
 
   _renderButtons: function() {
-    console.log("st buttons below");
-    console.log(window.stButtons.locateElements);
+    // console.log("st buttons below");
+    // console.log(window.stButtons.locateElements);
     $(document).ready(function() {
       stButtons.locateElements();
     });

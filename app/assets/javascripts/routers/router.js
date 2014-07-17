@@ -137,10 +137,11 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
   },
 
   quiz: function() {
-    var that = this;
+    var that, id, quiz;
+    that = this;
     this._requireLogin(function() {
-      var id = 4;
-      var quiz = new TeamProfile.Models.Quiz({id: id});
+      id = 4;
+      quiz = new TeamProfile.Models.Quiz({id: id});
       quiz.fetch({
         success: function() {
           // // console.log("fetched the quiz");
@@ -205,7 +206,15 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
 
   _requireLogin: function(callback) {
     if(!TeamProfile.currentUser.get("name")) {
-      window.location = "/auth/linkedin";
+      TeamProfile.currentUser.fetch({
+        success: function() {
+          callback();
+        },
+
+        error: function() {
+          window.location = "/auth/linkedin";
+        }
+      });
     } else {
       callback();
     }

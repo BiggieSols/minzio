@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+// text[text-anchor="end"]{
+//  visibility:hidden;
+// }
+
 .user {
   padding-left: 15px;
   padding-right: 15px;
@@ -10,6 +14,10 @@
 #results-chart {
   margin: 3px auto;
   height: 400px;
+
+  // .highcharts-container:last-child {
+  //    visibility:hidden;
+  // }
 }
 
 .chart-container {

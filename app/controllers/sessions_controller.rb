@@ -12,8 +12,8 @@ class SessionsController < ApplicationController
       redirect_to "/#/groups"
     else
       # # puts "referring user is #{session[:referring_user].name}"
-      # redirect_to "/#/how"
-      redirect_to how_url
+      redirect_to "/#/assessment"
+      # redirect_to how_url
     end
   end
 
