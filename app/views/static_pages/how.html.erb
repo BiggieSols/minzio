@@ -1,7 +1,7 @@
 <script>
-  $(document.ready(function() {
-    Backbone.history.navigate("how", {trigger: true});
-  }))
+$(document.ready(function() {
+  Backbone.history.navigate("how", {trigger: true});
+}))
 </script>
 
 
@@ -15,24 +15,25 @@
 
             <a href="#assessment">
               <button class="get-started btn btn-lg btn-warning">Take the Test</button>
+              <div class="linkedin-redirect-warning">You'll first be asked to register with LinkedIn</div>
             </a>
             <br>
             <hr>
 
             <div class="row">
+              <a href="#assessment">
               <div class="col-xs-12 col-sm-4">
-
-                <div class="how-segment">
-                  <div class="how-content">
-                    <div class="how-step">
-                      Step 1
+                  <div class="how-segment">
+                    <div class="how-content">
+                      <div class="how-step">
+                        Step 1
+                      </div>
+                      <div class="how-text">
+                        Take the test
+                      </div>
+                      <img src="quiz_complete.png" class="how-it-works-img img-thumbnail">
                     </div>
-                    <div class="how-text">
-                      Take the test
-                    </div>
-                    <img src="quiz_complete.png" class="how-it-works-img img-thumbnail">
                   </div>
-                </div>
               </div>
               <div class="col-xs-12 col-sm-4">
                 <div class="how-segment">
@@ -60,6 +61,7 @@
                   </div>
                 </div>
               </div>
+              </a>
             </div>
             <hr>
             <a href="#assessment">
