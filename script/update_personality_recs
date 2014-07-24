@@ -1,0 +1,68 @@
+f = File.open("Personality Types - Segmented.tsv")
+
+categories = Hash.new {|h, k| h[k] = {}}
+
+lines = f.readlines
+
+# puts lines[0].split("\t")
+
+lines.map! {|line| line.split("\t")}
+
+cat_names = {
+              "Introverted" => "I",
+              "Extroverted" => "E",
+              "Intuitive"   => "N",
+              "Sensing"     => "S",
+              "Thinking"    => "T",
+              "Feeling"     => "F",
+              "Judging"     => "J",
+              "Perceiving"  => "P"
+            }
+
+types = ["INFP", "ENTP", "ENFP", "ISFJ", "ISTP", "INTP", "ENFJ", "ENTJ", "ESFJ", "INFJ", "ISFP", "ESFP", "INTJ", "ISTJ", "ESTJ", "ESTP"]
+types_info = Hash.new {|h, k| h[k] = Hash.new {|h2, k2| h2[k2] = []}}
+
+lines.each do |line|
+  category                             = cat_names[line[0]]
+  categories[category]["as_colleague"] = line[1..3]
+  categories[category]["as_manager"]   = line[4..6]
+  categories[category]["as_employee"]  = line[7..9]
+end
+
+# categories.each do |category, content|
+#   puts category
+#   puts "as colleague"
+#   puts content["as_colleague"]
+#   puts "\n"
+
+#   puts "as employee"
+#   puts content["as_employee"]
+#   puts "\n"
+
+#   puts "as manager"
+#   puts content["as_manager"]
+#   puts "\n"*10
+# end
+
+types.each do |type|
+  type.split("").each do |category|
+    types_info[type]["as_colleague"] += categories[category]["as_colleague"]
+    types_info[type]["as_employee"]  += categories[category]["as_employee"]
+    types_info[type]["as_manager"]   += categories[category]["as_manager"]
+  end
+end
+
+# types_info.each do |type, details|
+#   puts type
+#   puts "as_colleague: #{details["as_colleague"].length}"
+#   puts "as_employee: #{details["as_employee"].length}"
+#   puts "as_manager: #{details["as_manager"].length}"
+# end
+
+# types = PersonalityType.scoped
+types_info.each do |type, details|
+  p = PersonalityType.find_by_title(type)
+  puts p.id
+end
+
+

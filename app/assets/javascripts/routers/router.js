@@ -131,7 +131,7 @@ TeamProfile.Routers.Router = Backbone.Router.extend({
         }
       },
       error: function() {
-        window.location = "/auth/linkedin";
+          ;
       }
     });
   },

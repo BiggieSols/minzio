@@ -1,5 +1,6 @@
 class TipVotesController < ApplicationController
   include TipVotesHelper
+  
   def create
     puts "\n"*5
     puts params
