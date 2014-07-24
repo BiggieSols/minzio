@@ -61,8 +61,11 @@ end
 
 # types = PersonalityType.scoped
 types_info.each do |type, details|
-  p = PersonalityType.find_by_title(type)
-  puts p.id
+  p              = PersonalityType.find_by_title(type)
+  p.as_colleague = details["as_colleague"]
+  p.as_manager   = details["as_manager"]
+  p.as_employee  = details["as_employee"]
+  p.save
 end
 
 
