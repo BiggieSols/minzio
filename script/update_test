@@ -1,0 +1,57 @@
+answers = [
+["expend energy, enjoy groups" ,"prefer group discussion"],
+["conserve energy, enjoy one-on-one" ,"prefer one-on-one conversations"],
+["more outgoing, think out loud" ,"outgoing, think out loud"],
+["more reserved, think to yourself" ,"reserved, think to yourself"],
+["seek many tasks, public activities, interaction with others" ,"schedule days full of activities and interaction with others"],
+["seek more private, solitary activities with quiet to concentrate" ,"schedule private / solitary time, and enjoy downtime"],
+["external, communicative, express yourself" ,"jump quickly into new projects"],
+["internal, reticent, keep to yourself" ,"spend time reflecting before starting new projects"],
+["active, initiate" ,"have a wide range of friends, always want to meet new people"],
+["reflective, deliberate" ,"have a small circle of friends, like to know a few people very well"],
+["organized, orderly" ,"seen by others as task-oriented"],
+["flexible, adaptable" ,"seen by others as loose and causal"],
+["plan, schedule" ,"make lists to stay organized. plan ahead"],
+["unplanned, spontaneous" ,"go with the flow and respond to issues as they arise"],
+["regulated, structured" ,"prefer to get all your work done before relaxing"],
+["easygoing, 'live' and 'let live'" ,"prefer to work in short producive bursts"],
+["preparation, plan ahead" ,"motivated to get work done on a schedule, ahead of deadlines"],
+["go with the flow, adapt as you go" ,"motivated by deadlines, work well under time pressure"],
+["control, govern" ,"happiest at work when focused on one goal at a time"],
+["latitude, freedom" ,"happiest at work when multi-tasking"],
+["interpret matters literally, rely on common sense" ,"Learn best with a hands-on approach."],
+["look for meaning and possibilities, rely on foresight" ,"Learn best by taking a theoretical approach."],
+["practical, realistic, experiential" ,"Try to solve problems with a tried and tested approach"],
+["imaginative, innovative, theoretical" ,"Try to use new and un-tested ideas to solve problems"],
+["standard, usual, conventional" ,"Work best in structured and hierarchical organization"],
+["different, novel, unique" ,"Work best in less structured or flat organizations"],
+["consider immediate issues, focus on the here-and-now" ,"Like to start with the facts and build up to the big picture"],
+["look to the future, global perspective, 'big picture'" ,"Like to start with the big picture and then get all the facts"],
+["facts, things, seeing 'what is'" ,"Focused primarily on immediate issues"],
+["ideas, dreams, seeing 'what could be,' philosophical" ,"Focused on long-term problems and seeing all the possibilities"],
+["logical, thinking, questioning" ,"focused on the facts when making decisions"],
+["empathetic, feeling, accommodating" ,"equally weigh people and facts when making decisions"],
+["candid, straight forward, frank" ,"candid, straight forward, frank"],
+["tactful, kind, encouraging" ,"tactful, kind, encouraging"],
+["firm, tend to criticize, hold the line" ,"task-oriented and direct"],
+["gentle, tend to appreciate, conciliate" ,"people-oriented and compassionate"],
+["tough-minded, just" ,"prefer highly rational colleagues"],
+["tender-hearted, merciful" ,"prefer people-oriented and sociable colleagues"],
+["matter of fact, issue-oriented, principled" ,"brief and businesslike at the office"],
+["sensitive, people-oriented, compassionate" ,"personal and friendly at the office"]
+]
+
+answer_arr = []
+answers.each do |a|
+  existing_answer = Answer.find_by_body(a.first)
+  existing_answer.body = a.last
+  existing_answer.save
+end
+
+answer_arr.each do |a|
+  p a.id.nil?
+end
+
+
+
+
