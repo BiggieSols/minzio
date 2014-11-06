@@ -136,7 +136,7 @@ TeamProfile.Views.UserView = Backbone.View.extend({
 
   _renderTipsTable: function() {
     this.tipsTableView = new TeamProfile.Views.TipsTableView({
-      model: this.model,
+      model:        this.model,
       tipsCategory: "colleague"
     });
 
