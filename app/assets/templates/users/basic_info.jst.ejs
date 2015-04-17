@@ -10,21 +10,35 @@
       </div>
     </div>
     <div class="col-xs-6 col-sm-6 col-md-8">
+      <% if(this.model.escape("name")) { %>
       <div class="profile-item user-name">
         <%= this.model.escape("name") %>
       </div>
+      <% } %>
+
+      <% if(this.model.escape("headline")) { %>
       <div class="profile-item">
         <%= this.model.escape("headline") %>
       </div>
+      <% } %>
+
+      <% if(this.model.escape("industry")) { %>
       <div class="profile-item">
         <%= this.model.escape("industry") %>
       </div>
+      <% } %>
+
+      <% if(this.model.escape("location")) { %>
       <div class="profile-item">
         <%= this.model.escape("location") %>
       </div>
+      <% } %>
+      
+      <% if(this.model.escape("pub_profile")) { %>
       <div class="profile-item">
         <a href="<%= this.model.escape("pub_profile") %>" target="blank">LinkedIn profile</a>
       </div>
+      <% } %>
 
       <div class="profile-item" id="social-share" data-step="5" data-intro="Your co-workers will want to see this info. Share it with them!">
       </div>

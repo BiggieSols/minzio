@@ -39,9 +39,11 @@
                       <%= @user.location %>
                     </div>
                   </h4>
+                  <% if @user.pub_profile %>
                   <div class="profile-item">
                     <a href="<%= @user.pub_profile %>" target="blank">LinkedIn profile</a>
                   </div>
+                  <% end %>
                   <br>
                 </div>
                 <div class="col-xs-12">
